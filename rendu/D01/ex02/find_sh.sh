@@ -1,1 +1,1 @@
-find . -name "*.sh" -exec basename {} + | sed 's/...$//'
+find . -name “*.sh” | rev | cut -c4- | rev | cut -c3-

@@ -1,1 +1,1 @@
-cat /etc/passwd | grep -v "#" | grep . | cut -d ':' -f 1 | rev | sort -r | grep "$FT_LINE1" | grep "$FT_LINE2" | tr "\n" ", " | rev | sed s/,/./ | cut -c2- | rev | tr - "\n" | sed 's/,,*$/ /'
+cat /etc/passwd | grep -v "#" | sed -n 'n;p' | rev | sort -r | awk -v  FT_LINE1=$FT_LINE1 -v FT_LINE2=$FT_LINE2 'NR>=FT_LINE1 && NR<=FT_LINE2' | cut -d : -f 7 | sed -e '$ ! s/$/, /' | xargs -I {} echo {}"."
