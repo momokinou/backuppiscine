@@ -1,0 +1,6 @@
+Credentials cache: API:29605
+        Principal: qmoricea@LE-101.FR
+
+  Issued                Expires               Principal
+Sep  5 12:15:37 2017  Sep  5 22:15:37 2017  krbtgt/LE-101.FR@LE-101.FR
+Sep  5 12:15:38 2017  Sep  5 22:15:37 2017  ldap/ldap-master.le-101.fr@LE-101.FR
