@@ -6,14 +6,13 @@
 /*   By: grival-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/10 16:18:40 by grival-d          #+#    #+#             */
-/*   Updated: 2017/09/10 16:20:20 by grival-d         ###   ########.fr       */
+/*   Updated: 2017/09/11 11:35:14 by qmoricea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 
-void ft_putchar( char c)
+void	ft_putchar(char c)
 {
 	write(1, &c, 1);
 }
-

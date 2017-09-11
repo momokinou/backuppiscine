@@ -6,24 +6,24 @@
 /*   By: qmoricea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/10 20:36:18 by qmoricea          #+#    #+#             */
-/*   Updated: 2017/09/10 21:03:41 by qmoricea         ###   ########.fr       */
+/*   Updated: 2017/09/11 11:30:46 by qmoricea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int ft_putchar(char c);
+int		ft_putchar(char c);
 
 void	ft_begin(int countx, int x)
 {
 	if (countx == 1)
 		ft_putchar('o');
+	countx++;
+	while (countx < x)
+	{
+		ft_putchar('-');
 		countx++;
-		while (countx < x)
-		{
-			ft_putchar('-');
-			countx++;
-			if (countx == x)
-				ft_putchar('o');
-		}
+		if (countx == x)
+			ft_putchar('o');
+	}
 	ft_putchar('\n');
 }
 
@@ -35,8 +35,8 @@ void	ft_middle(int countx, int x, int y, int county)
 			ft_putchar('|');
 		else
 			ft_putchar(' ');
-			countx++;
-		}
+		countx++;
+	}
 	ft_putchar('\n');
 }
 
@@ -44,31 +44,23 @@ void	ft_end(int countx, int x)
 {
 	if (countx == 1)
 		ft_putchar('o');
+	countx++;
+	while (countx < x)
+	{
+		ft_putchar('-');
 		countx++;
-		while (countx < x)
-		{
-			ft_putchar('-');
-			countx++;
-			if (countx == x)
+		if (countx == x)
 			ft_putchar('o');
-		}
+	}
 }
 
 void	rush(int x, int y)
 {
 	int countx;
-	int		county;
+	int county;
 
 	countx = 1;
 	county = 1;
-	if (y == 0)
-	{
-		y = 1;
-	}
-	if (x == 0)
-	{
-		x = 1;
-	}
 	if (x >= 0 || y >= 0)
 	{
 		if (county == 1)
@@ -87,5 +79,3 @@ void	rush(int x, int y)
 			ft_end(countx, x);
 	}
 }
-
-

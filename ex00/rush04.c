@@ -6,9 +6,10 @@
 /*   By: qmoricea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/10 21:04:26 by qmoricea          #+#    #+#             */
-/*   Updated: 2017/09/10 21:07:40 by qmoricea         ###   ########.fr       */
+/*   Updated: 2017/09/11 11:34:35 by qmoricea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 void	ft_putchar(char c);
 
 void	ft_begin(int countx, int x)
@@ -56,18 +57,10 @@ void	ft_end(int countx, int x)
 void	rush(int x, int y)
 {
 	int countx;
-	int		county;
+	int county;
 
 	countx = 1;
 	county = 1;
-	if (y == 0)
-	{
-		y = 1;
-	}
-	if (x == 0)
-	{
-		x = 1;
-	}
 	if (x >= 0 || y >= 0)
 	{
 		if (county == 1)
@@ -86,5 +79,3 @@ void	rush(int x, int y)
 			ft_end(countx, x);
 	}
 }
-
-
