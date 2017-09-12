@@ -1,28 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_iterative_factorial.c                           :+:      :+:    :+:   */
+/*   ft_recrusive_power.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qmoricea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/09/11 14:12:27 by qmoricea          #+#    #+#             */
-/*   Updated: 2017/09/12 12:25:26 by qmoricea         ###   ########.fr       */
+/*   Created: 2017/09/12 12:27:08 by qmoricea          #+#    #+#             */
+/*   Updated: 2017/09/12 12:56:38 by qmoricea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_iterative_factorial(int nb)
+int		ft_recrusive_power(int nb, int power)
 {
-	int res;
-
-	res = nb;
-	if (nb >= 12 || nb < 0)
+	if (power < 0)
 		return (0);
-	if (nb == 0 || nb == 1)
+	if (power == 0)
 		return (1);
-	while (nb >= 2)
-	{
-		res = (nb - 1) * res;
-		nb--;
-	}
-	return (res);
+	return (nb * ft_recrusive_power(nb, power - 1));
 }
