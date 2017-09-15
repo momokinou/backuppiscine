@@ -1,37 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strstr.c                                        :+:      :+:    :+:   */
+/*   ft_str_is_alpha.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qmoricea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/09/14 10:39:16 by qmoricea          #+#    #+#             */
-/*   Updated: 2017/09/14 20:16:23 by qmoricea         ###   ########.fr       */
+/*   Created: 2017/09/15 11:45:01 by qmoricea          #+#    #+#             */
+/*   Updated: 2017/09/15 12:16:56 by qmoricea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-char	*ft_strstr(char *str, char *to_find)
+int		ft_str_is_alpha(char *str)
 {
 	int i;
-	int j;
-	int size;
 
 	i = 0;
-	j = 0;
-	size = 0;
-	while (to_find[size])
-		size++;
-	if (size == 0)
-		return (0);
 	while (str[i])
 	{
-		while (to_find[j] == str[i + j])
-		{
-			if (j == size - 1)
-				return (str + i);
-			j++;
-		}
-		j = 0;
+		if (!(str[i] >= 'a' && str [i] <= 'z'))
+			return(1);
+		if (!(str[i] >= 'A' && str[i] <= 'Z'))
+			return (1);
 		i++;
 	}
 	return (0);

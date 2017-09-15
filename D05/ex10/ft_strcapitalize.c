@@ -1,38 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strstr.c                                        :+:      :+:    :+:   */
+/*   ft_strcapitalize.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qmoricea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/09/14 10:39:16 by qmoricea          #+#    #+#             */
-/*   Updated: 2017/09/14 20:16:23 by qmoricea         ###   ########.fr       */
+/*   Created: 2017/09/15 10:02:47 by qmoricea          #+#    #+#             */
+/*   Updated: 2017/09/15 11:43:25 by qmoricea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-char	*ft_strstr(char *str, char *to_find)
+#include <stdio.h>
+
+char	*ft_strcapitalize(char *str)
 {
 	int i;
-	int j;
-	int size;
 
 	i = 0;
-	j = 0;
-	size = 0;
-	while (to_find[size])
-		size++;
-	if (size == 0)
-		return (0);
 	while (str[i])
 	{
-		while (to_find[j] == str[i + j])
+		if (str[0] >= 'a' && str[0] <= 'z')
 		{
-			if (j == size - 1)
-				return (str + i);
-			j++;
+			str[0] = str[0] - 32;
+			i++;
 		}
-		j = 0;
+		if (str[i] >= 'A' && str[i] <= 'Z')
+			i++;
+		if ((str[i - 1] < '0' || str[i - 1] > '9')
+				&& (str[i - 1] < 'A' || str[i - 1] > 'Z')
+				&& (str[i - 1] < 'a' || str[i - 1] > 'z'))
+			str[i] = str[i] - 32;
 		i++;
 	}
-	return (0);
+	return (str);
 }

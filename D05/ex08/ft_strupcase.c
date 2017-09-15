@@ -1,38 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strstr.c                                        :+:      :+:    :+:   */
+/*   ft_strupcase.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qmoricea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/09/14 10:39:16 by qmoricea          #+#    #+#             */
-/*   Updated: 2017/09/14 20:16:23 by qmoricea         ###   ########.fr       */
+/*   Created: 2017/09/14 19:53:05 by qmoricea          #+#    #+#             */
+/*   Updated: 2017/09/14 20:14:58 by qmoricea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-char	*ft_strstr(char *str, char *to_find)
+char	*ft_strupcase(char *str)
 {
 	int i;
-	int j;
-	int size;
 
 	i = 0;
-	j = 0;
-	size = 0;
-	while (to_find[size])
-		size++;
-	if (size == 0)
-		return (0);
 	while (str[i])
 	{
-		while (to_find[j] == str[i + j])
-		{
-			if (j == size - 1)
-				return (str + i);
-			j++;
-		}
-		j = 0;
+		if (str[i] >= 97 && str[i] <= 122)
+			str[i] = str[i] - 32;
 		i++;
 	}
-	return (0);
+	return (str);
 }
