@@ -6,9 +6,10 @@
 /*   By: qmoricea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/11 09:52:31 by qmoricea          #+#    #+#             */
-/*   Updated: 2017/09/11 09:53:49 by qmoricea         ###   ########.fr       */
+/*   Updated: 2017/09/17 15:22:33 by qmoricea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 char	*ft_strrev(char *str)
 {
 	int i;
@@ -17,12 +18,12 @@ char	*ft_strrev(char *str)
 
 	i = 0;
 	j = 0;
-	while(str[i])
+	while (str[i])
 	{
 		i++;
 	}
 	i--;
-	while(i > j)
+	while (i > j)
 	{
 		c = str[j];
 		str[j] = str[i];
@@ -30,6 +31,5 @@ char	*ft_strrev(char *str)
 		i--;
 		j++;
 	}
-	return(str);
+	return (str);
 }
-

@@ -6,11 +6,11 @@
 /*   By: qmoricea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/08 19:39:58 by qmoricea          #+#    #+#             */
-/*   Updated: 2017/09/08 19:52:21 by qmoricea         ###   ########.fr       */
+/*   Updated: 2017/09/17 15:18:59 by qmoricea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void ft_swap(int *a, int *b)
+void	ft_swap(int *a, int *b)
 {
 	int c;
 

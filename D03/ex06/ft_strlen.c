@@ -6,18 +6,18 @@
 /*   By: qmoricea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/08 20:03:16 by qmoricea          #+#    #+#             */
-/*   Updated: 2017/09/08 20:53:45 by qmoricea         ###   ########.fr       */
+/*   Updated: 2017/09/17 15:21:04 by qmoricea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int ft_strlen(char *str)
+int	ft_strlen(char *str)
 {
 	int i;
 
 	i = 0;
-	while(str[i])
+	while (str[i])
 	{
 		i++;
 	}
-	return(i);
+	return (i);
 }
