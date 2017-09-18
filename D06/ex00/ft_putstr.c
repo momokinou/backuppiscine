@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_str_is_alpha.c                                  :+:      :+:    :+:   */
+/*   hello.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qmoricea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/09/15 11:45:01 by qmoricea          #+#    #+#             */
-/*   Updated: 2017/09/15 13:44:42 by qmoricea         ###   ########.fr       */
+/*   Created: 2017/09/08 18:33:19 by qmoricea          #+#    #+#             */
+/*   Updated: 2017/09/17 15:10:10 by qmoricea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_str_is_alpha(char *str)
+#include <unistd.h>
+
+void	ft_putstr(char *str)
 {
 	int i;
 
 	i = 0;
-	while (str[i])
+	while (str[i] != '\0')
 	{
-		if (!(str[i] >= 'a' && str[i] <= 'z'))
-			return (1);
-		if (!(str[i] >= 'A' && str[i] <= 'Z'))
-			return (1);
+		ft_putchar(str[i]);
 		i++;
 	}
-	return (0);
 }

@@ -1,42 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcapitalize.c                                 :+:      :+:    :+:   */
+/*   ft_str_is_uppercase.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qmoricea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/09/15 10:02:47 by qmoricea          #+#    #+#             */
-/*   Updated: 2017/09/15 13:45:11 by qmoricea         ###   ########.fr       */
+/*   Created: 2017/09/15 14:16:06 by qmoricea          #+#    #+#             */
+/*   Updated: 2017/09/15 14:26:03 by qmoricea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-
-char	*ft_strcapitalize(char *str)
+int		ft_str_is_uppercase(char *str)
 {
 	int i;
 
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] >= 'A' && str[i] <= 'Z')
-			str[i] = str[i] + 32;
+		if (!(str[i] >= 'A' && str[i] <= 'Z'))
+				return (0);
 		i++;
 	}
-	while (str[i])
-	{
-		if (str[0] >= 'a' && str[0] <= 'z')
-		{
-			str[0] = str[0] - 32;
-			i++;
-		}
-		if (str[i] >= 'A' && str[i] <= 'Z')
-			i++;
-		if ((str[i - 1] < '0' || str[i - 1] > '9')
-				&& (str[i - 1] < 'A' || str[i - 1] > 'Z')
-				&& (str[i - 1] < 'a' || str[i - 1] > 'z'))
-			str[i] = str[i] - 32;
-		i++;
-	}
-	return (str);
+	return (1);
 }

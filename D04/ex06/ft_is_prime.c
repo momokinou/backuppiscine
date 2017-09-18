@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_str_is_alpha.c                                  :+:      :+:    :+:   */
+/*   ft_is_prime.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qmoricea <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: adespond <adespond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/09/15 11:45:01 by qmoricea          #+#    #+#             */
-/*   Updated: 2017/09/15 13:44:42 by qmoricea         ###   ########.fr       */
+/*   Created: 2015/09/07 11:38:09 by adespond          #+#    #+#             */
+/*   Updated: 2017/09/13 10:02:18 by qmoricea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_str_is_alpha(char *str)
+int		ft_is_prime(int nb)
 {
 	int i;
 
-	i = 0;
-	while (str[i])
+	i = 2;
+	while (i < nb / 2)
 	{
-		if (!(str[i] >= 'a' && str[i] <= 'z'))
-			return (1);
-		if (!(str[i] >= 'A' && str[i] <= 'Z'))
-			return (1);
+		if (nb % i == 0)
+			return (0);
 		i++;
 	}
-	return (0);
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: qmoricea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/15 12:17:38 by qmoricea          #+#    #+#             */
-/*   Updated: 2017/09/15 12:25:40 by qmoricea         ###   ########.fr       */
+/*   Updated: 2017/09/15 13:44:09 by qmoricea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ int		ft_str_is_numeric(char *str)
 	while (str[i])
 	{
 		if (!(str[i] <= '0' && str[i] >= '9'))
-				return (0);
+			return (0);
 		i++;
 	}
-	return(1);
+	return (1);
 }

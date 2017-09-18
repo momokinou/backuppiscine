@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_str_is_alpha.c                                  :+:      :+:    :+:   */
+/*   ft_strcat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qmoricea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/09/15 11:45:01 by qmoricea          #+#    #+#             */
-/*   Updated: 2017/09/15 13:44:42 by qmoricea         ###   ########.fr       */
+/*   Created: 2017/09/15 16:00:15 by qmoricea          #+#    #+#             */
+/*   Updated: 2017/09/15 17:29:03 by qmoricea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_str_is_alpha(char *str)
+char	*ft_strncat(char *dest, char *src, int nb)
 {
 	int i;
+	int size;
 
 	i = 0;
-	while (str[i])
+	size = 0;
+	while (dest[size])
+		size++;
+	while (src[i] && i < nb)
 	{
-		if (!(str[i] >= 'a' && str[i] <= 'z'))
-			return (1);
-		if (!(str[i] >= 'A' && str[i] <= 'Z'))
-			return (1);
+		dest[size] = src[i];
+		size++;
 		i++;
 	}
-	return (0);
+	dest[size] = '\0';
+	return (dest);
 }

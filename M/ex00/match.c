@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_str_is_alpha.c                                  :+:      :+:    :+:   */
+/*   match.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qmoricea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/09/15 11:45:01 by qmoricea          #+#    #+#             */
-/*   Updated: 2017/09/15 13:44:42 by qmoricea         ###   ########.fr       */
+/*   Created: 2017/09/18 15:10:53 by qmoricea          #+#    #+#             */
+/*   Updated: 2017/09/18 15:35:07 by qmoricea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_str_is_alpha(char *str)
-{
-	int i;
+#include <stdio.h>
 
-	i = 0;
-	while (str[i])
+int	match(char *s1, char *s2)
+{
+	if (*s1 == '\0' && *s2 == '\0')
+		return (1);
+	else if (*s2 == '*')
 	{
-		if (!(str[i] >= 'a' && str[i] <= 'z'))
-			return (1);
-		if (!(str[i] >= 'A' && str[i] <= 'Z'))
-			return (1);
-		i++;
+		if (*s1 == '\0')
+			return (match(s1, s2 + 1));
+		else
+			return (match(s1 + 1, s2));
 	}
-	return (0);
+	else if (*s1 == *s2)
+		return (match(s1 + 1, s2 + 1));
+	else
+		return (0);
 }
