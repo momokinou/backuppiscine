@@ -6,7 +6,7 @@
 /*   By: qmoricea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/15 14:16:06 by qmoricea          #+#    #+#             */
-/*   Updated: 2017/09/15 14:26:03 by qmoricea         ###   ########.fr       */
+/*   Updated: 2017/09/20 14:59:06 by qmoricea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ int		ft_str_is_uppercase(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (!(str[i] >= 'A' && str[i] <= 'Z'))
-				return (0);
+		if (!(str[i] > 'A' && str[i] < 'Z'))
+			return (0);
 		i++;
 	}
 	return (1);

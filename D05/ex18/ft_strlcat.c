@@ -6,11 +6,11 @@
 /*   By: qmoricea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/15 16:20:59 by qmoricea          #+#    #+#             */
-/*   Updated: 2017/09/15 17:36:12 by qmoricea         ###   ########.fr       */
+/*   Updated: 2017/09/20 14:59:46 by qmoricea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-unsigned int ft_strlcat(char *dest, char *src, unsigned int size)
+unsigned int	ft_strlcat(char *dest, char *src, unsigned int size)
 {
 	int i;
 

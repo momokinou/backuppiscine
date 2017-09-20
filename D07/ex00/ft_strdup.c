@@ -1,36 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_find_next_prime.c                               :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qmoricea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/09/19 17:52:42 by qmoricea          #+#    #+#             */
-/*   Updated: 2017/09/19 17:52:52 by qmoricea         ###   ########.fr       */
+/*   Created: 2017/09/19 09:56:22 by qmoricea          #+#    #+#             */
+/*   Updated: 2017/09/19 17:59:36 by qmoricea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_is_prime(int nb)
-{
-	int i;
+#include <stdlib.h>
 
-	i = 2;
-	if (nb <= 1)
-		return (2);
-	while (nb % i != 0)
+int	ft_strdup(char *src)
+{
+	int		i;
+
+	char	*dest;
+	while (src[i])
 		i++;
-	if (i == nb)
-		return (nb);
-	else
+	i++;
+	dest = malloc(i);
+	i = 0;
+	while (src[i])
 	{
-		while (1)
-		{
-			i = 2;
-			nb++;
-			while (nb % i != 0)
-				i++;
-			if (i == nb)
-				return (nb);
-		}
+		dest[i] = src[i];
+		i++;
 	}
+	dest[i] = '\0';
+	return (*dest);
 }

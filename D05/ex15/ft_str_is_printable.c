@@ -6,7 +6,7 @@
 /*   By: qmoricea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/15 14:41:20 by qmoricea          #+#    #+#             */
-/*   Updated: 2017/09/15 15:01:20 by qmoricea         ###   ########.fr       */
+/*   Updated: 2017/09/20 14:59:36 by qmoricea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int		ft_str_is_printable(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if(!(str[i] >= 32 && str[i] <= 126))
+		if (!(str[i] > 32 && str[i] < 127))
 			return (1);
 	}
 	return (0);

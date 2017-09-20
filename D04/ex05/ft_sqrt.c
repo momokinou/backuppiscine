@@ -6,20 +6,26 @@
 /*   By: qmoricea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/12 14:04:51 by qmoricea          #+#    #+#             */
-/*   Updated: 2017/09/13 10:02:27 by qmoricea         ###   ########.fr       */
+/*   Updated: 2017/09/19 17:50:56 by qmoricea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int		ft_sqrt(int nb)
 {
-	int i;
+	int		i;
+	int		result;
 
-	i = 1;
-	if (nb < 0)
-		return (0);
-	while (i * i < nb)
-		i++;
-	if (nb % i == 0)
-		return (i);
-	return (0);
+	i = 0;
+	result = 0;
+	while (result != nb)
+	{
+		result = i * i;
+		if (result == nb)
+			break ;
+		else if (result > nb)
+			return (0);
+		else
+			i++;
+	}
+	return (i);
 }

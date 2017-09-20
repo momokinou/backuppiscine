@@ -3,23 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   ft_is_prime.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adespond <adespond@student.42.fr>          +#+  +:+       +#+        */
+/*   By: qmoricea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/09/07 11:38:09 by adespond          #+#    #+#             */
-/*   Updated: 2017/09/13 10:02:18 by qmoricea         ###   ########.fr       */
+/*   Created: 2017/09/19 17:53:08 by qmoricea          #+#    #+#             */
+/*   Updated: 2017/09/19 17:53:12 by qmoricea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int		ft_is_prime(int nb)
 {
-	int i;
+	int		i;
 
 	i = 2;
-	while (i < nb / 2)
-	{
-		if (nb % i == 0)
-			return (0);
+	if (nb <= 1)
+		return (0);
+	while (nb % i != 0)
 		i++;
-	}
-	return (1);
+	if (i == nb)
+		return (1);
+	else
+		return (0);
 }

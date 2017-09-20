@@ -6,7 +6,7 @@
 /*   By: qmoricea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/14 14:57:22 by qmoricea          #+#    #+#             */
-/*   Updated: 2017/09/14 20:16:36 by qmoricea         ###   ########.fr       */
+/*   Updated: 2017/09/20 14:25:28 by qmoricea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,10 @@ int		ft_strncmp(char *s1, char *s2, unsigned int n)
 	unsigned int i;
 
 	i = 0;
-	while (i < n)
-		i++;
-	while (s1[i] && s2[i])
+	while (s1[i] && s2[i] && i < n)
 	{
 		if (s1[i] != s2[i])
-			return (s1 - s2);
+			return (s1[i] - s2[i]);
 		i++;
 	}
 	return (0);
