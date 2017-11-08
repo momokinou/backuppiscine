@@ -6,7 +6,7 @@
 /*   By: qmoricea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/07 16:10:56 by qmoricea          #+#    #+#             */
-/*   Updated: 2017/11/07 17:06:18 by qmoricea         ###   ########.fr       */
+/*   Updated: 2017/11/08 14:32:59 by qmoricea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,11 @@ char	*ft_strdup(char *src)
 	int		i;
 	char	*dest;
 
+	i = 0;
 	while (src[i])
 		i++;
 	i++;
-	dest = malloc(i);
+	dest = malloc(i * sizeof(int));
 	i = 0;
 	while (src[i])
 	{

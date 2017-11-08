@@ -6,17 +6,13 @@
 /*   By: qmoricea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/07 15:42:25 by qmoricea          #+#    #+#             */
-/*   Updated: 2017/11/07 16:08:15 by qmoricea         ###   ########.fr       */
+/*   Updated: 2017/11/08 14:30:53 by qmoricea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 
-int		ft_putchar(char c)
-{
-	write(1, &c, 1);
-	return (0);
-}
+int		ft_putchar(char c);
 
 void	ft_putstr(char *str)
 {
@@ -35,7 +31,7 @@ int		ft_strcmp(char *s1, char *s2)
 	int i;
 
 	i = 0;
-	while (s1[i	] && s2[i] && s1[i] == s2[i])
+	while (s1[i] && s2[i] && s1[i] == s2[i])
 		i++;
 	if (s1[i] != s2[i])
 		return (s1[i] - s2[i]);

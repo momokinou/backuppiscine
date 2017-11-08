@@ -6,7 +6,7 @@
 /*   By: qmoricea <marvin@le101.fr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/06 16:22:47 by qmoricea          #+#    #+#             */
-/*   Updated: 2017/11/06 16:45:47 by qmoricea         ###   ########.fr       */
+/*   Updated: 2017/11/08 13:43:39 by qmoricea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_print_numbers(void)
 	int i;
 
 	i = 0;
-	while (i < 9)
+	while (i <= 9)
 	{
 		ft_putchar('0' + i);
 		i++;

@@ -6,7 +6,7 @@
 /*   By: qmoricea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 10:47:27 by qmoricea          #+#    #+#             */
-/*   Updated: 2017/11/08 11:45:41 by qmoricea         ###   ########.fr       */
+/*   Updated: 2017/11/08 14:45:17 by qmoricea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		main(int argc, char **argv)
 	if (argc != 2)
 	{
 		if (argc < 2)
-			write(2, "File name missig.\n", 20);
+			write(2, "File name missing.\n", 19);
 		if (argc > 2)
 			write(2, "Too many arguments.\n", 20);
 		return (1);

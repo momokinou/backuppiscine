@@ -6,18 +6,15 @@
 /*   By: qmoricea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/07 14:58:47 by qmoricea          #+#    #+#             */
-/*   Updated: 2017/11/07 17:03:46 by qmoricea         ###   ########.fr       */
+/*   Updated: 2017/11/08 14:30:43 by qmoricea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 
-void	ft_putchar(char c)
-{
-	write(1, &c, 1);
-}
+int		ft_putchar(char c);
 
-int		ft_putstr(char *str)
+int		ft_print_params(char *str)
 {
 	int i;
 
@@ -32,19 +29,14 @@ int		ft_putstr(char *str)
 
 int		main(int argc, char **argv)
 {
-	int a;
-	int b;
+	int i;
 
-	a = 0;
-	b = 1;
-	while (a < argc)
+	i = argc;
+	i = 1;
+	while (argv[i])
 	{
-		while (argv[b])
-		{
-			ft_putstr(argv[b]);
-			ft_putchar('\n');
-			b++;
-		}
-		a++;
+		ft_print_params(argv[i]);
+		ft_putchar('\n');
+		i++;
 	}
 }
