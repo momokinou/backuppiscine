@@ -6,11 +6,11 @@
 /*   By: qmoricea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 10:08:34 by qmoricea          #+#    #+#             */
-/*   Updated: 2017/11/08 10:19:38 by qmoricea         ###   ########.fr       */
+/*   Updated: 2017/11/08 11:44:00 by qmoricea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_count_if(char **tab, int(*f)(char*))
+int		ft_count_if(char **tab, int (*f)(char*))
 {
 	int i;
 	int nb;

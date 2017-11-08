@@ -6,15 +6,13 @@
 /*   By: qmoricea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/07 17:09:12 by qmoricea          #+#    #+#             */
-/*   Updated: 2017/11/07 17:41:17 by qmoricea         ###   ########.fr       */
+/*   Updated: 2017/11/08 11:42:02 by qmoricea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef		FT_ABS_H
-# define	FT_ABS_H
+#ifndef FT_ABS_H
+# define FT_ABS_H
 
-# define	ABS(x) (x < 0 ? -x : x)
+# define ABS(x) (x < 0 ? -x : x)
 
 #endif
-
-

@@ -5,36 +5,9 @@
 #                                                     +:+ +:+         +:+      #
 #    By: qmoricea <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2017/11/08 09:37:36 by qmoricea          #+#    #+#              #
-#    Updated: 2017/11/08 10:44:03 by qmoricea         ###   ########.fr        #
+#    Created: 2017/11/08 10:46:44 by qmoricea          #+#    #+#              #
+#    Updated: 2017/11/08 10:46:46 by qmoricea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libft.a
 
-SRCS = ./srcs/ft_putchar.c
-        ./srcs/ft_putstr.c
-        ./srcs/ft_strcmp.c
-        ./srcs/ft_strlen.c
-        ./srcs/ft_swap.c
-
-OBJ = ft_putchar.o
-       ft_putstr.o
-       ft_strcmp.o
-       ft_strlen.o
-       ft_swap.o
-
-HEADER = ./includes/
-
-all = $(NAME)
-
-$(NAME) = gcc -Wall -W -Werror -S $(SRCS) -I $(HEADER)
-          ar rc $(NAME) $(OBJ)
-          ranlib $(NAME)
-
-clean: rm -f $(OBJ)
-
-fclean: clean
-        rm -f $(NAME)
-
-re: fclean all
