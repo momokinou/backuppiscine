@@ -1,23 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_foreach.c                                       :+:      :+:    :+:   */
+/*   ft_strcat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qmoricea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/08 09:47:47 by qmoricea          #+#    #+#             */
-/*   Updated: 2017/11/08 15:35:23 by qmoricea         ###   ########.fr       */
+/*   Created: 2017/11/09 12:41:37 by qmoricea          #+#    #+#             */
+/*   Updated: 2017/11/09 12:44:29 by qmoricea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	ft_foreach(int *tab, int length, void (*f)(int))
+char	*ft_strcat(char *dest, char *src)
 {
 	int i;
+	int size;
 
 	i = 0;
-	while (i < length)
+	size = 0;
+	while (dest[size])
+		size++;
+	while (src[i])
 	{
-		(*f)(tab[i]);
+		dest[size] = src[i];
+		size++;
 		i++;
 	}
+	dest[size] = '\0';
+	return (dest);
 }

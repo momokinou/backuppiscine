@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_foreach.c                                       :+:      :+:    :+:   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qmoricea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/08 09:47:47 by qmoricea          #+#    #+#             */
-/*   Updated: 2017/11/08 15:35:23 by qmoricea         ###   ########.fr       */
+/*   Created: 2017/11/09 14:06:10 by qmoricea          #+#    #+#             */
+/*   Updated: 2017/11/09 14:06:52 by qmoricea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	ft_foreach(int *tab, int length, void (*f)(int))
+char	*ft_strcpy(char *dest, char *src)
 {
 	int i;
 
 	i = 0;
-	while (i < length)
+	while (src[i])
 	{
-		(*f)(tab[i]);
+		dest[i] = src[i];
 		i++;
 	}
+	dest[i] = src[i];
+	return (dest);
 }

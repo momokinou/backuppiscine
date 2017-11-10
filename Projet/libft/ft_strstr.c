@@ -1,23 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_foreach.c                                       :+:      :+:    :+:   */
+/*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qmoricea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/08 09:47:47 by qmoricea          #+#    #+#             */
-/*   Updated: 2017/11/08 15:35:23 by qmoricea         ###   ########.fr       */
+/*   Created: 2017/11/09 12:42:01 by qmoricea          #+#    #+#             */
+/*   Updated: 2017/11/09 12:42:04 by qmoricea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	ft_foreach(int *tab, int length, void (*f)(int))
+char	*ft_strstr(char *str, char *to_find)
 {
 	int i;
+	int j;
+	int size;
 
 	i = 0;
-	while (i < length)
+	j = 0;
+	size = 0;
+	while (to_find[size])
+		size++;
+	if (size == 0)
+		return (0);
+	while (str[i])
 	{
-		(*f)(tab[i]);
+		while (to_find[j] == str[i + j])
+		{
+			if (j == size - 1)
+				return (str + i);
+			j++;
+		}
+		j = 0;
 		i++;
 	}
+	return (0);
 }

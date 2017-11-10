@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_foreach.c                                       :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qmoricea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/08 09:47:47 by qmoricea          #+#    #+#             */
-/*   Updated: 2017/11/08 15:35:23 by qmoricea         ###   ########.fr       */
+/*   Created: 2017/11/10 12:03:26 by qmoricea          #+#    #+#             */
+/*   Updated: 2017/11/10 12:03:42 by qmoricea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	ft_foreach(int *tab, int length, void (*f)(int))
-{
-	int i;
+#include "libft.h"
 
-	i = 0;
-	while (i < length)
+void	*ft_memccpy(void *dst, const void *src, int c, size_t n)
+{
+	unsigned char *oct1;
+	unsigned char *oct2;
+
+	oct1 = (unsigned char*)dst;
+	oct2 = (unsigned char*)src;
+	while (n--)
 	{
-		(*f)(tab[i]);
-		i++;
+		*oct1 = *oct2;
+		if (*oct1 == (unsigned char)c)
+			return (oct1 + 1);
+		oct1++;
+		oct2++;
 	}
+	return (NULL);
 }
