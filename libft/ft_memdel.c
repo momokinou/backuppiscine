@@ -6,7 +6,7 @@
 /*   By: qmoricea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 17:05:16 by qmoricea          #+#    #+#             */
-/*   Updated: 2017/11/13 17:24:26 by qmoricea         ###   ########.fr       */
+/*   Updated: 2017/11/14 10:35:06 by qmoricea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	ft_memdel(void **ap)
 {
-	free(*ap);
-	ap = NULL;
+	if (ap)
+		free(*ap);
+		*ap = NULL;
 }

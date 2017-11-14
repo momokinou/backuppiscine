@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memalloc.c                                      :+:      :+:    :+:   */
+/*   ft_strnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qmoricea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/13 16:41:25 by qmoricea          #+#    #+#             */
-/*   Updated: 2017/11/14 10:39:07 by qmoricea         ###   ########.fr       */
+/*   Created: 2017/11/14 10:33:26 by qmoricea          #+#    #+#             */
+/*   Updated: 2017/11/14 10:39:00 by qmoricea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memalloc(size_t size)
+char	*ft_strnew(size_t size)
 {
 	char *str;
 
-	if (!(str = (void *)malloc (sizeof(str) * (size))))
+	if (!(str = (void *)malloc (sizeof(str) * (size + 1))))
 		return (NULL);
-	bzero(str, size);
+	bzero(str, size + 1);
 	return (str);
 }
