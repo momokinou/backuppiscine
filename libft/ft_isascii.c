@@ -6,13 +6,13 @@
 /*   By: qmoricea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 15:09:07 by qmoricea          #+#    #+#             */
-/*   Updated: 2017/11/13 15:43:23 by qmoricea         ###   ########.fr       */
+/*   Updated: 2017/11/16 11:18:37 by qmoricea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		isascii(int c)
+int		ft_isascii(int c)
 {
 	return (c >= 0 && c < 128);
 }

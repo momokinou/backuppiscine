@@ -1,20 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tolower.c                                       :+:      :+:    :+:   */
+/*   ft_strsub.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qmoricea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/13 16:17:09 by qmoricea          #+#    #+#             */
-/*   Updated: 2017/11/15 15:04:15 by qmoricea         ###   ########.fr       */
+/*   Created: 2017/11/14 13:57:02 by qmoricea          #+#    #+#             */
+/*   Updated: 2017/11/16 14:22:55 by qmoricea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_tolower(int c)
+char		*ft_strsub(char const *s, unsigned int start, size_t len)
 {
-	if (c >= 'A' && c <= 'Z')
-		return (c + 32);
-	return (c);
+	char	*sub;
+	size_t	i;
+
+	sub = ft_strnew(len);
+	if (sub == NULL)
+		return (NULL);
+	s = s + start;
+	i = 0;
+	while (i < len)
+	{
+		sub[i] = s[i];
+		i++;
+	}
+	return (sub);
 }

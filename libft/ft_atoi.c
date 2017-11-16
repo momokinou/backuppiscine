@@ -6,32 +6,39 @@
 /*   By: qmoricea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 12:38:21 by qmoricea          #+#    #+#             */
-/*   Updated: 2017/11/13 15:46:14 by qmoricea         ###   ########.fr       */
+/*   Updated: 2017/11/16 13:55:44 by qmoricea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *str)
+static int		ft_isspace(int c)
 {
-	int i;
-	int nb;
-	int neg;
+	return ((9 <= c && c <= 13) || c == 32);
+}
 
-	i = 0;
-	nb = 0;
-	neg = 1;
-	while ((str[i] >= 8 && str[i] <= 13) || str[i] == ' ')
-		i++;
-	if (str[i] == '-')
-		neg = -1;
-	if (str[i] == '-' || str[i] == '+')
-		i++;
-	while (str[i] >= '0' && str[i] <= '9')
+int				ft_atoi(const char *str)
+{
+	int n;
+	int isneg;
+
+	isneg = 0;
+	n = 0;
+	while (ft_isspace(*str))
+		str++;
+	if (*str == '+')
+		str++;
+	else if (*str == '-')
 	{
-		if (str[i] >= '0' && str[i] <= '9')
-			nb = nb * 10 + (str[i] - '0');
-		i = i + 1;
+		isneg = 1;
+		str++;
 	}
-	return (nb * neg);
+	while (*str != '\0' && ft_isdigit(*str))
+	{
+		n = n * 10 + (*str++ - '0');
+	}
+	if (isneg)
+		return (-n);
+	else
+		return (n);
 }

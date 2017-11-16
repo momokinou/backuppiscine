@@ -1,20 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tolower.c                                       :+:      :+:    :+:   */
+/*   ft_strmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qmoricea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/13 16:17:09 by qmoricea          #+#    #+#             */
-/*   Updated: 2017/11/15 15:04:15 by qmoricea         ###   ########.fr       */
+/*   Created: 2017/11/14 11:18:05 by qmoricea          #+#    #+#             */
+/*   Updated: 2017/11/16 14:48:11 by qmoricea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_tolower(int c)
+char	*ft_strmap(char const *s, char (*f)(char))
 {
-	if (c >= 'A' && c <= 'Z')
-		return (c + 32);
-	return (c);
+	char			*new;
+	unsigned int	i;
+
+	new = ft_strnew(ft_strlen(s));
+	if (new == NULL)
+		return (NULL);
+	i = 0;
+	while (s[i] != '\0')
+	{
+		new[i] = f(s[i]);
+		i++;
+	}
+	return (new);
 }

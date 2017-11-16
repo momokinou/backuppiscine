@@ -1,23 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memalloc.c                                      :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qmoricea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/13 16:41:25 by qmoricea          #+#    #+#             */
-/*   Updated: 2017/11/16 17:07:28 by qmoricea         ###   ########.fr       */
+/*   Created: 2017/11/14 14:32:54 by qmoricea          #+#    #+#             */
+/*   Updated: 2017/11/16 14:23:38 by qmoricea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memalloc(size_t size)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	void *str;
+	char *new;
+	char *newit;
 
-	if (!(str = malloc(size)))
+	if (s1 == NULL && s2 == NULL)
+		return (ft_strnew(0));
+	else if (s1 == NULL)
+		return (ft_strdup(s2));
+	else if (s2 == NULL)
+		return (ft_strdup(s1));
+	new = ft_strnew(ft_strlen(s1) + ft_strlen(s2));
+	if (new == NULL)
 		return (NULL);
-	ft_bzero(str, size);
-	return (str);
+	newit = new;
+	while (*s1 != '\0')
+		*newit++ = *s1++;
+	while (*s2 != '\0')
+		*newit++ = *s2++;
+	*newit = '\0';
+	return (new);
 }

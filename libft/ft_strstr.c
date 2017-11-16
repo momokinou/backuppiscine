@@ -6,35 +6,31 @@
 /*   By: qmoricea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 12:42:01 by qmoricea          #+#    #+#             */
-/*   Updated: 2017/11/13 15:20:10 by qmoricea         ###   ########.fr       */
+/*   Updated: 2017/11/16 13:50:30 by qmoricea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strstr(char *str, const char *to_find)
+char	*ft_strstr(char *s1, const char *s2)
 {
-	int i;
-	int j;
-	int size;
+	const char *s1_it;
+	const char *s2_it;
 
-	i = 0;
-	j = 0;
-	size = 0;
-	while (to_find[size])
-		size++;
-	if (size == 0)
-		return (0);
-	while (str[i])
+	if (*s2 == '\0')
+		return ((char*)s1);
+	while (*s1 != '\0')
 	{
-		while (to_find[j] == str[i + j])
+		s1_it = s1;
+		s2_it = s2;
+		while (*s2_it != '\0' && *s1_it == *s2_it)
 		{
-			if (j == size - 1)
-				return (str + i);
-			j++;
+			s1_it++;
+			s2_it++;
 		}
-		j = 0;
-		i++;
+		if (*s2_it == '\0')
+			return ((char*)s1);
+		s1++;
 	}
-	return (0);
+	return (NULL);
 }
