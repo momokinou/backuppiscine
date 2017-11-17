@@ -6,7 +6,7 @@
 /*   By: qmoricea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/16 11:32:51 by qmoricea          #+#    #+#             */
-/*   Updated: 2017/11/16 11:33:47 by qmoricea         ###   ########.fr       */
+/*   Updated: 2017/11/17 16:28:44 by qmoricea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,16 @@
 
 void	ft_lstdel(t_list **alst, void (*del)(void *, size_t))
 {
-	int i;
+	t_list *list;
+	t_list *nextlist;
 
-	if (*alst)
-		i = 1;
-	if (*del)
-		i = 1;
+	list = *alst;
+	while (list != NULL)
+	{
+		nextlist = list->next;
+		del(list->content, list->content_size);
+		free(list);
+		list = nextlist;
+	}
+	*alst = NULL;
 }

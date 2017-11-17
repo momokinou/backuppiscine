@@ -6,7 +6,7 @@
 /*   By: qmoricea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/16 11:34:19 by qmoricea          #+#    #+#             */
-/*   Updated: 2017/11/16 11:35:28 by qmoricea         ###   ########.fr       */
+/*   Updated: 2017/11/17 15:45:33 by qmoricea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,9 @@
 
 void	ft_lstadd(t_list **alst, t_list *new)
 {
-	int i;
-
-	if (*alst)
-		i = 1;
-	if (new)
-		i = 1;
+	if (alst != NULL)
+	{
+		new->next = *alst;
+		*alst = new;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: qmoricea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/16 11:35:50 by qmoricea          #+#    #+#             */
-/*   Updated: 2017/11/16 12:31:59 by qmoricea         ###   ########.fr       */
+/*   Updated: 2017/11/17 16:59:25 by qmoricea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,15 @@
 
 void	ft_lstiter(t_list *lst, void (*f)(t_list *elem))
 {
-	int i;
+	t_list *listnext;
 
 	if (lst)
-		i = 0;
-	(*f)(lst);
-	i = 0;
+	{
+		while (lst)
+		{
+			listnext = lst->next;
+			f(lst);
+			lst = listnext;
+		}
+	}
 }
