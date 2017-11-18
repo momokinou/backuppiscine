@@ -6,7 +6,7 @@
 /*   By: qmoricea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/14 13:57:02 by qmoricea          #+#    #+#             */
-/*   Updated: 2017/11/16 14:22:55 by qmoricea         ###   ########.fr       */
+/*   Updated: 2017/11/18 11:19:50 by qmoricea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,10 @@ char		*ft_strsub(char const *s, unsigned int start, size_t len)
 	char	*sub;
 	size_t	i;
 
+	if (!s)
+		return (NULL);
 	sub = ft_strnew(len);
-	if (sub == NULL)
+	if (!sub)
 		return (NULL);
 	s = s + start;
 	i = 0;

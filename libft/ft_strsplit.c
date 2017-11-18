@@ -6,7 +6,7 @@
 /*   By: qmoricea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/15 14:21:17 by qmoricea          #+#    #+#             */
-/*   Updated: 2017/11/16 11:10:11 by qmoricea         ###   ########.fr       */
+/*   Updated: 2017/11/18 11:13:05 by qmoricea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static int	ft_cnt_parts(const char *s, char c)
 
 	i = 0;
 	cnt = 0;
+	if (!s)
+		return (0);
 	while (*s != '\0')
 	{
 		if (i == 1 && *s == c)
@@ -37,6 +39,8 @@ static int	ft_wlen(const char *s, char c)
 {
 	int		len;
 
+	if (!s)
+		return (0);
 	len = 0;
 	while (*s != c && *s != '\0')
 	{
@@ -52,6 +56,8 @@ char		**ft_strsplit(char const *s, char c)
 	int		nb_word;
 	int		index;
 
+	if (!s)
+		return (NULL);
 	index = 0;
 	nb_word = ft_cnt_parts((const char *)s, c);
 	t = (char **)malloc(sizeof(*t) * (ft_cnt_parts((const char *)s, c) + 1));
