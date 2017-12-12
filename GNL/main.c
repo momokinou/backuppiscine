@@ -1,26 +1,35 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   get_next_line.h                                  .::    .:/ .      .::   */
+/*   test.c                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2017/12/04 17:24:24 by qmoricea     #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/12 16:22:56 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Created: 2017/12/07 11:13:36 by qmoricea     #+#   ##    ##    #+#       */
+/*   Updated: 2017/12/12 11:03:05 by qmoricea    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "get_next_line.h"
+#include <fcntl.h>
 
-# include <fcntl.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include "libft/libft.h"
+int		main(int argc, char **argv)
+{
+	int		fd;
+	char	*line;
 
-# define BUFF_SIZE 1
-
-int		get_next_line(const int fd, char **line);
-
-#endif
+	if (argc == 1)
+		fd = 0;
+	else if (argc == 2)
+		fd = open(argv[1], O_RDONLY);
+	else
+		return (0);
+	while (get_next_line(fd, &line) == 1)
+	{
+		ft_putendl(line);
+		free(line);
+	}
+	if (argc == 2)
+		close(fd);
+}
