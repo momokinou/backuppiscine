@@ -6,7 +6,7 @@
 /*   By: nzenzela <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/11/28 16:01:48 by nzenzela     #+#   ##    ##    #+#       */
-/*   Updated: 2017/11/28 16:17:00 by nzenzela    ###    #+. /#+    ###.fr     */
+/*   Updated: 2017/11/30 18:07:17 by qmoricea    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,7 +15,7 @@
 
 void			display_error(void)
 {
-	write(1, "An error has been detected\n", 27);
+	write(1, "error", 5);
 	exit(0);
 }
 

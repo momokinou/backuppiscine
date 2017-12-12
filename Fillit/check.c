@@ -6,7 +6,7 @@
 /*   By: nzenzela <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/11/28 16:03:51 by nzenzela     #+#   ##    ##    #+#       */
-/*   Updated: 2017/11/28 16:20:11 by nzenzela    ###    #+. /#+    ###.fr     */
+/*   Updated: 2017/11/30 18:17:35 by qmoricea    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -49,6 +49,8 @@ static	int			magic_count(char *s)
 	{
 		if (*s == 'x')
 			res++;
+		if (*s == '.')
+			res++;
 		s++;
 	}
 	return (res);
@@ -63,7 +65,7 @@ void				magic_check(char *s)
 		i++;
 	s[i] = 'x';
 	s = magic_add(i, s);
-	if (magic_count(s) != 4)
+	if (magic_count(s) != 16)
 		display_error();
 	while (*s)
 	{
