@@ -6,7 +6,7 @@
 /*   By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/04 17:24:18 by qmoricea     #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/12 16:29:21 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Updated: 2017/12/14 16:58:49 by qmoricea    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,33 +16,48 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include "get_next_line.h"
+#include "libft/libft.h"
+
+int		checkerror(int fd, char **str, char **line)
+{
+	if (fd == -1 || line == NULL)
+		return (-1);
+	if (!*str)
+	{
+		if (!(*str = (char*)malloc(sizeof(char) * (BUFF_SIZE))))
+			return (-1);
+	}
+	return (0);
+}
+
+char	readline(int fd, char *str)
+{
+	char	*buffer;
+	int		r;
+
+	while ((r = read(fd, &str, BUFF_SIZE)) > 0)
+	{
+		
+	}
+}
 
 int		get_next_line(const int fd, char **line)
 {
-	char *tpm;
-	char *buff;
-	int i;
+	char *buffer;
 
-	i = 1;
-	while (buff[i] != 0)
+	if (checkerror(fd, &buffer, line) == -1)
+		return (-1);
+	while (read(fd, &buffer, 1) != 0)
 	{
-		if (read(fd, &buff[i], BUFF_SIZE) != 0)
-		{
-			tpm = ft_strchr(buff, '\n');
-			while (tpm[i] != '\n')
-			{
-				write(1, &buff[i], BUFF_SIZE);
-				i++;
-			}
-		}
+		write(1, &buffer, 1);
 	}
-	return(0);
+	return (0);
 }
 
 int		main(int argc, char **argv)
 {
-	int fd;
-	char **line;
+	int		fd;
+	char	*line;
 
 	if(argc != 2)
 	{
@@ -53,7 +68,7 @@ int		main(int argc, char **argv)
 		return (1);
 	}
 	fd = open(argv[1], O_RDONLY);
-	get_next_line(fd, line);
+	get_next_line(fd, &line);
 	close(fd);
 	return (0);
 }
