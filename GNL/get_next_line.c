@@ -30,15 +30,17 @@ int		checkerror(int fd, char **str, char **line)
 	return (0);
 }
 
-char	readline(int fd, char *str)
+char	*readline(char *str, int fd)
 {
-	char	*buffer;
-	int		r;
+	char		buff[BUFF_SIZE + 1];
+	int			ret;
 
-	while ((r = read(fd, &str, BUFF_SIZE)) > 0)
+	while ((ret = read(fd, buff, BUFF_SIZE)) > 0)
 	{
-		
+		buff[ret] = '\0';
+		str = ft_strjoin(str, buff);
 	}
+	return (str);
 }
 
 int		get_next_line(const int fd, char **line)
