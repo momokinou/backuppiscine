@@ -6,71 +6,44 @@
 /*   By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/04 17:24:18 by qmoricea     #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/14 16:58:49 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Updated: 2017/12/22 15:36:09 by qmoricea    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <fcntl.h>
-#include <sys/types.h>
-#include <sys/stat.h>
 #include "get_next_line.h"
-#include "libft/libft.h"
 
-int		checkerror(int fd, char **str, char **line)
+int		ft_malloc_again(char **str)
 {
-	if (fd == -1 || line == NULL)
-		return (-1);
-	if (!*str)
-	{
-		if (!(*str = (char*)malloc(sizeof(char) * (BUFF_SIZE))))
-			return (-1);
-	}
-	return (0);
-}
+	char	*tmp;
 
-char	*readline(char *str, int fd)
-{
-	char		buff[BUFF_SIZE + 1];
-	int			ret;
-
-	while ((ret = read(fd, buff, BUFF_SIZE)) > 0)
-	{
-		buff[ret] = '\0';
-		str = ft_strjoin(str, buff);
-	}
-	return (str);
+	if (!(tmp = ft_strnew(ft_strlen(*str))))
+		return (0);
+	ft_strcpy(tmp, *str);
+	*str = 0;
+	if (!(*str = ft_strnew(ft_strlen(tmp) + BUFF_SIZE)))
+		return (0);
+	ft_strcpy(*str, tmp);
+	return (1);
 }
 
 int		get_next_line(const int fd, char **line)
 {
-	char *buffer;
+	static char		*buffer;
+	int				i;
 
-	if (checkerror(fd, &buffer, line) == -1)
+	if (fd < 0 || (!buffer && !(buffer = ft_strnew(BUFF_SIZE))))
 		return (-1);
-	while (read(fd, &buffer, 1) != 0)
+	if(!(*line = (char *)malloc(sizeof(char) * BUFF_SIZE)))
+		return (-1);
+	while ((i = read(fd, &buffer, BUFF_SIZE)) > 0)
 	{
+		if (!(ft_malloc_again(&buffer)))
+			return (-1);
+		ft_strncat(buffer, *line, BUFF_SIZE);
+		if (ft_memcmp((*line), buffer, ft_strlen(*line)) == 0)
 		write(1, &buffer, 1);
+		i++;
 	}
-	return (0);
-}
-
-int		main(int argc, char **argv)
-{
-	int		fd;
-	char	*line;
-
-	if(argc != 2)
-	{
-		if (argc < 2)
-			write(2, "File name missing.\n", 19);
-		if (argc > 2)
-			write(2, "Too many arguments.\n", 20);
-		return (1);
-	}
-	fd = open(argv[1], O_RDONLY);
-	get_next_line(fd, &line);
-	close(fd);
 	return (0);
 }

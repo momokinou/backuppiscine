@@ -6,7 +6,7 @@
 /*   By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/04 17:24:24 by qmoricea     #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/14 12:46:34 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Updated: 2017/12/22 15:05:32 by qmoricea    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,8 +15,9 @@
 # define GET_NEXT_LINE_H
 
 # include <fcntl.h>
-# include <stdlib.h>
 # include <unistd.h>
+# include <sys/types.h>
+# include <sys/stat.h>
 # include "libft/libft.h"
 
 # define BUFF_SIZE 1
