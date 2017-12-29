@@ -6,12 +6,44 @@
 /*   By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/04 17:24:18 by qmoricea     #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/22 15:36:09 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Updated: 2017/12/27 14:30:25 by qmoricea    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+static x_fd		*fdata(x_fd **flst, int const fd)
+{
+	x_fd	*fdi;
+	x_fd	*fda;
+
+	if (fd < 0)
+		return (NULL);
+	fdi = *flst;
+	fda = NULL;
+	while (fdi != NULL)
+	{
+		if (fdi -> fd == fd)
+			return (fdi);
+		fda = fdi;
+		fdi = fdi->next;
+	}
+	fdi->fd = fd;
+	fdi->start = 0;
+	fdi->lst = NULL;
+	fdi->next = NULL;
+	if (fda != NULL)
+		fda->next = fdi;
+	else
+		*flst = fdi;
+	return (fdi);
+}
+
+static int		getl()
+{
+	i
+}
 
 int		ft_malloc_again(char **str)
 {
