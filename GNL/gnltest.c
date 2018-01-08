@@ -13,73 +13,56 @@
 
 #include "get_next_line.h"
 
-int		ft_malloc_again(char **save)
+int checkerror(int fd, char **str, char **line)
 {
-	char	*tmp;
-
-	if (!(tmp = ft_strnew(ft_strlen(*save))))
-		return (0);
-	ft_strcpy(tmp, *save);
-	*save = NULL;
-	if (!(*save = ft_strnew(ft_strlen(tmp) + BUFF_SIZE)))
-		return (0);
-	ft_strcpy(*save, tmp);
-	return (1);
-}
-
-int		fill_line(int j, char **save, char **line)
-{
-	int		i;
-	int		y;
-
-	y = 0;
-	i = 0;
-	if (j != 0 || ft_strlen((*save)) != 0)
-	{
-		while ((*save)[i] != '\n')
-		{
-			(*line)[i] = (*save)[i];
-			i++;
-		}
-		(*line)[i++] = '\0';
-		if ((*save)[0] == '\n')
-		{
-			while ((*save)[i])
-				(*save)[y++] = (*save)[i++];
-			(*save)[y] = '\0';
-			return (2);
-		}
-		while ((*save)[i])
-			(*save)[y++] = (*save)[i++];
-		(*save)[y] = '\0';
-	}
-	return (1);
-}
-
-int		 get_next_line(int fd, char **line)
-{
-	int				j;
-	static char		*save;
-
-	if (fd < 0 || (!save && !(save = ft_strnew(BUFF_SIZE))))
+	if (fd == -1 || line == NULL)
 		return (-1);
-	if (!(*line = (char *)malloc(sizeof(char) * BUFF_SIZE)))
-		return (-1);
-	while ((j = read(fd, *line, BUFF_SIZE)) > 0)
+	if (!*str)
 	{
-		if (!(ft_malloc_again(&save)))
+		if (!(*str = (char *)malloc(sizeof(char) * (BUFF_SIZE + 1))))
 			return (-1);
-		ft_strncat(save, *line, BUFF_SIZE);
-		if (ft_memchr(*line, '\n', BUFF_SIZE))
-			break ;
 	}
-	if ((fill_line(j, &save, &(*line))) == 2)
-		return (1);
-	if (ft_memcmp((*line), save, ft_strlen(*line)) == 0)
+	return (0);
+}
+
+char *readline(char *str, int fd)
+{
+	char buff[BUFF_SIZE + 1];
+	int ret;
+
+	while ((ret = read(fd, buff, BUFF_SIZE)) > 0)
 	{
-		if (!(*line = ft_strdup("")))
-			return (1);
-		return (0);
+		buff[ret] = '\0';
+		str = ft_strjoin(str, buff);
 	}
-	return (1);
+	return (str);
+}
+
+int get_next_line(int const fd, char **line)
+{
+	static char *str;
+	int i;
+
+	if (checkerror(fd, &str, line) == -1)
+		return (-1);
+	if (*str)
+		ft_strcpy(*line, str);
+	str = readline(str, fd);
+	i = 0;
+	if (str[i])
+	{
+		while (str[i] != '\n' && str[i])
+			i++;
+		if (i == 0)
+			(*line) = ft_strdup("");
+		else
+		{
+			(*line) = ft_strsub(str, 0, i);
+			str = &str[i + 1];
+		}
+		return (1);
+	}
+	else
+		(*line) = ft_strdup("");
+	return (0);
 }
