@@ -1,14 +1,13 @@
 /* ************************************************************************** */
-/*                                                          LE - /            */
-/*                                                              /             */
-/*   get_next_line.h                                  .::    .:/ .      .::   */
-/*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+     */
-/*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2017/12/04 17:24:24 by qmoricea     #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/27 14:30:18 by qmoricea    ###    #+. /#+    ###.fr     */
-/*                                                         /                  */
-/*                                                        /                   */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qmoricea <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/12/11 11:17:18 by qmoricea          #+#    #+#             */
+/*   Updated: 2017/12/11 11:17:18 by qmoricea         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
@@ -22,14 +21,6 @@
 
 # define BUFF_SIZE 1
 
-typedef struct			w_fd
-{
-	int					fd;
-	int					start;
-	t_list				*lst;
-	struct fd_list		*next;
-}						x_fd;
-
-int						get_next_line(const int fd, char **line);
+int		get_next_line(const int fd, char **line);
 
 #endif
