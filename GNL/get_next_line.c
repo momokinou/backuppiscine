@@ -14,7 +14,7 @@
 
 int checkerror(int fd, char **str, char **line)
 {
-	if (fd == -1 || line == NULL)
+	if (fd <= 0 || line == NULL)
 		return (-1);
 	if (!*str)
 	{
