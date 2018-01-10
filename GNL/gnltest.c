@@ -1,68 +1,68 @@
-/* ************************************************************************** */
-/*                                                          LE - /            */
-/*                                                              /             */
-/*   gnltest.c                                        .::    .:/ .      .::   */
-/*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+     */
-/*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2017/12/22 12:51:48 by qmoricea     #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/22 14:36:05 by qmoricea    ###    #+. /#+    ###.fr     */
-/*                                                         /                  */
-/*                                                        /                   */
-/* ************************************************************************** */
-
 #include "get_next_line.h"
 
-int checkerror(int fd, char **str, char **line)
+static x_fd		*fdata(x_fd **flst, int const fd)
 {
-	if (fd == -1 || line == NULL)
-		return (-1);
-	if (!*str)
+	x_fd	*fdi;
+	x_fd	*fda;
+
+	if (fd < 0)
+		return (NULL);
+	fdi = *flst;
+	fda = NULL;
+	while (fdi != NULL)
 	{
-		if (!(*str = (char *)malloc(sizeof(char) * (BUFF_SIZE + 1))))
-			return (-1);
+		if (fdi -> fd == fd)
+			return (fdi);
+		fda = fdi;
+		fdi = fdi->next;
 	}
-	return (0);
-}
-
-char *readline(char *str, int fd)
-{
-	char buff[BUFF_SIZE + 1];
-	int ret;
-
-	while ((ret = read(fd, buff, BUFF_SIZE)) > 0)
-	{
-		buff[ret] = '\0';
-		str = ft_strjoin(str, buff);
-	}
-	return (str);
-}
-
-int get_next_line(int const fd, char **line)
-{
-	static char *str;
-	int i;
-
-	if (checkerror(fd, &str, line) == -1)
-		return (-1);
-	if (*str)
-		ft_strcpy(*line, str);
-	str = readline(str, fd);
-	i = 0;
-	if (str[i])
-	{
-		while (str[i] != '\n' && str[i])
-			i++;
-		if (i == 0)
-			(*line) = ft_strdup("");
-		else
-		{
-			(*line) = ft_strsub(str, 0, i);
-			str = &str[i + 1];
-		}
-		return (1);
-	}
+	fdi->fd = fd;
+	fdi->start = 0;
+	fdi->lst = NULL;
+	fdi->next = NULL;
+	if (fda != NULL)
+		fda->next = fdi;
 	else
-		(*line) = ft_strdup("");
+		*flst = fdi;
+	return (fdi);
+}
+
+static int		getl()
+{
+	i
+}
+
+int		ft_malloc_again(char **str)
+{
+	char	*tmp;
+
+	if (!(tmp = ft_strnew(ft_strlen(*str))))
+		return (0);
+	ft_strcpy(tmp, *str);
+	*str = 0;
+	if (!(*str = ft_strnew(ft_strlen(tmp) + BUFF_SIZE)))
+		return (0);
+	ft_strcpy(*str, tmp);
+	return (1);
+}
+
+int		get_next_line(const int fd, char **line)
+{
+	static char		*buffer;
+	int				i;
+
+	if (fd < 0 || (!buffer && !(buffer = ft_strnew(BUFF_SIZE))))
+		return (-1);
+	if(!(*line = (char *)malloc(sizeof(char) * BUFF_SIZE)))
+		return (-1);
+	while ((i = read(fd, &buffer, BUFF_SIZE)) > 0)
+	{
+		if (!(ft_malloc_again(&buffer)))
+			return (-1);
+		ft_strncat(buffer, *line, BUFF_SIZE);
+		if (ft_memcmp((*line), buffer, ft_strlen(*line)) == 0)
+		write(1, &buffer, 1);
+		i++;
+	}
 	return (0);
 }
