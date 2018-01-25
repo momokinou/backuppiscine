@@ -1,67 +1,64 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   get_next_line.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qmoricea <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/12 14:41:44 by qmoricea          #+#    #+#             */
-/*   Updated: 2017/11/12 14:41:44 by qmoricea         ###   ########.fr       */
-/*                                                                            */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   get_next_line.c                                  .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2018/01/18 14:08:31 by qmoricea     #+#   ##    ##    #+#       */
+/*   Updated: 2018/01/25 13:42:29 by qmoricea    ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int checkerror(int fd, char **str, char **line)
+static char		*readline(const int fd, char *buff, int *ret)
 {
-	if (fd <= 0 || line == NULL)
+	char	temp[BUFF_SIZE + 1];
+	char	*store;
+
+	*ret = read(fd, temp, BUFF_SIZE);
+	temp[*ret] = '\0';
+	store = buff;
+	if (!(buff = ft_strjoin(buff, temp)))
+		return (NULL);
+	ft_strdel(&store);
+	return (buff);
+}
+
+int				gf(char **line, char **buff)
+{
+	if (!(*line = ft_strdup(*buff)))
 		return (-1);
-	if (!*str)
+	ft_bzero(*buff, ft_strlen(*buff));
+	return (1);
+}
+
+int				get_next_line(const int fd, char **line)
+{
+	static char	*buff = "";
+	int			ret;
+	char		*file;
+
+	ret = 1;
+	if (!line || fd < 0 || (buff[0] == '\0' && (!(buff = ft_strnew(0)))))
+		return (-1);
+	while (ret > 0)
 	{
-		if (!(*str = (char *)malloc(sizeof(char) * (BUFF_SIZE + 1))))
+		if ((file = ft_strchr(buff, '\n')) != NULL)
+		{
+			*file = '\0';
+			if (!(*line = ft_strdup(buff)))
+				return (-1);
+			ft_memmove(buff, file + 1, ft_strlen(file + 1) + 1);
+			return (1);
+		}
+		if (!(buff = readline(fd, buff, &ret)))
 			return (-1);
 	}
-	return (0);
-}
-
-char *readline(char *str, int fd)
-{
-	char buff[BUFF_SIZE + 1];
-	int ret;
-
-	while ((ret = read(fd, buff, BUFF_SIZE)) > 0)
-	{
-		buff[ret] = '\0';
-		str = ft_strjoin(str, buff);
-	}
-	return (str);
-}
-
-int get_next_line(int const fd, char **line)
-{
-	static char *str;
-	int i;
-
-	if (checkerror(fd, &str, line) == -1)
-		return (-1);
-	if (*str)
-		ft_strcpy(*line, str);
-	str = readline(str, fd);
-	i = 0;
-	if (str[i])
-	{
-		while (str[i] != '\n' && str[i])
-			i++;
-		if (i == 0)
-			(*line) = ft_strdup("");
-		else
-		{
-			(*line) = ft_strsub(str, 0, i);
-			str = &str[i + 1];
-		}
-		return (1);
-	}
-	else
-		(*line) = ft_strdup("");
-	return (0);
+	ft_strdel(&file);
+	if (ret == 0 && ft_strlen(buff))
+		ret = gf(&(*line), &buff);
+	return (ret);
 }
