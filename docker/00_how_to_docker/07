@@ -1,0 +1,1 @@
+docker-machine inspect char | grep IPAddress
