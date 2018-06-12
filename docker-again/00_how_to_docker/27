@@ -1,0 +1,3 @@
+#We use two commands here to get the one of the service tasks ID, and one to log the data of the tasks requested
+
+docker service logs -f $(docker service ps -f "name=engineering-bay.1" engineering-bay -q)
