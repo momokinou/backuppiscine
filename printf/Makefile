@@ -3,36 +3,121 @@
 #                                                               /              #
 #    Makefile                                         .::    .:/ .      .::    #
 #                                                  +:+:+   +:    +:  +:+:+     #
-#    By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+      #
+#    By: nzenzela <nzenzela@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
-#    Created: 2018/02/19 09:55:37 by qmoricea     #+#   ##    ##    #+#        #
-#    Updated: 2018/02/19 09:56:57 by qmoricea    ###    #+. /#+    ###.fr      #
+#    Created: 2018/01/20 10:55:44 by nzenzela     #+#   ##    ##    #+#        #
+#    Updated: 2018/06/30 19:01:03 by nzenzela    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
 
-C = gcc
+SHELL		:= /bin/bash
 
-FLAGS = -Wall -Wextra -Werror
+#### Start of system configuration section ####
 
-NAME = libftprint.a
+NAME		:= fdf
+CC			:= gcc
+CFLAGS		:= -Wall -Wextra -Werror
+AR			:= ar
+ARFLAGS		:= rcs
+MKDIR		:= mkdir
+MKDIRFLAGS	:= -p
+RM			:= /bin/rm
+RMFLAGS		:= -rf
+ECHO		:= echo -e
+QUIET		:= @
+NORM		:= norminette -R CheckForbiddenSourceHeader
+GREEN		:= \033[0;32m
+NC			:= \033[0m
 
-SOURCES =
+#### Libraries def section ####
 
-OBJECT = $(SOURCES:.c=.o)
+LIBFTDIR	:= libft
+MLXDIR		:= minilibx_macos
+EXT_LIBS	:=	-framework OpenGl -framework AppKit
+LIBS		:=	\
+	$(MLXDIR)/libmlx.a \
+	$(LIBFTDIR)/libft.a \
+	$(EXT_LIBS)
+
+#### Start of files definition section ####
+
+INCLUDESDIR	:= inc
+INCLUDES 	:= \
+	-I $(INCLUDESDIR)/ \
+	-I $(LIBFTDIR)/$(INCLUDESDIR) \
+	-I $(MLXDIR)
+SRCDIR		:=	src
+SRCS		:=	\
+	main.c\
+	opt_mod_1.c\
+	opt_mod_2.c\
+	opt_mod_3.c\
+	opt_def.c\
+	pers_cav.c\
+	keymap.c\
+	set_map.c\
+	read_map.c
+OBJDIR		:=	obj
+OBJS		:=	$(addprefix $(OBJDIR)/, $(SRCS:.c=.o))
+
+#### Start of rules section ####
+
+.PHONY: all clean fclean re norm
 
 all: $(NAME)
 
-$(NAME): $(OBJECT)
-	ar rcs $(NAME) $(OBJECT)
+$(NAME): $(LIBFTDIR)/libft.a $(MLXDIR)/libmlx.a $(OBJDIR) $(OBJS)
+	$(QUIET)$(ECHO) "Creating the executable"
+	$(QUIET)$(CC) $(CCFLAGS) $(LIBS) $(OBJS) -o $@
+	$(QUIET)$(ECHO) "Done"
 
-./%.o: ./%.c
-	$(CC) $(FLAGS) -o $@ -c $<
+$(OBJDIR):
+	$(QUIET)$(MKDIR) $(MKDIRFLAGS) $(OBJDIR)
+
+$(LIBFTDIR)/libft.a:
+	$(QUIET)$(ECHO) "Creating the lib"
+	$(QUIET)$(MAKE) -C $(LIBFTDIR)
+	$(QUIET)$(ECHO) "Compilation lib"
+	
+$(MLXDIR)/libmlx.a:
+	$(QUIET)$(ECHO) "Creating the mlx"
+	$(QUIET)$(MAKE) -C $(MLXDIR)
+	$(QUIET)$(ECHO) "Compilation mlx"
+	
+$(OBJDIR)/%.o: $(SRCDIR)/%.c $(INCLUDESDIR)/$(NAME).h
+	$(QUIET)$(ECHO) "Compiling $<"
+	$(QUIET)$(CC) $(CFLAGS) -I $(INCLUDESDIR) -c $< -o $@
+
+ifeq ($(shell $(MAKE) --question -C ./$(LIBFTDIR) ; echo $$?), 1)
+.PHONY: $(LIBFTDIR)/$(LIBFTDIR).a
+endif
+ifeq ($(shell $(MAKE) --question -C ./$(MLXDIR) ; echo $$?), 1)
+.PHONY: $(MLXDIR)/libmlx.a
+endif
 
 clean:
-	rm -rf $(OBJECT)
+	$(QUIET)$(ECHO) "Cleaning the objects"
+	$(QUIET)$(RM) $(RMFLAGS) $(OBJS)
 
 fclean: clean
-	rm -fr $(NAME)
+	$(QUIET)$(ECHO) "Deleting the library"
+	$(QUIET)$(MAKE) -C $(LIBFTDIR) fclean
+	$(QUIET)$(MAKE) -C $(MLXDIR) clean
+	$(QUIET)$(RM) $(RMFLAGS) $(NAME) $(OBJDIR)
 
 re: fclean all
+
+norm:
+	$(QUIET)$(ECHO) "${GREEN}Checking norm 101${NC}"
+	$(QUIET)$(NORM) $(SRCDIR)/$(SRC) $(INCLUDESDIR)/*.h
+
+gpush: fclean
+	$(QUIET) git add *
+	$(QUIET) git commit -m "quick push"
+	$(QUIET) git push
+
+test: fclean norm all
+	$(QUIET)$(ECHO) "${GREEN}Testing${NC}"
+	$(QUIET) ./ft_printftest
+	$(QUIET)$(RM) $(RMFLAGS) $(NAME)	
