@@ -1,0 +1,10 @@
+#!/bin/bash
+#Utiliser cette commande sous Char. (eval $(docker-machine env Char))
+
+eval $(docker-machine env Char)
+export jointoken=$(docker swarm join-token worker -q)
+
+#Executer cette commande sous le control de Aiur
+
+eval $(docker-machine env Aiur) 
+docker swarm join --token $jointoken $(docker-machine ip Char):2377
