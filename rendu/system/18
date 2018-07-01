@@ -1,0 +1,3 @@
+#pour autoriser une connexion depuis l'ip on dois passer la regle en INPUT comme entree, et ACCEPT comme regle
+
+iptables -A INPUT -s 10.0.0.0/8 -j ACCEPT

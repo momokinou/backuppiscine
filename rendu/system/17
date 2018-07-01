@@ -1,0 +1,3 @@
+#La commande pour afficher la liste des regles de parfeu et :
+
+iptables -S

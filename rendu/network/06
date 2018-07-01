@@ -1,0 +1,10 @@
+#Le fichier Qui indique les informations sur le serveur DNS local utiliser se situe sur ce fichier la sur Mac,
+
+-> /var/run/resolv.conf
+
+Et sur linux :
+
+->  /etc/resolv.conf
+
+un cat de ce fichier affiche les informations
+

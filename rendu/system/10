@@ -1,0 +1,6 @@
+#La commande qui affiche la table de partitions est la suivante :
+
+fdisk -l
+
+#Sur mon serveur elle fonctionne pas car c'est un VPS donc il n'y a pas de partitions physique. 
+#Mais sa devrais fonctionner en local

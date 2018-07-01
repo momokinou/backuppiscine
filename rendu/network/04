@@ -1,0 +1,5 @@
+#Affiche le gateway par default
+#netstat renvois la liste des connexion en cours
+netstat -nr | grep default | head -1 | awk '{print $2}'
+#grep coupe les connexion par defaut,  head - 1 coupe de 1 ligne le resultat (en deux)
+#awk retourne la seconde partie

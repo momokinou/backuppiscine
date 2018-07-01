@@ -1,0 +1,2 @@
+#Affiche l'adresse Mac de l'interface en1 = wifi
+ifconfig en1 | awk '/ether/{print $2}'

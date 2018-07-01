@@ -1,0 +1,5 @@
+nslookup -type=ns slash16.org
+
+#Il y a quelques reponses qui porte a confusion, mais depuis la mise en place du sujet, il y a eu des changement, et il y a maintenant plusieurs DNS qui sont reparti sur plusieurs zone.
+#uk, com, org, net. Chacune sont utiliser par rapport a la localisation du Client
+#il y a donc plusieurs reponse possible a ce sujet.

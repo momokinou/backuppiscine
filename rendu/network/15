@@ -1,0 +1,7 @@
+Le fichier sur Mac qui contiens les infos DNS local.
+
+/etc/hosts
+
+Sous Windows il est situer :
+
+/Windows/System32/drivers/etc/hosts

@@ -1,0 +1,6 @@
+La commande pour faire pointer l'adresse ip a l'intra et la suivante :
+
+
+echo "46.19.122.85  intra.42.fr" > /etc/hosts
+
+Cette commande va ajouter a la fin du fichier hosts l'ip et le nom de domaine

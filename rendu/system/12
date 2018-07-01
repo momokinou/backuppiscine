@@ -1,0 +1,5 @@
+#La commande pour afficher la taille de chaque dossier dans /var 
+
+du -sh /var/*
+
+#Fonctionne partiellement sur Mac, a besoins de root permission

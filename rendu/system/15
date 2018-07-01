@@ -1,0 +1,5 @@
+#La commande pour tuer le process en background et :
+
+kill -KILL $(jobs -p)
+
+#ON utilise kill pour tuer le PID du job, et on utilise Jobs -p pour recuperer le process en background

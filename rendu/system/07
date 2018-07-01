@@ -1,0 +1,2 @@
+#Avec la commande PGREP on obtiens le PID d'un service fourni en param.
+pgrep sshd

@@ -1,0 +1,7 @@
+#!/bin/sh
+
+#La commande suivant est simple, a comprendre :
+#vous savez deja ce que fait LS -lh, (go man ls)
+#sort -h = Transforme en Num humain, comprehensible en gro
+
+ls -sh $1/* | sort -h

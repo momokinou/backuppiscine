@@ -1,0 +1,12 @@
+#!/bin/sh
+
+#La commande suivante va ajouter dans un script.sh les commande a faire et a ajouter dans une tache CRON qui permet d'etre effectuer a une periode defini.
+
+echo 'apt-get update && apt-get upgrade' > ~/updatepackage.sh
+
+#This commands adds onto the CRON file the command that it has to execude, aswall as the time (with Admin rules)
+
+echo '0 4 * * 1   root  sh ~/updatepackage.sh' | crontab
+
+
+#Thanks BODO : Go https://crontab.guru/ <3

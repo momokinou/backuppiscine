@@ -1,0 +1,2 @@
+#Affiche les nom des interfaces reseaux dispo
+ifconfig -l

@@ -1,0 +1,5 @@
+mattermost.le-101.fr
+
+Pour la correction, le retour de cette commande n'est pas la meme qu'a 42 car MAX (merci Max) a configurer le service mattermost sur cette IP.
+GG
+Du coup, comment j'ai trouver cela : dig +short -x 10.51.1.81

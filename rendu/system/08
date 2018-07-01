@@ -1,0 +1,5 @@
+Le fichier qui contiens la liste des clef authoriser et el suivant :
+
+~/.ssh/authorized_keys
+
+(Situer habituellement dans le home d'un user)

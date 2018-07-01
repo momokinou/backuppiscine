@@ -1,0 +1,2 @@
+#Traceroute fait le chemin entre le client et le serveur, et affiche la liste complete de chaque point de connexion jusqu'au serveur
+traceroute slash16.org

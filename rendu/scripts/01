@@ -1,0 +1,10 @@
+#!/bin/sh
+
+#La commande suivante va recuperer le contenu du fichier passwd 
+#Elle va le tronker avec la fonctione awk , avec le parametre : 
+#Elle va en suite transformer chaque entrer apres les : en trois partie, par colone. (man column)
+#pour retourner le resultat dans la forme $1 = USERNAME   $3 = UID    $6 = ROOT_FOLDER
+
+#Oublie pas de rajouter SUDO pour les droit admin si besoins (:
+
+cat /etc/passwd | awk -F  ":" '{print $1 "   " $3 "   " $6}' | column -t

@@ -1,0 +1,4 @@
+#On block toute les entree de connexion avec un DROP des regles d'entree ET sortie
+
+iptables -P INPUT DROP
+iptables -P OUTPUT DROP

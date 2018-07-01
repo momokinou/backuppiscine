@@ -1,0 +1,5 @@
+#La commande qui permet d'afficher l'espace libre sur le systeme :
+
+df -h /
+
+#Fonctionne aussi sur mac.

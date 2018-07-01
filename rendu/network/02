@@ -1,0 +1,2 @@
+# Recup l'Ip de l'interface en0
+ifconfig -L en0 | grep "inet " | cut -d " " -f 2

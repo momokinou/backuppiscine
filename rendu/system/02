@@ -1,0 +1,8 @@
+La commande qui permet de changer ou meme d'afficher le nom du system est la suivante ;
+
+hostname
+
+Pour changer de nom : 
+
+hostname <nouveau nom>
+

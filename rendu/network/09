@@ -1,0 +1,11 @@
+#Dig go check the Public Ip for the selected domain
+#dig +short 42.fr
+
+RESULT : 
+
+163.172.250.13
+163.172.250.11
+163.172.250.12
+
+#+short shows the short version of the answer
+#Yes I wrote this in english , and not in french. VOILA

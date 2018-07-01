@@ -1,0 +1,8 @@
+Le fichier qui contien la version de Debian est situer ici :
+
+/etc/debian_version
+
+Pour avoir plus d'information sur la version on peux aussi check 
+
+/etc/os-release
+

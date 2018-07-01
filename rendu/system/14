@@ -1,0 +1,5 @@
+#POur lancer une commande en fond, (Fonctionne pas pour tout) vous pouvez rajouter & a la fin de celle ci :
+
+tail -f /var/log/syslog &
+
+#Voilaaa

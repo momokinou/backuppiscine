@@ -1,0 +1,4 @@
+#La commande pour voir si la connexion peut-etre etablie est la suivante :
+ping -c 1 10.51.1.253
+
+#Si il y a 100% des packet perdu, la conneixon na pas ete etablie.
