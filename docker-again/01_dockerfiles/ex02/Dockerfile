@@ -1,18 +1,18 @@
 #From Ruby Image
 FROM ruby
 
-#We prepare our image and install every dependencies we need.
+#Preparation image + installation dependencies needed
 RUN apt-get update -y && apt-get upgrade -y
 RUN gem install rails
 RUN apt-get install nodejs -y
 
-#We copy current working folder into required location
+#Copy fichier travail a la loc voulu
 ONBUILD COPY . /opt/app
 
-#We set the Workdir on the build
+#Set workdir au build
 ONBUILD WORKDIR /opt/app
 
-#on build we run the different commands that set Databse, and Ruby on rails app
+#on build Run des diff commandes pour set database + Run  Ruby on rails app
 ONBUILD RUN bundle install | tee ./logs.log
 ONBUILD RUN rails db:migrate
 ONBUILD RUN rails db:seed
