@@ -1,21 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalnum.c                                       :+:      :+:    :+:   */
+/*   ft_strmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qmoricea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/09 14:25:14 by qmoricea          #+#    #+#             */
-/*   Updated: 2018/08/15 09:48:39 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Created: 2017/11/14 11:18:05 by qmoricea          #+#    #+#             */
+/*   Updated: 2017/11/18 11:15:04 by qmoricea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_isalnum(int c)
+char	*ft_strmap(char const *s, char (*f)(char))
 {
-	if ((c >= 48 && c <= 57) || (c >= 65 && c <= 90)
-			|| (c >= 97 && c <= 122))
-		return (1);
-	return (0);
+	char			*new;
+	unsigned int	i;
+
+	if (!s)
+		return (NULL);
+	if (!f)
+		return (NULL);
+	new = ft_strnew(ft_strlen(s));
+	if (new == NULL)
+		return (NULL);
+	i = 0;
+	while (s[i] != '\0')
+	{
+		new[i] = f(s[i]);
+		i++;
+	}
+	return (new);
 }

@@ -6,7 +6,7 @@
 #    By: qmoricea <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/16 12:18:58 by qmoricea          #+#    #+#              #
-#    Updated: 2018/08/15 09:45:43 by qmoricea    ###    #+. /#+    ###.fr      #
+#    Updated: 2017/11/18 11:51:48 by qmoricea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,8 +73,7 @@ SOURCES = ft_atoi.c\
 		  ft_lstdel.c\
 		  ft_lstadd.c\
 		  ft_lstiter.c\
-		  ft_lstmap.c\
-		  get_next_line.c
+		  ft_lstmap.c
 
 OBJECT = $(SOURCES:.c=.o)
 

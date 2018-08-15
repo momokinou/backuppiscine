@@ -6,21 +6,16 @@
 /*   By: qmoricea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 09:41:36 by qmoricea          #+#    #+#             */
-/*   Updated: 2018/08/15 09:52:08 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Updated: 2017/11/17 14:28:29 by qmoricea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
-# include <fcntl.h>
-# include <sys/types.h>
-# include <sys/stat.h>
 # include <string.h>
 # include <unistd.h>
 # include <stdlib.h>
-
-# define BUFF_SIZE 255
 
 typedef struct		s_list
 {
@@ -87,7 +82,5 @@ void				ft_lstdel(t_list **alst, void (*del)(void *, size_t));
 void				ft_lstadd(t_list **alst, t_list *new);
 void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
-
-int					get_next_line(const int fd, char **line);
 
 #endif

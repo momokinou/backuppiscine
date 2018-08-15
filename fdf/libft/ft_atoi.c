@@ -1,21 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalnum.c                                       :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qmoricea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/09 14:25:14 by qmoricea          #+#    #+#             */
-/*   Updated: 2018/08/15 09:48:39 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Created: 2017/11/09 12:38:21 by qmoricea          #+#    #+#             */
+/*   Updated: 2017/11/18 11:52:29 by qmoricea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_isalnum(int c)
+static int		ft_isspace(int c)
 {
-	if ((c >= 48 && c <= 57) || (c >= 65 && c <= 90)
-			|| (c >= 97 && c <= 122))
-		return (1);
-	return (0);
+	return ((9 <= c && c <= 13) || c == 32);
+}
+
+int				ft_atoi(const char *str)
+{
+	int n;
+	int isneg;
+
+	isneg = 0;
+	n = 0;
+	while (ft_isspace(*str))
+		str++;
+	if (*str == '+')
+		str++;
+	else if (*str == '-')
+	{
+		isneg = 1;
+		str++;
+	}
+	while (*str != '\0' && ft_isdigit(*str))
+	{
+		n = n * 10 + (*str++ - '0');
+	}
+	if (isneg)
+		return (-n);
+	else
+		return (n);
 }
