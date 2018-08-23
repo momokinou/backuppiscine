@@ -10,4 +10,4 @@ app = Flask(__name__)
 def hello_world():
     return '<h1>Hello World</h1>'" > ~/Docker_test/helloworld.py && \
 
-docker run -d --name Abathur -p 3000:3000 --mount type=bind,source="/Users/nzenzela/Docker_test",target=/root python:2-slim bash -c "pip install Flask && FLASK_APP=/root/helloworld.py flask run --host=0.0.0.0 --port=3000"
+docker run -d --name Abathur -p 3000:3000 --mount type=bind,source="/Users/qmoricea/Docker",target=/root python:2-slim bash -c "pip install Flask && FLASK_APP=/root/helloworld.py flask run --host=0.0.0.0 --port=3000"
