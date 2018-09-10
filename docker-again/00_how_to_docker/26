@@ -2,6 +2,6 @@
     --network overmind \
     --detach=true \
     --replicas=2 \
-    -e "OC_USERNAME=userpatate" \
-    -e "OC_PASSWD=PotatoIsgod" \
+    -e "OC_USERNAME=momokinou" \
+    -e "OC_PASSWD=kaktusgod" \
     42school/engineering-bay
