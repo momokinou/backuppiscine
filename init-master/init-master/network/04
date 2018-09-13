@@ -1,1 +1,4 @@
-netstat -nr | awk '/default/{print $2}'
+#Iditenfiew le gateway par defaut dans la table de root
+netstat -nr | awk '/default/{print $2}' | head -1
+# -n pour afficher les Adresses et -r pour afficher la table de root et head -1
+#  supprime une ligne du resultat afin d'avoir le bon.

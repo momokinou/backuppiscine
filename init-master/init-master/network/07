@@ -1,1 +1,4 @@
+# Pour une reponse bien presentee:
+# nslookup slash16.org 8.8.8.8
+# Pour une reponse avec juste les adresses:
 nslookup slash16.org 8.8.8.8 | awk '/Address/{print$2}' | sed 1d

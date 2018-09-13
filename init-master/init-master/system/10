@@ -1,1 +1,4 @@
-sudo /sbin/fdisk -l
+sudo fdisk -l
+# On a pas les perms pour l'executer et fdisk -l qui affichait toutes les
+# partitions ne le fait plus. Tu peux verifier sur internet :) Ca ne marche que
+# sous Debian, comme demande.

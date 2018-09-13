@@ -1,1 +1,4 @@
-ipconfig getifaddr en0
+# Pour les caracteristique :
+ifconfig en0 | grep "inet "
+# Si on ne veut que l'Adresse IP:
+# ipconfig getifaddr en0 ou bien ifconfig en0 | grep "inet " | cut -d " " -f 2
