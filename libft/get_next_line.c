@@ -6,22 +6,22 @@
 /*   By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/18 14:08:31 by qmoricea     #+#   ##    ##    #+#       */
-/*   Updated: 2018/08/15 09:53:48 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/14 09:22:39 by qmoricea    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char		*rl(const int fd, char *buff, int *ret)
+static char		*readline(const int fd, char *buff, int *ret)
 {
-	char	tpm[BUFF_SIZE + 1];
+	char	temp[BUFF_SIZE + 1];
 	char	*store;
 
-	*ret = read(fd, tpm, BUFF_SIZE);
-	tpm[*ret] = '\0';
+	*ret = read(fd, temp, BUFF_SIZE);
+	temp[*ret] = '\0';
 	store = buff;
-	if (!(buff = ft_strjoin(buff, tpm)))
+	if (!(buff = ft_strjoin(buff, temp)))
 		return (NULL);
 	ft_strdel(&store);
 	return (buff);
@@ -54,7 +54,7 @@ int				get_next_line(const int fd, char **line)
 			ft_memmove(buff, file + 1, ft_strlen(file + 1) + 1);
 			return (1);
 		}
-		if (!(buff = rl(fd, buff, &ret)))
+		if (!(buff = readline(fd, buff, &ret)))
 			return (-1);
 	}
 	ft_strdel(&file);
