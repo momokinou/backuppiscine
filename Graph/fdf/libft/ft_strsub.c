@@ -1,21 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalnum.c                                       :+:      :+:    :+:   */
+/*   ft_strsub.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qmoricea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/09 14:25:14 by qmoricea          #+#    #+#             */
-/*   Updated: 2018/08/15 09:48:39 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Created: 2017/11/14 13:57:02 by qmoricea          #+#    #+#             */
+/*   Updated: 2017/11/18 11:19:50 by qmoricea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_isalnum(int c)
+char		*ft_strsub(char const *s, unsigned int start, size_t len)
 {
-	if ((c >= 48 && c <= 57) || (c >= 65 && c <= 90)
-			|| (c >= 97 && c <= 122))
-		return (1);
-	return (0);
+	char	*sub;
+	size_t	i;
+
+	if (!s)
+		return (NULL);
+	sub = ft_strnew(len);
+	if (!sub)
+		return (NULL);
+	s = s + start;
+	i = 0;
+	while (i < len)
+	{
+		sub[i] = s[i];
+		i++;
+	}
+	return (sub);
 }

@@ -6,7 +6,7 @@
 /*   By: qmoricea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 09:41:36 by qmoricea          #+#    #+#             */
-/*   Updated: 2018/09/14 10:06:23 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/14 09:28:13 by qmoricea    ###    #+. /#+    ###.fr     */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # include <string.h>
 # include <unistd.h>
 # include <stdlib.h>
-# include <stdio.h>
 
 # define BUFF_SIZE 255
 
