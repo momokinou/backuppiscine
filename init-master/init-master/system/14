@@ -1,4 +1,1 @@
-tail -f /var/log/syslog &
-# Utilise source 14 pour lancer la commande. Elle lance la commande en back
-# Mais comme /var/log/syslog n'existe pas, ca delete l'action, c'est fait expres
-# Ca fonctionne sosu debian comme voulu
+sudo tail -f /var/log/syslog &
