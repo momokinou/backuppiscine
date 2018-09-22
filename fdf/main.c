@@ -6,7 +6,7 @@
 /*   By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/14 09:54:30 by qmoricea     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/14 09:54:32 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/22 18:44:57 by qmoricea    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -49,6 +49,12 @@ int				main(int ac, char **av)
 	}
 	mlx.mlx_ptr = mlx_init();
 	mlx.win_ptr = mlx_new_window(mlx.mlx_ptr, MAX_WID, MAX_HGH, "FDF");
+	mlx_string_put(mlx.mlx_ptr, mlx.win_ptr, 10, 5, 0xFFFFFF, "< for left");
+	mlx_string_put(mlx.mlx_ptr, mlx.win_ptr, 10, 20, 0xFFFFFF, "> for right");
+	mlx_string_put(mlx.mlx_ptr, mlx.win_ptr, 10, 35, 0xFFFFFF, "^ for  up");
+	mlx_string_put(mlx.mlx_ptr, mlx.win_ptr, 10, 50, 0xFFFFFF, "arrow down for down");
+	mlx_string_put(mlx.mlx_ptr, mlx.win_ptr, 10, 65, 0xFFFFFF, "w or + for decrease");
+	mlx_string_put(mlx.mlx_ptr, mlx.win_ptr, 10, 80, 0xFFFFFF, "s or - for increase");
 	fd = ft_check_open(fd, av);
 	ft_read_file_y(fd, line, av, &mlx);
 	mlx_key_hook(mlx.win_ptr, ft_key_hook, (void *)&mlx);

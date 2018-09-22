@@ -6,7 +6,7 @@
 /*   By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/13 10:41:09 by qmoricea     #+#   ##    ##    #+#       */
-/*   Updated: 2018/09/13 10:41:12 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/09/22 18:46:12 by qmoricea    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -72,7 +72,7 @@ void		ft_bresen(t_point a, t_point b, void *mlx_ptr, void *win_ptr)
 	{
 		if (a.x == b.x && a.y == b.y)
 			break ;
-		mlx_pixel_put(mlx_ptr, win_ptr, a.x, a.y, 0x0AACCFF);
+		mlx_pixel_put(mlx_ptr, win_ptr, a.x, a.y, 0x0004FF);
 		e = point.err;
 		if (e > -point.dx)
 		{
