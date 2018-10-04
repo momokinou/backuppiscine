@@ -1,0 +1,10 @@
+# Sous la VM Char :
+eval "$(docker-machine env Char)"
+# Pour avoir le token Worker :
+token=$(docker swarm join-token -q worker)
+# Sous la VM Aiur :
+eval "$(docker-machine env Aiur)"
+Ajout du worker sur le swarm :
+docker swarm join --token $token $(docker-machine ip Char):2377
+# Check :
+docker node ls
