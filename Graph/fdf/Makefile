@@ -6,7 +6,7 @@
 #    By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/09/14 11:01:32 by qmoricea     #+#   ##    ##    #+#        #
-#    Updated: 2018/09/14 11:12:31 by qmoricea    ###    #+. /#+    ###.fr      #
+#    Updated: 2018/09/15 14:29:11 by qmoricea    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -24,7 +24,7 @@ NORME		= norminette -R CheckForbiddenSourceHeader
 LIBF		= libft
 LIBMLX		= minilibx_macos
 CLIB		= -framework OpenGL -framework Appkit
-LIB			= $(LIBF)/libft.a \	
+LIB			= $(LIBF)/libft.a \
 			  $(LIBMLX)/libmlx.a \
 $(CLIB)
 
@@ -68,7 +68,7 @@ SWHITE		= \033[47m
 all: $(NAME)
 
 $(NAME): $(LIBF)/libft.a $(LIBMLX)/libmlx.a $(OBJDIR) $(OBJ)
-         $(QUIET)$(ECHO) "\033[4;31mCréation des executables\033[0m"
+		 $(QUIET)$(ECHO) "\033[4;31mCréation des executables\033[0m"
 		 $(QUIET)$(CC)$(FLAGS)$(LIB)$(OBJ) -o $@
 		 $(QUIET)$(ECHO) "\033[4;37mOK\033[0"
 

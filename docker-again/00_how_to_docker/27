@@ -1,3 +1,0 @@
-#2 commandes, une pour: service tasks ID, et une pour enregistrer les données des tâches demandées
-
-docker service logs -f $(docker service ps -f "name=engineering-bay.1" engineering-bay -q)
