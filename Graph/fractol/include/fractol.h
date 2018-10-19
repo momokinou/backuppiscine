@@ -1,20 +1,21 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   fractol.h                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: adespond <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/15 13:21:52 by adespond          #+#    #+#             */
-/*   Updated: 2016/03/15 15:56:35 by adespond         ###   ########.fr       */
-/*                                                                            */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   fractol.h                                        .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2018/10/19 10:57:46 by qmoricea     #+#   ##    ##    #+#       */
+/*   Updated: 2018/10/19 11:21:55 by qmoricea    ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
 /* ************************************************************************** */
 
 #ifndef __FRACTOL_H
 # define __FRACTOL_H
 
 # include "../libft/libft.h"
-# include <mlx.h>
+# include "../minilibx_macos/mlx.h"
 # include <math.h>
 
 # define MOUSE_ZOOM_IN 5

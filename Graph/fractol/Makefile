@@ -1,13 +1,14 @@
 # **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: adespond <marvin@42.fr>                    +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2015/11/23 11:41:24 by adespond          #+#    #+#              #
-#    Updated: 2016/03/15 13:32:18 by adespond         ###   ########.fr        #
-#                                                                              #
+#                                                           LE - /             #
+#                                                               /              #
+#    Makefile                                         .::    .:/ .      .::    #
+#                                                  +:+:+   +:    +:  +:+:+     #
+#    By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+      #
+#                                                  #+#   #+    #+    #+#       #
+#    Created: 2018/10/19 11:20:45 by qmoricea     #+#   ##    ##    #+#        #
+#    Updated: 2018/10/19 11:23:09 by qmoricea    ###    #+. /#+    ###.fr      #
+#                                                          /                   #
+#                                                         /                    #
 # **************************************************************************** #
 
 NAME	= fractol
@@ -34,7 +35,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	make -C libft/
-	gcc -Wall -Wextra -Werror -L libft/ -lft -L/usr/local/lib -lmlx -framework OpenGL -framework AppKit $(SRC) -o $(NAME)
+	gcc -Wall -Wextra -Werror -L libft/ -lft -L/Users/qmoricea/Projets/Graph/fractol/minilibx_macos -lmlx -framework OpenGL -framework AppKit $(SRC) -o $(NAME)
 	printf '\033[32m[ ✔ ] %s\n\033[0m' "Create Fractol"
 
 obj/%.o: src/%.c
