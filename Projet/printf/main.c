@@ -1,27 +1,32 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   printf.c                                         .::    .:/ .      .::   */
+/*   main.c                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/10/28 21:23:06 by qmoricea     #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/13 13:49:14 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Created: 2018/11/13 13:49:20 by qmoricea     #+#   ##    ##    #+#       */
+/*   Updated: 2018/11/13 13:50:25 by qmoricea    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
+#include "stdlib.h"
 
-int				ft_printf(const char *format, ...)
+int		main(void)
 {
-	va_list		ap;
-	int			i;
-
-	i = 0;
-	va_start(ap, format);
-	checkspec(format, ap, i);
-	i = 0;
-	va_end(ap);
-	return (0);
+	ft_printf("%d", 545665);
+	write(1, "\n", 1);
+	ft_printf("%c", 'c');
+	write(1, "\n", 1);
+	ft_printf("%d", 0);
+	write(1, "\n", 1);
+	ft_printf("%o", 95);
+	write(1, "\n", 1);
+	ft_printf("%s", "test string");
+	write(1, "\n", 1);
+	printf("%s %c", "----------------------------------------", '\n');
+	printf("%5d\n", 95);
+	printf("%01d", 5);
 }
