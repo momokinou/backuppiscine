@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qmoricea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/09 14:05:25 by qmoricea          #+#    #+#             */
-/*   Updated: 2018/10/28 22:18:02 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Created: 2017/11/09 12:39:50 by qmoricea          #+#    #+#             */
+/*   Updated: 2017/11/16 11:00:41 by qmoricea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_strcmp(const char *s1, const char *s2)
+size_t		ft_strlen(const char *s)
 {
-	while (*s1 != '\0' && *s1 == *s2)
+	int i;
+
+	i = 0;
+	while (s[i])
 	{
-		s1++;
-		s2++;
+		i++;
 	}
-	return ((unsigned char)*s1 - (unsigned char)*s2);
+	return (i);
 }

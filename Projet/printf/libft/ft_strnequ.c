@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   ft_strnequ.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qmoricea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/09 14:05:25 by qmoricea          #+#    #+#             */
-/*   Updated: 2018/10/28 22:18:02 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Created: 2017/11/14 13:48:16 by qmoricea          #+#    #+#             */
+/*   Updated: 2017/11/14 16:55:06 by qmoricea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_strcmp(const char *s1, const char *s2)
+int		ft_strnequ(char const *s1, char const *s2, size_t n)
 {
-	while (*s1 != '\0' && *s1 == *s2)
+	if (s1 && s2)
 	{
-		s1++;
-		s2++;
+		if (ft_strncmp(s1, s2, n) == 0)
+			return (1);
 	}
-	return ((unsigned char)*s1 - (unsigned char)*s2);
+	return (0);
 }

@@ -1,23 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   ft_lstdel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qmoricea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/09 14:05:25 by qmoricea          #+#    #+#             */
-/*   Updated: 2018/10/28 22:18:02 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Created: 2017/11/16 11:32:51 by qmoricea          #+#    #+#             */
+/*   Updated: 2017/11/17 16:28:44 by qmoricea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_strcmp(const char *s1, const char *s2)
+void	ft_lstdel(t_list **alst, void (*del)(void *, size_t))
 {
-	while (*s1 != '\0' && *s1 == *s2)
+	t_list *list;
+	t_list *nextlist;
+
+	list = *alst;
+	while (list != NULL)
 	{
-		s1++;
-		s2++;
+		nextlist = list->next;
+		del(list->content, list->content_size);
+		free(list);
+		list = nextlist;
 	}
-	return ((unsigned char)*s1 - (unsigned char)*s2);
+	*alst = NULL;
 }

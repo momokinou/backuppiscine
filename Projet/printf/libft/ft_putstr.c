@@ -1,23 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qmoricea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/09 14:05:25 by qmoricea          #+#    #+#             */
-/*   Updated: 2018/10/28 22:18:02 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Created: 2017/11/15 10:37:56 by qmoricea          #+#    #+#             */
+/*   Updated: 2017/11/18 11:07:55 by qmoricea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_strcmp(const char *s1, const char *s2)
+void	ft_putstr(char const *s)
 {
-	while (*s1 != '\0' && *s1 == *s2)
+	int i;
+
+	i = 0;
+	if (!s)
+		return ;
+	while (s[i])
 	{
-		s1++;
-		s2++;
+		ft_putchar(s[i]);
+		i++;
 	}
-	return ((unsigned char)*s1 - (unsigned char)*s2);
 }

@@ -1,23 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qmoricea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/09 14:05:25 by qmoricea          #+#    #+#             */
-/*   Updated: 2018/10/28 22:18:02 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Created: 2017/11/09 12:38:21 by qmoricea          #+#    #+#             */
+/*   Updated: 2018/09/14 09:23:13 by qmoricea    ###    #+. /#+    ###.fr     */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_strcmp(const char *s1, const char *s2)
+static int		ft_isspace(int c)
 {
-	while (*s1 != '\0' && *s1 == *s2)
+	return ((9 <= c && c <= 13) || c == 32);
+}
+
+int				ft_atoi(const char *str)
+{
+	int n;
+	int isneg;
+
+	isneg = 0;
+	n = 0;
+	while (ft_isspace(*str))
+		str++;
+	if (*str == '+')
+		str++;
+	else if (*str == '-')
 	{
-		s1++;
-		s2++;
+		isneg = 1;
+		str++;
 	}
-	return ((unsigned char)*s1 - (unsigned char)*s2);
+	while (*str != '\0' && ft_isdigit(*str))
+	{
+		n = n * 10 + (*str++ - '0');
+	}
+	if (isneg)
+		return (-n);
+	else
+		return (n);
 }

@@ -1,23 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qmoricea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/09 14:05:25 by qmoricea          #+#    #+#             */
-/*   Updated: 2018/10/28 22:18:02 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Created: 2017/11/13 14:57:41 by qmoricea          #+#    #+#             */
+/*   Updated: 2017/11/16 12:23:23 by qmoricea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_strcmp(const char *s1, const char *s2)
+char	*ft_strnstr(const char *str, const char *find, size_t len)
 {
-	while (*s1 != '\0' && *s1 == *s2)
+	size_t	i;
+	char	*j;
+	char	*k;
+
+	if (!*find)
+		return ((char *)str);
+	while (len-- && *str)
 	{
-		s1++;
-		s2++;
+		if (*str == *find)
+		{
+			i = len;
+			j = (char *)str + 1;
+			k = (char *)find + 1;
+			while (i-- && *j && *k && *j == *k)
+			{
+				++j;
+				++k;
+			}
+			if (!*k)
+				return ((char *)str);
+		}
+		++str;
 	}
-	return ((unsigned char)*s1 - (unsigned char)*s2);
+	return (NULL);
 }
