@@ -6,12 +6,12 @@
 #    By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/11/05 22:12:35 by qmoricea     #+#   ##    ##    #+#        #
-#    Updated: 2018/11/13 13:55:51 by qmoricea    ###    #+. /#+    ###.fr      #
+#    Updated: 2018/11/14 07:52:58 by qmoricea    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
 
-NAME    = libftprintf
+NAME    = libftprintf.a
 
 SRC        = ft_printf.c \
 			 intlen.c \
@@ -21,39 +21,37 @@ SRC        = ft_printf.c \
 			 printnbr.c \
 			 printoctal.c \
 			 printshort.c \
-			 printunbr \
+			 printunbr.c \
+			 checkspec.c \
+			 spechar.c \
+			 specjz.c \
+			 specxo.c \
+			 speint.c \
+			 printnoopt.c \
+			 checkflags.c \
 			 main.c
 
-OBJ        = $(patsubst src/%.c,obj/%.o,$(SRC))
+OBJ        = $(SRC:.c=.o)
 .SILENT:
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	make -C libft/
-	gcc  $(SRC) -o $(NAME)
-	printf '\033[32m[ ✔ ] %s\n\033[0m' "Create Fractol"
+	gcc $(SRC) -o $(NAME)
+	printf '\033[32m[ ✔ ] %s\n\033[0m' "Create Printf"
 
-obj/%.o: src/%.c
-	mkdir -p obj
+./%.o: ./%.c
 	gcc -Wall -Wextra -Werror -c $< -o $@
 	printf '\033[0m[ ✔ ] %s\n\033[0m' "$<"
 
 clean:
-	/bin/rm -rf obj/
-	make -C libft/ clean
+	rm -rf $(OBJ)
 	printf '\033[31m[ ✔ ] %s\n\033[0m' "Clean Libprintf"
 
 fclean: clean
-	/bin/rm -f $(NAME)
-	make -C libft/ fclean
+	rm -f $(NAME)
 	printf '\033[31m[ ✔ ] %s\n\033[0m' "Fclean Libprintf"
 
 re: fclean all
 
-test: re
-	printf '\033[32m%s\n\033[0m' "-------------------------------------"
-	./fdf
-
-all: $(NAME)
-	.PHONY: clean fclean re all
+.PHONY: clean fclean re all

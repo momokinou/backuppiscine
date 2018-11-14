@@ -6,7 +6,7 @@
 /*   By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/05 21:48:13 by qmoricea     #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/13 13:50:05 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/14 07:57:11 by qmoricea    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -41,11 +41,13 @@ int					ft_intlen(int n);
 int					ft_printf_l(const char *format, int i, va_list ap);
 int					ft_printf_nbr(int nbr);
 void				ft_printnbr_ld(long n);
+void				ft_printf_plusnbr(intmax_t n);
 
 /* LIBFTPRINTF unsigned nombres  */
 
 void				ft_putunbr(intmax_t n);
 void				ft_putunbr_fd(intmax_t n, int fd);
+int					ft_printf_unbr(int nbr);
 
 /* LIBFTPRINTF length fonctions long + long long + short for d/i */
 
@@ -88,6 +90,17 @@ void				checkspec(const char *format, va_list ap, int i);
 void				checkspec2(const char *format, va_list ap, int i);
 // Gestion f p
 void				checkspec3(const char *format, va_list ap, int i);
+// Gestion no options
+void				checknoopt(const char *format, va_list ap, int i);
+
+/* Gestion des Flags - + ' ' et # */
+
+void				ft_printf_flagsminus(const char *format, va_list ap, int i);
+void				ft_printf_flagsplus(const char *format, va_list ap, int i);
+void				ft_printf_flagsspace(const char *format, va_list ap, int i);
+void				ft_printf_flagshashtag(const char *format, va_list ap, int i);
+// Check des Flags
+void				checkflags(const char *format, va_list ap, int i);
 
 /* LIBFTPRINTF main printf */
 
