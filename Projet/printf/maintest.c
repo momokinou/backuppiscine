@@ -6,7 +6,7 @@
 /*   By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/06 21:14:28 by qmoricea     #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/15 11:47:37 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/15 16:16:58 by qmoricea    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -86,7 +86,7 @@ void		ft_putunbr_fd(intmax_t n, int fd)
 
 	x = n;
 	if (n < 0)
-		x = 4139320750;
+		x = 4294967296 + n;
 	if (x >= 10)
 	{
 		ft_putnbr_fd(x / 10, fd);
@@ -99,6 +99,7 @@ void		ft_putunbr_fd(intmax_t n, int fd)
 void		ft_putunbr(intmax_t n)
 {
 	ft_putunbr_fd(n, 1);
+
 }
 
 /*size_t		udigit_count(uintmax_t n, unsigned int base)
@@ -256,6 +257,20 @@ int		ft_printf_xm(unsigned int n)
 		return (ft_printf_xm(n / 16) + ft_printf_xm(n % 16));
 	else
 		return (ft_printf_c(HEXM[n]));
+}
+
+int			ft_printf_p(unsigned int n)
+{
+	int i;
+
+	i = 0;
+	if (n >= 16)
+	{
+		i++;
+		return((ft_printf_p(n / 16) + ft_printf_p(n % 16)));
+	}
+	else
+		return (ft_printf_c(HEX[n]));
 }
 
 void		printno_opt(const char *format)
@@ -538,11 +553,6 @@ void        ft_printf_widthspeint(const char *format, int width, int i,
 			ft_printf_nbr(nbr);
 			break ;
 		}
-		else if (format[i] == 'u')
-		{
-			ft_printf_unbr(nbr);
-			break ;
-		}
 		break ;
 	}
 }
@@ -558,13 +568,21 @@ void        checkwidthspec(const char *format, int width, int i, intmax_t
 	}
 	if (format[i] == 'd' || format[i] == 'i')
 		ft_putunbr(nbr);
+	if (format[i] == 'u')
+		ft_putunbr(nbr);
+	if (format[i] == 'o')
+		ft_printf_octal(nbr);
+	if (format[i] == 'x')
+		ft_printf_x(nbr);
+	if (format[i] == 'X')
+		ft_printf_xm(nbr);
 }
-
 
 void        ft_printf_flagszero(const char *format, va_list ap, int i)
 {
 	int n;
 	int m;
+	int modif;
 
 	n = 0;
 	i++;
@@ -584,10 +602,40 @@ void        ft_printf_flagszero(const char *format, va_list ap, int i)
 		n = n - ft_intlen(m);
 		checkwidthspec(format, n, i, m, '0');
 	}
+	if (format[i] == 'u')
+	{
+		n = ft_atoi(format);
+		m = va_arg(ap, unsigned int);
+		n = n - ft_intlen(m);
+		checkwidthspec(format, n, i, m, '0');
+	}
+	if (format[i] == 'o')
+	{
+		n = ft_atoi(format);
+		modif = (unsigned int)va_arg(ap, int);
+		m = modif;
+		while (m >= 8)
+		{
+			m = m / 8;
+			n--;
+		}
+		n--;
+		checkwidthspec(format, n, i, modif, '0');
+	}
+	if (format[i] == 'x' || format[i] == 'X')
+	{
+		n = ft_atoi(format);
+		modif = (va_arg(ap, unsigned int));
+		m = modif;
+		while (m >= 16)
+		{
+			m = m / 16;
+			n--;
+		}
+		n--;
+		checkwidthspec(format, n, i, modif, '0');
+	}
 }
-
-
-
 
 
 
@@ -767,39 +815,47 @@ void        checkflags(const char *format, va_list ap, int i)
 
 void		checkspec3(const char *format, va_list ap, int i)
 {
-		if (format[i] == 'f')
-		{
-			ft_putnbr((float)va_arg(ap, int));
-			i++;
-		}
-		if (format[i] == 'p')
-		{
-			ft_putstr(uitoa_base(va_arg(ap, unsigned int),16, format, 0));
-			i++;
-		}
-		checkflags(format, ap, i);
+	int n;
+	int m;
+	int len;
+
+	len = 1;
+	if (format[i] == 'f')
+	{
+		ft_putnbr((float)va_arg(ap, int));
+		i++;
+	}
+	if (format[i] == 'p')
+	{
+		write(1, "0x10", 4);
+		n = va_arg(ap, int);
+		m = n;
+		ft_printf_p(n);
+		i++;
+	}
+	checkflags(format, ap, i);
 }
 
 // Gestion x X o Specifiers & l ll h j z length
 
 void		checkspec2(const char *format, va_list ap, int i)
 {
-		if (format[i] == 'x' || format[i] == 'X' || format[i] == 'o')
-		{
-			ft_printf_specxo(format, ap, i);
-			i++;
-		}
-		if (format[i] == 'l' || format[i] == 'h')
-		{
-			ft_printf_speint(format, ap, i);
-			i++;
-		}
-		if (format[i] == 'j' || format[i] == 'z')
-		{
-			ft_printf_specjz(format, ap, i);
-			i++;
-		}
-		checkspec3(format, ap, i);
+	if (format[i] == 'x' || format[i] == 'X' || format[i] == 'o')
+	{
+		ft_printf_specxo(format, ap, i);
+		i++;
+	}
+	if (format[i] == 'l' || format[i] == 'h')
+	{
+		ft_printf_speint(format, ap, i);
+		i++;
+	}
+	if (format[i] == 'j' || format[i] == 'z')
+	{
+		ft_printf_specjz(format, ap, i);
+		i++;
+	}
+	checkspec3(format, ap, i);
 }
 
 
@@ -807,22 +863,22 @@ void		checkspec2(const char *format, va_list ap, int i)
 
 void		checkspec(const char *format, va_list ap, int i)
 {
-		if (format[i] == '%')
-		{
-			write(1, "%", 1);
-			i++;
-		}
-		if (format[i] == 'c' || format[i] == 's')
-		{
-			ft_printf_spechar(format, ap, i);
-			i++;
-		}
-		if (format[i] == 'd' || format[i] == 'i' || format[i] == 'u')
-		{
-			ft_printf_speint(format, ap, i);
-			i++;
-		}
-		checkspec2(format, ap, i);
+	if (format[i] == '%')
+	{
+		write(1, "%", 1);
+		i++;
+	}
+	if (format[i] == 'c' || format[i] == 's')
+	{
+		ft_printf_spechar(format, ap, i);
+		i++;
+	}
+	if (format[i] == 'd' || format[i] == 'i' || format[i] == 'u')
+	{
+		ft_printf_speint(format, ap, i);
+		i++;
+	}
+	checkspec2(format, ap, i);
 }
 
 void		checknoopt(const char *format, va_list ap, int i)
@@ -871,7 +927,7 @@ int			main(void)
 {
 	char *p;
 
-	p = "test";
+	p = "pne iuhe wn uew";
 	// Test d
 	ft_printf("%d", 545665);
 	write(1, "\n", 1);
@@ -908,9 +964,9 @@ int			main(void)
 	printf("s %s%s\n", "test string", "->printf");
 
 	// Test u
-	ft_printf("%u", 101);
+	ft_printf("%u", -100);
 	write(1, "\n", 1);
-	printf("u %u%s\n", 101, "->printf");
+	printf("u %u%s\n", -100, "->printf");
 
 	// Test %%
 	ft_printf("%%");
@@ -940,9 +996,9 @@ int			main(void)
 	printf("# %#x%s\n", 36, "->printf");
 
 	//Test 0 (Zero)
-	ft_printf("%05d", 15);
+	ft_printf("%05o", 56);
 	write(1, "\n", 1);
-	printf("0 %05d%s\n", 15, "->printf");
+	printf("0 %05o%s\n", 56, "->printf");
 
 	//Test p
 	ft_printf("%p", p);
