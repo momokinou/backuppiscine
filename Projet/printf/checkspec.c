@@ -6,7 +6,7 @@
 /*   By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/13 14:20:53 by qmoricea     #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/14 08:43:32 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/15 09:42:20 by qmoricea    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -83,5 +83,5 @@ void		checknoopt(const char *format, va_list ap, int i)
 	if (format[i++] != '%')
 		printno_opt(format);
 	else
-		checkspec(format, ap, i);
+		checkflags(format, ap, i);
 }

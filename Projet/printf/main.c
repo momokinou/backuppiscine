@@ -6,7 +6,7 @@
 /*   By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/13 13:49:20 by qmoricea     #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/14 09:00:06 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/15 08:43:30 by qmoricea    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -46,7 +46,7 @@ int		main(void)
 
 	// Test X
 	ft_printf("%X", 42);
-	 write(1, "\n", 1);
+	write(1, "\n", 1);
 	printf("X %X%s\n", 42, "->printf");
 
 	// Test s
@@ -65,7 +65,7 @@ int		main(void)
 	printf("%%");
 	printf("%s\n", "->printf");
 
-// Partie Test des Flags - + ' ' et #
+	// Partie Test des Flags - + ' ' et #
 	// Test - (MINUS)
 	ft_printf("%-d", 95);
 	write(1, "\n", 1);
@@ -85,6 +85,11 @@ int		main(void)
 	ft_printf("%#x", 36);
 	write(1, "\n", 1);
 	printf("%#x%s\n", 36, "->printf");
+
+	//Test 0 (Zero)
+	ft_printf("%05d", 15);
+	write(1, "\n", 1);
+	printf("%05d%s\n", 15, "->printf");
 
 	printf("%s \n", "----------------------------------------");
 	printf("%p\n", p);

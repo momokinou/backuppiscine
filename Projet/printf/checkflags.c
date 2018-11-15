@@ -6,7 +6,7 @@
 /*   By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/14 07:46:27 by qmoricea     #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/14 08:43:47 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/15 10:17:00 by qmoricea    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -100,6 +100,36 @@ void		ft_printf_flagshashtag(const char *format, va_list ap, int i)
 	}
 }
 
+void		ft_printf_flagszero(const char *format, va_list ap, int i)
+{
+	char *tmp;
+	int n;
+
+	n = 0;
+	tmp = NULL;
+	while (format[i])
+	{
+		while (format[i] <= '9' && format[i] > '0')
+		{
+			tmp[n] = format[i];
+			i++;
+			n++;
+		}
+		break ;
+	}
+	if (format[i] == 'd' || format[i] == 'i' || format[i] =='x'
+			|| format[i] == 'X' || format[i] == 'o')
+	{
+		n = atoi(tmp);
+		n = n - ft_intlen(va_arg(ap, int));
+	}
+	while (n != 0 && n > 0)
+	{
+		write(1, "0", 1);
+		n--;
+	}
+}
+
 void		checkflags(const char *format, va_list ap, int i)
 {
 	while (format[i])
@@ -126,7 +156,10 @@ void		checkflags(const char *format, va_list ap, int i)
 		}
 		if (format[i] == '0')
 		{
+			ft_printf_flagszero(format, ap, i);
 			break ;
 		}
+		checkspec(format, ap, i);
+		break ;
 	}
 }

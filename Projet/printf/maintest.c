@@ -5,26 +5,20 @@
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/11/14 12:42:14 by qmoricea     #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/14 13:00:19 by qmoricea    ###    #+. /#+    ###.fr     */
-/*                                                         /                  */
-/*                                                        /                   */
-/* ************************************************************************** */
-
-/* ************************************************************************** */
-/*                                                          LE - /            */
-/*                                                              /             */
-/*   maintest.c                                       .::    .:/ .      .::   */
-/*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+     */
-/*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/06 21:14:28 by qmoricea     #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/14 12:42:02 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/15 11:47:37 by qmoricea    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
+#include <unistd.h>
+#include <stdarg.h>
+#include <stdlib.h>
+#include <wchar.h>
 #include "libftprintf.h"
+#define HEX "0123456789abcdef"
+#define HEXM "0123456789ABCDEF"
+
 
 void		ft_putchar(char c)
 {
@@ -106,6 +100,57 @@ void		ft_putunbr(intmax_t n)
 {
 	ft_putunbr_fd(n, 1);
 }
+
+/*size_t		udigit_count(uintmax_t n, unsigned int base)
+  {
+  size_t i;
+
+  i = 0;
+  if (n == 0)
+  return (1);
+  while (n)
+  {
+  i++;
+  n /= base;
+  }
+  return (i);
+  }
+
+  void		*memalloc(size_t size)
+  {
+  void *ptr;
+
+  ptr = malloc(size);
+  if (ptr == NULL)
+  return (NULL);
+  while (size > 0)
+  {
+  size--;
+  ((unsigned char *)ptr)[size] = (unsigned char)0;
+  }
+  return (ptr);
+  }
+
+  char		*uitoa_base(uintmax_t n, unsigned int base, const char *dig,
+  int precision)
+  {
+  size_t        count;
+  char        *str;
+
+  count = udigit_count(n, base);
+  if (count < precision)
+  count = precision;
+  str = memalloc(count + 1);
+  if (str == NULL)
+  return (NULL);
+  while (count > 0)
+  {
+  str[count - 1] = dig[n % base];
+  count--;
+  n /= base;
+  }
+  return (str);
+  }*/
 
 int			ft_intlenc(unsigned int n, int i)
 {
@@ -445,34 +490,101 @@ char		*uitoa_base(uintmax_t n, unsigned int base, const char *dig,
 
 /* TEST DES LARGEURS */
 
-void		checkwidth(const char *format, va_list ap, int i)
-{
-	int			width;
-	int			n;
-	const char	*str;
 
+
+int        ft_isdigit(int c)
+{
+	return (c >= '0' && c <= '9');
+}
+
+static int        ft_isspace(int c)
+{
+	return ((9 <= c && c <= 13) || c == 32);
+}
+
+int                ft_atoi(const char *str)
+{
+	int n;
+	int isneg;
+
+	isneg = 0;
 	n = 0;
-	i++;
-	while(format[i])
+	while (ft_isspace(*str))
+		str++;
+	if (*str == '+' || *str == '%' || *str == '0')
+		str++;
+	else if (*str == '-')
 	{
-		while (format[i] == '0')
-			i++;
-		str = format;
-		while (format[i] <= '9' && format[i] >= '0')
+		isneg = 1;
+		str++;
+	}
+	while (*str != '\0' && ft_isdigit(*str))
+	{
+		n = n * 10 + (*str++ - '0');
+	}
+	if (isneg)
+		return (-n);
+	else
+		return (n);
+}
+
+void        ft_printf_widthspeint(const char *format, int width, int i, 
+		intmax_t nbr)
+{
+	while (format[i])
+	{
+		if (format[i] == 'd' || format[i] == 'i')
 		{
-			n++;
-			i++;
+			ft_printf_nbr(nbr);
+			break ;
 		}
-		ft_putstr(str);
-		ft_putnbr(n);
-		checkspec(format, ap, i);
+		else if (format[i] == 'u')
+		{
+			ft_printf_unbr(nbr);
+			break ;
+		}
 		break ;
 	}
 }
 
+void        checkwidthspec(const char *format, int width, int i, intmax_t
+		nbr, char type)
+{
+	while (width > 0)
+	{
+		if (type == '0')
+			write(1, "0", 1);
+		width--;
+	}
+	if (format[i] == 'd' || format[i] == 'i')
+		ft_putunbr(nbr);
+}
 
 
+void        ft_printf_flagszero(const char *format, va_list ap, int i)
+{
+	int n;
+	int m;
 
+	n = 0;
+	i++;
+	while (format[i])
+	{
+		while (format[i] <= '9' && format[i] > '0')
+		{
+			i++;
+		}
+		i++;
+	}
+	i--;
+	if (format[i] == 'd' || format[i] == 'i')
+	{
+		n = ft_atoi(format);
+		m = va_arg(ap, int);
+		n = n - ft_intlen(m);
+		checkwidthspec(format, n, i, m, '0');
+	}
+}
 
 
 
@@ -568,62 +680,59 @@ void		ft_printf_flagshashtag(const char *format, va_list ap, int i)
 	}
 }
 
-void		fcheckspec(const char *format, va_list ap, int i)
-{
-	while (format[i] == '0')
-		i++;
-	i++;
-	while (format[i])
-	{
-		if (format[i] == 'c' || format[i] == 's')
-		{
-			ft_printf_spechar(format, ap, i);
-			break ;
-		}
-		if (format[i] == 'd' || format[i] == 'i' || format[i] == 'u')
-		{
-			ft_printf_speint(format, ap, i);
-			break ;
-		}
-		checkspec2(format, ap, i);
-		break ;
-	}
+/*void		checkwidthspec(const char *format, int width, int i, int nbr)
+  {
+  while (format[i] == '0')
+  i++;
+  i++;
+  while (format[i])
+  {
+  if (format[i] == 'd' || format[i] == 'i')
+  {
+  ft_printf_widthspeint(format, width, i, nbr);
+  break ;
+  }
+  break ;
+  }
+  }
+
+
+  void        ft_printf_flagszero(const char *format, va_list ap, int i)
+  {
+  int n;
+  int m;
+
+  n = 0;
+  i++;
+  while (format[i])
+  {
+  while (format[i] <= '9' && format[i] > '0')
+  {
+//ft_putchar(format[i]);
+i++;
 }
-
-void		ft_printf_flagszero(const char *format, va_list ap, int i)
-{
-	char *tmp;
-	int n;
-	int m;
-
-	n = 0;
-	while (format[i])
-	{
-		while (format[i] <= '9' && format[i] > '0')
-		{
-			tmp[n] = format[i];
-			i++;
-			n++;
-		}
-		break ;
-	}
-	if (format[i] == 'd' || format[i] == 'i' || format[i] =='x'
-			|| format[i] == 'X' || format[i] == 'o')
-	{
-		n = atoi(tmp);
-		n = n - ft_intlen(va_arg(ap, int));
-	}
-	while (n != 0 && n > 0)
-	{
-		write(1, "0", 1);
-		n--;
-	}
+i++;
 }
+i--;
+if (format[i] == 'd' || format[i] == 'i')
+{
+n = ft_atoi(format);
+m = va_arg(ap, int);
+n = n - ft_intlen(m);
+checkwidthspec(format, n, i, m);
+}
+while (n != 0 && n > 0)
+{
+write(1, "0", 1);
+n--;
+}
+ft_putchar(format[i]);
+}*/
 
-void		checkflags(const char *format, va_list ap, int i)
+void        checkflags(const char *format, va_list ap, int i)
 {
 	while (format[i])
-	{
+	{;
 		if (format[i] == '-')
 		{
 			ft_printf_flagsminus(format, ap, i);
@@ -651,103 +760,69 @@ void		checkflags(const char *format, va_list ap, int i)
 		}
 		checkspec(format, ap, i);
 		break ;
+		i++;
 	}
 }
-
 // Gestion f p
 
 void		checkspec3(const char *format, va_list ap, int i)
 {
-	while (format[i])
-	{
 		if (format[i] == 'f')
 		{
 			ft_putnbr((float)va_arg(ap, int));
-			break ;
+			i++;
 		}
 		if (format[i] == 'p')
 		{
-			ft_putstr(uitoa_base(va_arg(ap, uintmax_t),16, format, 0));
-			break ;
+			ft_putstr(uitoa_base(va_arg(ap, unsigned int),16, format, 0));
+			i++;
 		}
 		checkflags(format, ap, i);
-		break ;
-	}
 }
 
 // Gestion x X o Specifiers & l ll h j z length
 
 void		checkspec2(const char *format, va_list ap, int i)
 {
-	while (format[i] != '\0')
-	{
 		if (format[i] == 'x' || format[i] == 'X' || format[i] == 'o')
 		{
 			ft_printf_specxo(format, ap, i);
-			break ;
+			i++;
 		}
 		if (format[i] == 'l' || format[i] == 'h')
 		{
 			ft_printf_speint(format, ap, i);
-			break ;
+			i++;
 		}
 		if (format[i] == 'j' || format[i] == 'z')
 		{
 			ft_printf_specjz(format, ap, i);
-			break ;
+			i++;
 		}
 		checkspec3(format, ap, i);
-		break ;
-	}
 }
 
 
 // Gestion c s d i u Specifiers
-/*void		fcheckspec(const char *format, va_list ap, int i)
-  {
-  while (format[i] == '0')
-  i++;
-  while (format[i])
-  {
-  if (format[i] == 'c' || format[i] == 's')
-  {
-  ft_printf_spechar(format, ap, i);
-  break ;
-  }
-  if (format[i] == 'd' || format[i] == 'i' || format[i] == 'u')
-  {
-  ft_printf_speint(format, ap, i);
-  break ;
-  }
-  checkspec2(format, ap, i);
-  break ;
-  }
-  }*/
-
 
 void		checkspec(const char *format, va_list ap, int i)
 {
-	while (format[i] != '\0')
-	{
 		if (format[i] == '%')
 		{
 			write(1, "%", 1);
-			break ;
+			i++;
 		}
 		if (format[i] == 'c' || format[i] == 's')
 		{
 			ft_printf_spechar(format, ap, i);
-			break ;
+			i++;
 		}
 		if (format[i] == 'd' || format[i] == 'i' || format[i] == 'u')
 		{
 			ft_printf_speint(format, ap, i);
-			break ;
+			i++;
 		}
 		checkspec2(format, ap, i);
-		break ;
-	}
-	//	}
 }
 
 void		checknoopt(const char *format, va_list ap, int i)
@@ -758,63 +833,13 @@ void		checknoopt(const char *format, va_list ap, int i)
 	}
 	else
 	{
-		checkspec(format, ap, i);
+		checkflags(format, ap, i);
 	}
 }
 
-/* TEST POINTER 
+/* TEST POINTER */
 
-   size_t		udigit_count(uintmax_t n, unsigned int base)
-   {
-   size_t i;
 
-   i = 0;
-   if (n == 0)
-   return (1);
-   while (n)
-   {
-   i++;
-   n /= base;
-   }
-   return (i);
-   }
-
-   void		*memalloc(size_t size)
-   {
-   void *ptr;
-
-   ptr = malloc(size);
-   if (ptr == NULL)
-   return (NULL);
-   while (size > 0)
-   {
-   size--;
-   ((unsigned char *)ptr)[size] = (unsigned char)0;
-   }
-   return (ptr);
-   }
-
-   char		*uitoa_base(uintmax_t n, unsigned int base, const char *dig,
-   int precision)
-   {
-   size_t        count;
-   char        *str;
-
-   count = udigit_count(n, base);
-   if (count < precision)
-   count = precision;
-   str = memalloc(count + 1);
-   if (str == NULL)
-   return (NULL);
-   while (count > 0)
-   {
-   str[count - 1] = dig[n % base];
-   count--;
-   n /= base;
-   }
-   return (str);
-   }
-   */
 
 /* TEST DES PRECISION */
 
@@ -844,20 +869,87 @@ int			ft_printf(const char *format, ...)
 
 int			main(void)
 {
-	char *str;
+	char *p;
 
-	str = "test";
-	ft_printf("%%");
+	p = "test";
+	// Test d
+	ft_printf("%d", 545665);
 	write(1, "\n", 1);
+	printf("d %d%s\n", 545665, "->printf");
+
+	// Test c
 	ft_printf("%c", 'c');
 	write(1, "\n", 1);
-	ft_printf("%d", 0);
+	printf("c %c%s\n", 'c', "->printf");
+
+	// Test i
+	ft_printf("%i", 0);
 	write(1, "\n", 1);
-	ft_printf("%05d", 95);
+	printf("i %i%s\n", 0, "->printf");
+
+	// Test o
+	ft_printf("%o", 95);
 	write(1, "\n", 1);
+	printf("o %o%s\n", 95, "->printf");
+
+	// Test x
+	ft_printf("%x", 101);
+	write(1, "\n", 1);
+	printf("x %x%s\n", 101, "->printf");
+
+	// Test X
+	ft_printf("%X", 42);
+	write(1, "\n", 1);
+	printf("X %X%s\n", 42, "->printf");
+
+	// Test s
 	ft_printf("%s", "test string");
 	write(1, "\n", 1);
-	printf("%s %c", "----------------------------------------", '\n');
-	printf("%p\n", str);
-	printf("%05d", 95);
+	printf("s %s%s\n", "test string", "->printf");
+
+	// Test u
+	ft_printf("%u", 101);
+	write(1, "\n", 1);
+	printf("u %u%s\n", 101, "->printf");
+
+	// Test %%
+	ft_printf("%%");
+	write(1, "\n", 1);
+	printf("%%");
+	printf("%s\n", "->printf");
+
+	// Partie Test des Flags - + ' ' et #
+	// Test - (MINUS)
+	ft_printf("%-d", 95);
+	write(1, "\n", 1);
+	printf("- %-d%s\n", 95, "->printf");
+
+	// Test + (PLUS)
+	ft_printf("%+d", 58);
+	write(1, "\n", 1);
+	printf("+ %+d%s\n", 58, "->printf");
+
+	// Test ' ' (Space)
+	ft_printf("% d", 18);
+	write(1, "\n", 1);
+	printf("Space % d%s\n", 18, "->printf");
+
+	// Test # (Hashtag)
+	ft_printf("%#x", 36);
+	write(1, "\n", 1);
+	printf("# %#x%s\n", 36, "->printf");
+
+	//Test 0 (Zero)
+	ft_printf("%05d", 15);
+	write(1, "\n", 1);
+	printf("0 %05d%s\n", 15, "->printf");
+
+	//Test p
+	ft_printf("%p", p);
+	write(1, "\n", 1);
+	printf("p %p%s\n", p, "->printf");
+
+	printf("%s \n", "----------------------------------------");
+	printf("%p\n", p);
+	printf("%01d", 5);
 }

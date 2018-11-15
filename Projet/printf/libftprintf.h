@@ -6,7 +6,7 @@
 /*   By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/05 21:48:13 by qmoricea     #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/14 07:57:11 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/15 10:15:14 by qmoricea    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -99,6 +99,7 @@ void				ft_printf_flagsminus(const char *format, va_list ap, int i);
 void				ft_printf_flagsplus(const char *format, va_list ap, int i);
 void				ft_printf_flagsspace(const char *format, va_list ap, int i);
 void				ft_printf_flagshashtag(const char *format, va_list ap, int i);
+void				ft_printf_flagszero(const  char *format, va_list ap, int i);
 // Check des Flags
 void				checkflags(const char *format, va_list ap, int i);
 
