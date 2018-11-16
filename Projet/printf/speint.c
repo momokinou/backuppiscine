@@ -6,7 +6,7 @@
 /*   By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/13 14:31:51 by qmoricea     #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/13 14:36:16 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/16 08:34:58 by qmoricea    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,7 +17,7 @@ void		ft_printf_speintl(const char *format, va_list ap, int i)
 {
 	while (format[i])
 	{
-		if(format[i] == 'l' && (format[i + 1] == 'd' || format[i + 1] == 'i'))
+		if (format[i] == 'l' && (format[i + 1] == 'd' || format[i + 1] == 'i'))
 		{
 			ft_putnbr_ld(va_arg(ap, long));
 			break ;
@@ -40,7 +40,7 @@ void		ft_printf_speinth(const char *format, va_list ap, int i)
 			ft_putnbr_hd((short)va_arg(ap, int));
 			break ;
 		}
-		if (format[i] == 'h' && format[i + 1] == 'h' &&(format[i + 2] == 'd'
+		if (format[i] == 'h' && format[i + 1] == 'h' && (format[i + 2] == 'd'
 					|| format[i + 2] == 'i'))
 		{
 			ft_putchar(va_arg(ap, int));

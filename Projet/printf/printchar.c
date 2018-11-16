@@ -6,7 +6,7 @@
 /*   By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/13 12:44:33 by qmoricea     #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/13 14:27:15 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/16 08:37:42 by qmoricea    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -49,7 +49,9 @@ void		ft_putstr(char const *s)
 	}
 }
 
-/*    Print Char+String de Printf    */
+/*
+* Print Char+String de Printf
+*/
 
 int			ft_printf_c(char c)
 {

@@ -6,7 +6,7 @@
 /*   By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/06 21:14:28 by qmoricea     #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/15 16:16:58 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/16 12:23:40 by qmoricea    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -101,57 +101,6 @@ void		ft_putunbr(intmax_t n)
 	ft_putunbr_fd(n, 1);
 
 }
-
-/*size_t		udigit_count(uintmax_t n, unsigned int base)
-  {
-  size_t i;
-
-  i = 0;
-  if (n == 0)
-  return (1);
-  while (n)
-  {
-  i++;
-  n /= base;
-  }
-  return (i);
-  }
-
-  void		*memalloc(size_t size)
-  {
-  void *ptr;
-
-  ptr = malloc(size);
-  if (ptr == NULL)
-  return (NULL);
-  while (size > 0)
-  {
-  size--;
-  ((unsigned char *)ptr)[size] = (unsigned char)0;
-  }
-  return (ptr);
-  }
-
-  char		*uitoa_base(uintmax_t n, unsigned int base, const char *dig,
-  int precision)
-  {
-  size_t        count;
-  char        *str;
-
-  count = udigit_count(n, base);
-  if (count < precision)
-  count = precision;
-  str = memalloc(count + 1);
-  if (str == NULL)
-  return (NULL);
-  while (count > 0)
-  {
-  str[count - 1] = dig[n % base];
-  count--;
-  n /= base;
-  }
-  return (str);
-  }*/
 
 int			ft_intlenc(unsigned int n, int i)
 {
@@ -261,14 +210,8 @@ int		ft_printf_xm(unsigned int n)
 
 int			ft_printf_p(unsigned int n)
 {
-	int i;
-
-	i = 0;
 	if (n >= 16)
-	{
-		i++;
 		return((ft_printf_p(n / 16) + ft_printf_p(n % 16)));
-	}
 	else
 		return (ft_printf_c(HEX[n]));
 }
@@ -367,7 +310,7 @@ void		ft_printf_speinth(const char *format, va_list ap, int i)
 		if (format[i] == 'h' && format[i + 1] == 'h' &&(format[i + 2] == 'd'
 					|| format[i + 2] == 'i'))
 		{
-			ft_putchar(va_arg(ap, int));
+			ft_putchar((unsigned char)va_arg(ap, int));
 			break ;
 		}
 	}
@@ -512,7 +455,7 @@ int        ft_isdigit(int c)
 	return (c >= '0' && c <= '9');
 }
 
-static int        ft_isspace(int c)
+int        ft_isspace(int c)
 {
 	return ((9 <= c && c <= 13) || c == 32);
 }
@@ -526,9 +469,9 @@ int                ft_atoi(const char *str)
 	n = 0;
 	while (ft_isspace(*str))
 		str++;
-	if (*str == '+' || *str == '%' || *str == '0')
+	while (*str == '+' || *str == '%' || *str == '0' || *str == '.')
 		str++;
-	else if (*str == '-')
+	if (*str == '-')
 	{
 		isneg = 1;
 		str++;
@@ -543,31 +486,123 @@ int                ft_atoi(const char *str)
 		return (n);
 }
 
-void        ft_printf_widthspeint(const char *format, int width, int i, 
-		intmax_t nbr)
+int            widthatoi(const char *str)
 {
+	int n;
+	int isneg;
+
+	isneg = 0;
+	n = 0;
+	while (ft_isspace(*str))
+		str++;
+	while (*str == '+' || *str == '%' || *str == '0' || *str == ' ' || *str == '-')
+		str++;
+	if (*str == '-')
+	{
+		isneg = 1;
+		str++;
+	}
+	while (*str != '\0' && ft_isdigit(*str))
+	{
+		n = n * 10 + (*str++ - '0');
+	}
+	if (isneg)
+		return (-n);
+	else
+		return (n);
+}
+
+void        ft_printf_width(const char *format, va_list ap, int i)
+{
+	int n;
+	int m;
+	int modif;
+	int minus;
+
+	n = 0;
+	minus = 0;
+	if (format[i - 1] == '-')
+	minus = 1;
+	if (format[i] == ' ')
+		i++;
 	while (format[i])
 	{
-		if (format[i] == 'd' || format[i] == 'i')
+		while (format[i] <= '9' && format[i] > '0')
 		{
-			ft_printf_nbr(nbr);
-			break ;
+			i++;
 		}
-		break ;
+		i++;
+	}
+	i--;
+	if (format[i] == 'd' || format[i] == 'i')
+	{
+		n = widthatoi(format);
+		m = va_arg(ap, int);
+		n = n - ft_intlen(m);
+		if (m < 0)
+			ft_putchar('-');
+		if (minus == 1)
+		{
+			checkwidthspec(format, i, m);
+			writewidth(n , ' ');
+		}
+		else
+		{
+			writewidth(n, ' ');
+			checkwidthspec(format, i, m);
+		}
+	}
+	if (format[i] == 'u')
+	{
+		n = widthatoi(format);
+		m = va_arg(ap, unsigned int);
+		n = n - ft_intlen(m);
+		writewidth(n, ' ');
+		checkwidthspec(format, i, m);
+	}
+	if (format[i] == 'o')
+	{
+		n = widthatoi(format);
+		modif = (unsigned int)va_arg(ap, int);
+		m = modif;
+		while (m >= 8)
+		{
+			m = m / 8;
+			n--;
+		}
+		n--;
+		writewidth(n, ' ');
+		checkwidthspec(format, i, modif);
+	}
+	if (format[i] == 'x' || format[i] == 'X')
+	{
+		n = ft_atoi(format);
+		modif = (va_arg(ap, unsigned int));
+		m = modif;
+		while (m >= 16)
+		{
+			m = m / 16;
+			n--;
+		}
+		n--;
+		writewidth(n, ' ');
+		checkwidthspec(format, i, modif);
 	}
 }
 
-void        checkwidthspec(const char *format, int width, int i, intmax_t
-		nbr, char type)
+void		writewidth(int width, char type)
 {
 	while (width > 0)
 	{
-		if (type == '0')
-			write(1, "0", 1);
+		ft_putchar(type);
 		width--;
 	}
+}
+
+void        checkwidthspec(const char *format, int i, intmax_t nbr)
+{
 	if (format[i] == 'd' || format[i] == 'i')
-		ft_putunbr(nbr);
+		ft_putnbr(nbr);
 	if (format[i] == 'u')
 		ft_putunbr(nbr);
 	if (format[i] == 'o')
@@ -600,14 +635,18 @@ void        ft_printf_flagszero(const char *format, va_list ap, int i)
 		n = ft_atoi(format);
 		m = va_arg(ap, int);
 		n = n - ft_intlen(m);
-		checkwidthspec(format, n, i, m, '0');
+		if (m < 0)
+			ft_putchar('-');
+		writewidth(n, '0');
+		checkwidthspec(format, i, m);
 	}
 	if (format[i] == 'u')
 	{
 		n = ft_atoi(format);
 		m = va_arg(ap, unsigned int);
 		n = n - ft_intlen(m);
-		checkwidthspec(format, n, i, m, '0');
+		writewidth(n, '0');
+		checkwidthspec(format, i, m);
 	}
 	if (format[i] == 'o')
 	{
@@ -620,7 +659,8 @@ void        ft_printf_flagszero(const char *format, va_list ap, int i)
 			n--;
 		}
 		n--;
-		checkwidthspec(format, n, i, modif, '0');
+		writewidth(n, '0');
+		checkwidthspec(format, i, modif);
 	}
 	if (format[i] == 'x' || format[i] == 'X')
 	{
@@ -633,7 +673,8 @@ void        ft_printf_flagszero(const char *format, va_list ap, int i)
 			n--;
 		}
 		n--;
-		checkwidthspec(format, n, i, modif, '0');
+		writewidth(n, '0');
+		checkwidthspec(format, i, modif);
 	}
 }
 
@@ -728,59 +769,16 @@ void		ft_printf_flagshashtag(const char *format, va_list ap, int i)
 	}
 }
 
-/*void		checkwidthspec(const char *format, int width, int i, int nbr)
-  {
-  while (format[i] == '0')
-  i++;
-  i++;
-  while (format[i])
-  {
-  if (format[i] == 'd' || format[i] == 'i')
-  {
-  ft_printf_widthspeint(format, width, i, nbr);
-  break ;
-  }
-  break ;
-  }
-  }
-
-
-  void        ft_printf_flagszero(const char *format, va_list ap, int i)
-  {
-  int n;
-  int m;
-
-  n = 0;
-  i++;
-  while (format[i])
-  {
-  while (format[i] <= '9' && format[i] > '0')
-  {
-//ft_putchar(format[i]);
-i++;
-}
-i++;
-}
-i--;
-if (format[i] == 'd' || format[i] == 'i')
-{
-n = ft_atoi(format);
-m = va_arg(ap, int);
-n = n - ft_intlen(m);
-checkwidthspec(format, n, i, m);
-}
-while (n != 0 && n > 0)
-{
-write(1, "0", 1);
-n--;
-}
-ft_putchar(format[i]);
-}*/
-
 void        checkflags(const char *format, va_list ap, int i)
 {
+	int j;
 	while (format[i])
-	{;
+	{
+		if (format[i] == ' ' && format[i + 1] <= '9' && format[i + 1] > '0')
+		{
+			ft_printf_width(format, ap, i);
+			break ;
+		}
 		if (format[i] == '-')
 		{
 			ft_printf_flagsminus(format, ap, i);
@@ -806,6 +804,16 @@ void        checkflags(const char *format, va_list ap, int i)
 			ft_printf_flagszero(format, ap, i);
 			break ;
 		}
+		if (format[i] == '.')
+		{
+			ft_printf_flagszero(format, ap, i);
+			break ;
+		}
+		if (format[i] <= '9' && format[i] > '0')
+		{
+			ft_printf_width(format, ap, i);
+			break ;
+		}
 		checkspec(format, ap, i);
 		break ;
 		i++;
@@ -822,7 +830,7 @@ void		checkspec3(const char *format, va_list ap, int i)
 	len = 1;
 	if (format[i] == 'f')
 	{
-		ft_putnbr((float)va_arg(ap, int));
+		ft_putnbr(va_arg(ap, double));
 		i++;
 	}
 	if (format[i] == 'p')
@@ -1004,6 +1012,12 @@ int			main(void)
 	ft_printf("%p", p);
 	write(1, "\n", 1);
 	printf("p %p%s\n", p, "->printf");
+
+	//Test width + flags
+	ft_printf("%-5d", 15);
+	ft_putchar('\n');
+	printf("+ + width-%-5d%s\n", 15, "->printf");
+
 
 	printf("%s \n", "----------------------------------------");
 	printf("%p\n", p);

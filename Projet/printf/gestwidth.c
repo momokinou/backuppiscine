@@ -1,38 +1,37 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   printhexa.c                                      .::    .:/ .      .::   */
+/*   gestwidth.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/11/13 12:57:55 by qmoricea     #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/16 07:36:50 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Created: 2018/11/16 08:05:24 by qmoricea     #+#   ##    ##    #+#       */
+/*   Updated: 2018/11/16 08:58:03 by qmoricea    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-int			ft_printf_x(unsigned int n)
+void		writewidth(int width, char type)
 {
-	if (n >= 16)
-		return (ft_printf_x(n / 16) + ft_printf_x(n % 16));
-	else
-		return (ft_printf_c(HEX[n]));
+	while (width > 0)
+	{
+		ft_putchar(type);
+		width--;
+	}
 }
 
-int			ft_printf_xm(unsigned int n)
+void		checkwidthspec(const char *format, int i, intmax_t nbr)
 {
-	if (n >= 16)
-		return (ft_printf_xm(n / 16) + ft_printf_xm(n % 16));
-	else
-		return (ft_printf_c(HEXM[n]));
-}
-
-int			ft_printf_p(unsigned int n)
-{
-	if (n >= 16)
-		return (ft_printf_p(n / 16) + ft_printf_p(n % 16));
-	else
-		return (ft_printf_c(HEX[n]));
+	if (format[i] == 'd' || format[i] == 'i')
+		ft_putnbr(nbr);
+	if (format[i] == 'u')
+		ft_putunbr(nbr);
+	if (format[i] == 'o')
+		ft_printf_octal(nbr);
+	if (format[i] == 'x')
+		ft_printf_x(nbr);
+	if (format[i] == 'X')
+		ft_printf_xm(nbr);
 }

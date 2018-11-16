@@ -6,7 +6,7 @@
 /*   By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/13 13:49:20 by qmoricea     #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/15 08:43:30 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/16 09:17:48 by qmoricea    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -87,9 +87,14 @@ int		main(void)
 	printf("%#x%s\n", 36, "->printf");
 
 	//Test 0 (Zero)
-	ft_printf("%05d", 15);
+	ft_printf("%05i", 15);
 	write(1, "\n", 1);
-	printf("%05d%s\n", 15, "->printf");
+	printf("0 %05i%s\n", 15, "->printf");
+
+	//Test p
+	ft_printf("%p", p);
+	write(1, "\n", 1);
+	printf("p %p%s\n", p, "->printf");
 
 	printf("%s \n", "----------------------------------------");
 	printf("%p\n", p);

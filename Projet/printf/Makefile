@@ -6,7 +6,7 @@
 #    By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/11/05 22:12:35 by qmoricea     #+#   ##    ##    #+#        #
-#    Updated: 2018/11/14 07:52:58 by qmoricea    ###    #+. /#+    ###.fr      #
+#    Updated: 2018/11/16 08:59:45 by qmoricea    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -29,6 +29,10 @@ SRC        = ft_printf.c \
 			 speint.c \
 			 printnoopt.c \
 			 checkflags.c \
+			 printflags.c \
+			 printflagszero.c \
+			 gestwidth.c \
+			 funcforwidth.c \
 			 main.c
 
 OBJ        = $(SRC:.c=.o)

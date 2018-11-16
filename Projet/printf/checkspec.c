@@ -6,7 +6,7 @@
 /*   By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/13 14:20:53 by qmoricea     #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/15 09:42:20 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/16 09:08:32 by qmoricea    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,6 +15,9 @@
 
 void		checkspec3(const char *format, va_list ap, int i)
 {
+	int n;
+	int m;
+
 	while (format[i])
 	{
 		if (format[i] == 'f')
@@ -24,6 +27,11 @@ void		checkspec3(const char *format, va_list ap, int i)
 		}
 		if (format[i] == 'p')
 		{
+			ft_putstr("0x10");
+			n = va_arg(ap, int);
+			m = n;
+			ft_printf_p(n);
+			break ;
 		}
 		checkflags(format, ap, i);
 		break ;

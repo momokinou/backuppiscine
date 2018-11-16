@@ -1,38 +1,50 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   printhexa.c                                      .::    .:/ .      .::   */
+/*   funcforwidth.c                                   .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/11/13 12:57:55 by qmoricea     #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/16 07:36:50 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Created: 2018/11/16 08:58:16 by qmoricea     #+#   ##    ##    #+#       */
+/*   Updated: 2018/11/16 08:59:22 by qmoricea    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-int			ft_printf_x(unsigned int n)
+int			ft_isdigit(int c)
 {
-	if (n >= 16)
-		return (ft_printf_x(n / 16) + ft_printf_x(n % 16));
-	else
-		return (ft_printf_c(HEX[n]));
+	return (c >= '0' && c <= '9');
 }
 
-int			ft_printf_xm(unsigned int n)
+int			ft_isspace(int c)
 {
-	if (n >= 16)
-		return (ft_printf_xm(n / 16) + ft_printf_xm(n % 16));
-	else
-		return (ft_printf_c(HEXM[n]));
+	return ((9 <= c && c <= 13) || c == 32);
 }
 
-int			ft_printf_p(unsigned int n)
+int			ft_atoi(const char *str)
 {
-	if (n >= 16)
-		return (ft_printf_p(n / 16) + ft_printf_p(n % 16));
+	int n;
+	int isneg;
+
+	isneg = 0;
+	n = 0;
+	while (ft_isspace(*str))
+		str++;
+	if (*str == '+' || *str == '%' || *str == '0')
+		str++;
+	else if (*str == '-')
+	{
+		isneg = 1;
+		str++;
+	}
+	while (*str != '\0' && ft_isdigit(*str))
+	{
+		n = n * 10 + (*str++ - '0');
+	}
+	if (isneg)
+		return (-n);
 	else
-		return (ft_printf_c(HEX[n]));
+		return (n);
 }

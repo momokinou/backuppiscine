@@ -6,7 +6,7 @@
 /*   By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/13 12:48:00 by qmoricea     #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/13 12:53:49 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/16 10:08:15 by qmoricea    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -34,7 +34,9 @@ void		ft_putunbr(intmax_t n)
 	ft_putunbr_fd(n, 1);
 }
 
-/*    Printf Int + Unsigned Int    */
+/*
+**Printf Int + Unsigned Int
+*/
 
 int			ft_printf_nbr(int nbr)
 {
