@@ -6,7 +6,7 @@
 /*   By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/06 21:14:28 by qmoricea     #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/16 12:23:40 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/16 14:20:03 by qmoricea    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -512,12 +512,19 @@ int            widthatoi(const char *str)
 		return (n);
 }
 
+void		checkwidthspec2(const char *format, int i, char *str)
+{
+	if (format[i] == 's')
+		ft_putstr(str);
+}
+
 void        ft_printf_width(const char *format, va_list ap, int i)
 {
 	int n;
 	int m;
 	int modif;
 	int minus;
+	char *str;
 
 	n = 0;
 	minus = 0;
@@ -539,8 +546,6 @@ void        ft_printf_width(const char *format, va_list ap, int i)
 		n = widthatoi(format);
 		m = va_arg(ap, int);
 		n = n - ft_intlen(m);
-		if (m < 0)
-			ft_putchar('-');
 		if (minus == 1)
 		{
 			checkwidthspec(format, i, m);
@@ -576,7 +581,7 @@ void        ft_printf_width(const char *format, va_list ap, int i)
 	}
 	if (format[i] == 'x' || format[i] == 'X')
 	{
-		n = ft_atoi(format);
+		n = widthatoi(format);
 		modif = (va_arg(ap, unsigned int));
 		m = modif;
 		while (m >= 16)
@@ -587,6 +592,29 @@ void        ft_printf_width(const char *format, va_list ap, int i)
 		n--;
 		writewidth(n, ' ');
 		checkwidthspec(format, i, modif);
+	}
+	if (format[i] == 'c')
+	{
+		n = widthatoi(format);
+		n = n - 1;
+		writewidth(n, ' ');
+		ft_printf_c((wchar_t)va_arg(ap, wint_t));
+	}
+	if (format[i] == 's')
+	{
+		n = widthatoi(format);
+		str = va_arg(ap, char *);
+		m = ft_strlen(str);
+		n = n - m;
+		writewidth(n, ' ');
+		checkwidthspec2(format, i, str);
+	}
+	if (format[i] == 'p')
+	{
+		n = widthatoi(format);
+		n = n - 11;
+		writewidth(n, ' ');
+		checkspec3(format, ap, i);
 	}
 }
 
@@ -636,7 +664,10 @@ void        ft_printf_flagszero(const char *format, va_list ap, int i)
 		m = va_arg(ap, int);
 		n = n - ft_intlen(m);
 		if (m < 0)
+		{
 			ft_putchar('-');
+			m = -m;
+		}
 		writewidth(n, '0');
 		checkwidthspec(format, i, m);
 	}
@@ -1014,9 +1045,9 @@ int			main(void)
 	printf("p %p%s\n", p, "->printf");
 
 	//Test width + flags
-	ft_printf("%-5d", 15);
+	ft_printf("%5d", 15);
 	ft_putchar('\n');
-	printf("+ + width-%-5d%s\n", 15, "->printf");
+	printf("+ + width-%5d%s\n", 15, "->printf");
 
 
 	printf("%s \n", "----------------------------------------");
