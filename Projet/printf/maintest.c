@@ -6,7 +6,7 @@
 /*   By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/06 21:14:28 by qmoricea     #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/16 14:20:03 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/17 13:03:24 by qmoricea    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -495,7 +495,8 @@ int            widthatoi(const char *str)
 	n = 0;
 	while (ft_isspace(*str))
 		str++;
-	while (*str == '+' || *str == '%' || *str == '0' || *str == ' ' || *str == '-')
+	while (*str == '+' || *str == '%' || *str == '0' || *str == ' '
+			|| *str == '-' || *str == '#')
 		str++;
 	if (*str == '-')
 	{
@@ -529,7 +530,9 @@ void        ft_printf_width(const char *format, va_list ap, int i)
 	n = 0;
 	minus = 0;
 	if (format[i - 1] == '-')
-	minus = 1;
+		minus = 1;
+	if (format[i] == '#')
+		minus = -1;
 	if (format[i] == ' ')
 		i++;
 	while (format[i])
@@ -576,7 +579,14 @@ void        ft_printf_width(const char *format, va_list ap, int i)
 			n--;
 		}
 		n--;
-		writewidth(n, ' ');
+		if (minus == -1)
+		{
+			n--;
+			writewidth(n, ' ');
+			write(1, "0", 1);
+		}
+		else
+			writewidth(n, ' ');
 		checkwidthspec(format, i, modif);
 	}
 	if (format[i] == 'x' || format[i] == 'X')
@@ -806,6 +816,11 @@ void        checkflags(const char *format, va_list ap, int i)
 	while (format[i])
 	{
 		if (format[i] == ' ' && format[i + 1] <= '9' && format[i + 1] > '0')
+		{
+			ft_printf_width(format, ap, i);
+			break ;
+		}
+		if (format[i] == '#' && format[i + 1] <= '9' && format[i + 1] > '0')
 		{
 			ft_printf_width(format, ap, i);
 			break ;
@@ -1045,9 +1060,9 @@ int			main(void)
 	printf("p %p%s\n", p, "->printf");
 
 	//Test width + flags
-	ft_printf("%5d", 15);
+	ft_printf("%#5o", 15);
 	ft_putchar('\n');
-	printf("+ + width-%5d%s\n", 15, "->printf");
+	printf("+ + width-%#5o%s\n", 15, "->printf");
 
 
 	printf("%s \n", "----------------------------------------");

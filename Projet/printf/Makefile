@@ -6,7 +6,7 @@
 #    By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/11/05 22:12:35 by qmoricea     #+#   ##    ##    #+#        #
-#    Updated: 2018/11/16 08:59:45 by qmoricea    ###    #+. /#+    ###.fr      #
+#    Updated: 2018/11/17 12:43:51 by qmoricea    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -16,6 +16,7 @@ NAME    = libftprintf.a
 SRC        = ft_printf.c \
 			 intlen.c \
 			 printchar.c \
+			 printfchar2.c \
 			 printhexa.c \
 			 printlong.c \
 			 printnbr.c \
@@ -33,6 +34,7 @@ SRC        = ft_printf.c \
 			 printflagszero.c \
 			 gestwidth.c \
 			 funcforwidth.c \
+			 printf_width.c \
 			 main.c
 
 OBJ        = $(SRC:.c=.o)

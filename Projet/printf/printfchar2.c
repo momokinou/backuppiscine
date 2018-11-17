@@ -1,44 +1,28 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   gestwidth.c                                      .::    .:/ .      .::   */
+/*   printfchar2.c                                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/11/16 08:05:24 by qmoricea     #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/17 12:42:55 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Created: 2018/11/17 11:38:18 by qmoricea     #+#   ##    ##    #+#       */
+/*   Updated: 2018/11/17 11:43:50 by qmoricea    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-void		writewidth(int width, char type)
+int		ft_printf_c(char c)
 {
-	while (width > 0)
-	{
-		ft_putchar(type);
-		width--;
-	}
+	write(1, &c, sizeof(char));
+	return (1);
 }
 
-void		checkwidthspec(const char *format, int i, intmax_t nbr)
+int		ft_printf_str(char *str)
 {
-	if (format[i] == 'd' || format[i] == 'i')
-		ft_putnbr(nbr);
-	if (format[i] == 'u')
-		ft_putunbr(nbr);
-	if (format[i] == 'o')
-		ft_printf_octal(nbr);
-	if (format[i] == 'x')
-		ft_printf_x(nbr);
-	if (format[i] == 'X')
-		ft_printf_xm(nbr);
+	if (str == NULL)
+		return (ft_printf_str("(null)"));
+	ft_putstr(str);
+	return ((int)ft_strlen(str));
 }
-
-void		checkwidthspec2(const char *format, int i, char *str)
-{
-	if (format[i] == 's')
-		ft_putstr(str);
-}
-

@@ -6,7 +6,7 @@
 /*   By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/05 21:48:13 by qmoricea     #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/16 10:17:03 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/17 12:35:49 by qmoricea    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -58,6 +58,7 @@ int					ft_printf_unbr(int nbr);
 */
 void				ft_putnbr_ld(long n);
 void				ft_putnbr_hd(short n);
+void				ft_putunbr_hd(short n);
 
 /*
 **LIBFTPRINTF hexa/octets/pointer adress
@@ -82,6 +83,7 @@ void				ft_printf_spechar(const char *format, va_list ap, int i);
 */
 void				ft_printf_speintl(const char *format, va_list ap, int i);
 void				ft_printf_speinth(const char *format, va_list ap, int i);
+void				ft_printf_speinth2(const char *format, va_list ap, int i);
 void				ft_printf_speint(const char *format, va_list ap, int i);
 
 /*
@@ -93,6 +95,7 @@ void				ft_printf_specxo(const char *format, va_list ap, int i);
 **LIBFTPRINTF length j/z for all int
 */
 void				ft_printf_specjz(const char *format, va_list ap, int i);
+void				ft_printf_specjz2(const char *format, va_list ap, int i);
 
 /*
 **LIBFTPRINTF gestion spec + length
@@ -117,12 +120,16 @@ void				ft_printf_flagsspace(const char *format, va_list ap, int i);
 void				ft_printf_flagshashtag(const char *format, va_list ap,
 		int i);
 void				ft_printf_flagszero(const char *format, va_list ap, int i);
+void				ft_printf_flagszero2(const char *format, va_list ap, int i);
+void				ft_printf_flagszero3(const char *format, va_list ap, int i);
+void				ft_printf_flagszero4(const char *format, va_list ap, int i);
 
 /*
 **Check des Flags
 */
 void				checkflags(const char *format, va_list ap, int i);
 void				checkflags2(const char *format, va_list ap, int i);
+void				checkflags3(const char *format, va_list ap, int i);
 
 /*
 **Gestion width
@@ -130,8 +137,11 @@ void				checkflags2(const char *format, va_list ap, int i);
 int					ft_isdigit(int c);
 int					ft_isspace(int c);
 int					ft_atoi(const char *str);
+int					widthatoi(const char *str);
 void				checkwidthspec(const char *format, int i, intmax_t nbr);
+void				checkwidthspec2(const char *format, int i, char *str);
 void				writewidth(int width, char type);
+void				ft_printf_width(const char *format, va_list ap, int i);
 
 /*
 **LIBFTPRINTF main printf

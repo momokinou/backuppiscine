@@ -6,7 +6,7 @@
 /*   By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/13 13:49:20 by qmoricea     #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/16 09:17:48 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/17 13:13:07 by qmoricea    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -65,6 +65,36 @@ int		main(void)
 	printf("%%");
 	printf("%s\n", "->printf");
 
+	// Test h (d i // u o x X)
+	ft_printf("%hX", 10);
+	write(1, "\n", 1);
+	printf("h %hX%s\n", (short)10, "->printf");
+
+	// Test hh (d i // u o x X)
+	ft_printf("%hhd", 18);
+	write(1, "\n", 1);
+	printf("hh %hhd%s\n", (signed char)18, "->printf");
+
+	// Test l (d i // u o x X)
+	ft_printf("%ld", (long)21474836471);
+	write(1, "\n", 1);
+	printf("l %ld%s\n", (long)21474836471, "->printf");
+
+	// Test ll (d i // u o x X)
+	ft_printf("%lld", (long long)9223372036854775807);
+	write(1, "\n", 1);
+	printf("ll %lld%s\n", (long long)9223372036854775807, "->printf");
+
+	// Test j (d i // u o x X)
+	ft_printf("%jX", (unsigned long)238);
+	write(1, "\n", 1);
+	printf("j %jX%s\n", (unsigned long)238, "->printf");
+
+	// Test z (d i // u o x X)
+	ft_printf("%zd", 21474836471);
+	write(1, "\n", 1);
+	printf("z %zd%s\n", 21474836471, "->printf");
+
 	// Partie Test des Flags - + ' ' et #
 	// Test - (MINUS)
 	ft_printf("%-d", 95);
@@ -87,9 +117,9 @@ int		main(void)
 	printf("%#x%s\n", 36, "->printf");
 
 	//Test 0 (Zero)
-	ft_printf("%05i", 15);
+	ft_printf("%#5X", 15);
 	write(1, "\n", 1);
-	printf("0 %05i%s\n", 15, "->printf");
+	printf("0 %#5X%s\n", 15, "->printf");
 
 	//Test p
 	ft_printf("%p", p);

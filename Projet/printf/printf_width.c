@@ -1,25 +1,34 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   printflagszero.c                                 .::    .:/ .      .::   */
+/*   printf_width.c                                   .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/11/16 08:30:18 by qmoricea     #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/17 12:09:37 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Created: 2018/11/17 12:34:29 by qmoricea     #+#   ##    ##    #+#       */
+/*   Updated: 2018/11/17 13:13:09 by qmoricea    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-void		ft_printf_flagszero(const char *format, va_list ap, int i)
+void		ft_printf_width(const char *format, va_list ap, int i)
 {
 	int n;
 	int m;
+	int modif;
+	int minus;
+	char *str;
 
 	n = 0;
-	i++;
+	minus = 0;
+	if (format[i - 1] == '-')
+		minus = 1;
+	if (format[i] == '#')
+		minus = -1;
+	if (format[i] == ' ')
+		i++;
 	while (format[i])
 	{
 		while (format[i] <= '9' && format[i] > '0')
@@ -31,42 +40,31 @@ void		ft_printf_flagszero(const char *format, va_list ap, int i)
 	i--;
 	if (format[i] == 'd' || format[i] == 'i')
 	{
-		n = ft_atoi(format);
+		n = widthatoi(format);
 		m = va_arg(ap, int);
 		n = n - ft_intlen(m);
-		if (m < 0)
-			ft_putchar('-');
-		writewidth(n, '0');
-		checkwidthspec(format, i, m);
+		if (minus == 1)
+		{
+			checkwidthspec(format, i, m);
+			writewidth(n , ' ');
+		}
+		else
+		{
+			writewidth(n, ' ');
+			checkwidthspec(format, i, m);
+		}
 	}
-	ft_printf_flagszero2(format, ap, i);
-}
-
-void		ft_printf_flagszero2(const char *format, va_list ap, int i)
-{
-	int n;
-	int m;
-
 	if (format[i] == 'u')
 	{
-		n = ft_atoi(format);
+		n = widthatoi(format);
 		m = va_arg(ap, unsigned int);
 		n = n - ft_intlen(m);
-		writewidth(n, '0');
+		writewidth(n, ' ');
 		checkwidthspec(format, i, m);
 	}
-	ft_printf_flagszero3(format, ap, i);
-}
-
-void		ft_printf_flagszero3(const char *format, va_list ap, int i)
-{
-	int n;
-	int m;
-	int modif;
-
 	if (format[i] == 'o')
 	{
-		n = ft_atoi(format);
+		n = widthatoi(format);
 		modif = (unsigned int)va_arg(ap, int);
 		m = modif;
 		while (m >= 8)
@@ -75,21 +73,19 @@ void		ft_printf_flagszero3(const char *format, va_list ap, int i)
 			n--;
 		}
 		n--;
-		writewidth(n, '0');
+		if (minus == -1)
+		{
+			n--;
+			writewidth(n, ' ');
+			write(1, "0", 1);
+		}
+		else
+			writewidth(n, ' ');
 		checkwidthspec(format, i, modif);
 	}
-	ft_printf_flagszero4(format, ap, i);
-}
-
-void		ft_printf_flagszero4(const char *format, va_list ap, int i)
-{
-	int n;
-	int m;
-	int modif;
-
 	if (format[i] == 'x' || format[i] == 'X')
 	{
-		n = ft_atoi(format);
+		n = widthatoi(format);
 		modif = (va_arg(ap, unsigned int));
 		m = modif;
 		while (m >= 16)
@@ -98,7 +94,40 @@ void		ft_printf_flagszero4(const char *format, va_list ap, int i)
 			n--;
 		}
 		n--;
-		writewidth(n, '0');
+		if (minus == -1)
+		{
+			n--;
+			writewidth(n, ' ');
+			if (format[i] == 'x')
+				write(1, "0x", 2);
+			if (format[i] == 'X')
+				write(1, "0X", 2);
+		}
+		else
+			writewidth(n, ' ');
 		checkwidthspec(format, i, modif);
+	}
+	if (format[i] == 'c')
+	{
+		n = widthatoi(format);
+		n = n - 1;
+		writewidth(n, ' ');
+		ft_printf_c((wchar_t)va_arg(ap, wint_t));
+	}
+	if (format[i] == 's')
+	{
+		n = widthatoi(format);
+		str = va_arg(ap, char *);
+		m = ft_strlen(str);
+		n = n - m;
+		writewidth(n, ' ');
+		checkwidthspec2(format, i, str);
+	}
+	if (format[i] == 'p')
+	{
+		n = widthatoi(format);
+		n = n - 11;
+		writewidth(n, ' ');
+		checkspec3(format, ap, i);
 	}
 }
