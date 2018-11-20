@@ -6,7 +6,7 @@
 #    By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/11/05 22:12:35 by qmoricea     #+#   ##    ##    #+#        #
-#    Updated: 2018/11/17 12:43:51 by qmoricea    ###    #+. /#+    ###.fr      #
+#    Updated: 2018/11/20 08:28:27 by qmoricea    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -34,8 +34,7 @@ SRC        = ft_printf.c \
 			 printflagszero.c \
 			 gestwidth.c \
 			 funcforwidth.c \
-			 printf_width.c \
-			 main.c
+			 printf_width.c
 
 OBJ        = $(SRC:.c=.o)
 .SILENT:

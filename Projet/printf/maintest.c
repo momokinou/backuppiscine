@@ -6,7 +6,7 @@
 /*   By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/06 21:14:28 by qmoricea     #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/17 13:03:24 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/20 09:45:26 by qmoricea    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -917,7 +917,7 @@ void		checkspec2(const char *format, va_list ap, int i)
 
 void		checkspec(const char *format, va_list ap, int i)
 {
-	if (format[i] == '%')
+	if (format[i + 1] == '%')
 	{
 		write(1, "%", 1);
 		i++;
@@ -980,7 +980,9 @@ int			ft_printf(const char *format, ...)
 int			main(void)
 {
 	char *p;
+	int i;
 
+	i = printf("test%%%%");
 	p = "pne iuhe wn uew";
 	// Test d
 	ft_printf("%d", 545665);
@@ -1067,5 +1069,6 @@ int			main(void)
 
 	printf("%s \n", "----------------------------------------");
 	printf("%p\n", p);
-	printf("%01d", 5);
+	printf("%01d\n", 5);
+	printf("%d", i);
 }
