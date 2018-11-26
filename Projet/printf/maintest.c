@@ -6,7 +6,7 @@
 /*   By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/06 21:14:28 by qmoricea     #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/20 09:45:26 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/26 10:14:46 by qmoricea    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -384,67 +384,6 @@ void		ft_printf_specjz(const char *format, va_list ap, int i)
 		}
 	}
 }
-
-
-
-
-
-
-
-
-size_t		udigit_count(uintmax_t n, unsigned int base)
-{
-	size_t i;
-
-	i = 0;
-	if (n == 0)
-		return (1);
-	while (n)
-	{
-		i++;
-		n /= base;
-	}
-	return (i);
-}
-
-void		*memalloc(size_t size)
-{
-	void *ptr;
-
-	ptr = malloc(size);
-	if (ptr == NULL)
-		return (NULL);
-	while (size > 0)
-	{
-		size--;
-		((unsigned char *)ptr)[size] = (unsigned char)0;
-	}
-	return (ptr);
-}
-
-char		*uitoa_base(uintmax_t n, unsigned int base, const char *dig,
-		int precision)
-{
-	size_t		count;
-	char		*str;
-
-	count = udigit_count(n, base);
-	if (count < precision)
-		count = precision;
-	str = memalloc(count + 1);
-	if (str == NULL)
-		return (NULL);
-	while (count > 0)
-	{
-		str[count - 1] = dig[n % base];
-		count--;
-		n /= base;
-	}
-	return (str);
-}
-
-
-
 
 /* TEST DES LARGEURS */
 
@@ -1025,10 +964,10 @@ int			main(void)
 	printf("u %u%s\n", -100, "->printf");
 
 	// Test %%
-	ft_printf("%%");
-	write(1, "\n", 1);
-	printf("%%");
-	printf("%s\n", "->printf");
+//	ft_printf("%%");
+//	write(1, "\n", 1);
+//	printf("%%");
+//	printf("%s\n", "->printf");
 
 	// Partie Test des Flags - + ' ' et #
 	// Test - (MINUS)
@@ -1062,13 +1001,13 @@ int			main(void)
 	printf("p %p%s\n", p, "->printf");
 
 	//Test width + flags
-	ft_printf("%#5o", 15);
+	ft_printf("%", 15);
 	ft_putchar('\n');
 	printf("+ + width-%#5o%s\n", 15, "->printf");
 
 
 	printf("%s \n", "----------------------------------------");
 	printf("%p\n", p);
-	printf("%01d\n", 5);
+	printf("%d", 5);
 	printf("%d", i);
 }

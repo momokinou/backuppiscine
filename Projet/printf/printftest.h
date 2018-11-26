@@ -6,7 +6,7 @@
 /*   By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/19 10:31:58 by qmoricea     #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/20 11:38:17 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/26 14:20:01 by qmoricea    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,8 +24,8 @@ typedef struct		s_args
 {
 	char			specifier;
 	char			flags;
-	char			*width;
-	char			*precision;
+	int				width;
+	int				precision;
 }					t_args;
 
 
@@ -43,6 +43,8 @@ size_t		ft_strlen(const char *format);
 void		ft_putstr(char const *format);
 void		ft_putnbr(intmax_t n);
 void		ft_putnbr_fd(intmax_t n, int fd);
+int			ft_intlenc(unsigned int n, int i);
+int			ft_intlen(int n);
 
 /*
 ** Verifications
@@ -61,4 +63,42 @@ int			printno_opt(const char *format, va_list ap, int all);
 */
 int			checkall(const char *format, va_list ap, int i, int all);
 
+/*
+** Gestion des flags ' '/-/+/#/0
+*/
+int			checkflags(const char *format, va_list ap, int i, int all);
+
+int			ft_printf_flagsplus(const char *format, va_list ap, int i);
+
+int			ft_printf_flagshashtag(const char *format, va_list ap, int i);
+int			ft_printf_flagshashtag2(const char *format, va_list ap, int i);
+int			ft_printf_flagshashtag3(const char *format, va_list ap, int i);
+int			ft_printf_flagshashtag4(const char *format, va_list ap, int i);
+int			ft_printf_flagshashtag5(const char *format, va_list ap, int i);
+
+int			ft_printf_flagszero(const char *format, va_list ap, int i);
+int			printf_flagszero2(const char *format, va_list ap, int i, int width);
+int			flagszeroint(const char *format, va_list ap, int i, int width);
+int			flagszerol(const char *format, va_list ap, int i, int width);
+int			flagszeroll(const char *format, va_list ap, int i, int width);
+int			flagszeroh(const char *format, va_list ap, int i, int width);
+int			flagszerohh(const char *format, va_list ap, int i, int width);
+
+void		ft_printf_plusnbr(intmax_t n);
+
+/*
+** Gestion width
+*/
+void		checkwidthspec(const char *format, int i, intmax_t nbr);
+
+
+/*
+** Gestion des lengths l/ll/h/hh/j/z
+*/
+int			ft_printf_speinthl(const char *format, va_list ap, int i);
+int			ft_printf_speintll(const char *format, va_list ap, int i);
+int			ft_printf_speinth(const char *format, va_list ap, int i);
+int			ft_printf_speinthh(const char *format, va_list ap, int i);
+
+int			ft_putunbr_hd(short n);
 #endif
