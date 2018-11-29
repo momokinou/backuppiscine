@@ -6,7 +6,7 @@
 /*   By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/06 21:14:28 by qmoricea     #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/26 10:14:46 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/28 10:32:48 by qmoricea    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -1005,9 +1005,10 @@ int			main(void)
 	ft_putchar('\n');
 	printf("+ + width-%#5o%s\n", 15, "->printf");
 
+	//Test printf f
+	printf("%.5s\n", "ttestt");
 
 	printf("%s \n", "----------------------------------------");
 	printf("%p\n", p);
-	printf("%d", 5);
-	printf("%d", i);
+	printf("%f", 5.75789);
 }

@@ -6,7 +6,7 @@
 /*   By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/19 10:31:29 by qmoricea     #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/26 14:50:33 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/28 15:47:20 by qmoricea    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -244,7 +244,7 @@ int			ft_atoi(const char *format, int i)
 	while ((format[i] >= 9 && format[i] <= 13) || format[i] == 32)
 		i++;
 	while (format[i] == '+' || format[i] == '%' || format[i] == '0'
-			|| format[i] == '.')
+			|| format[i] == '.' || format[i] == '-' || format[i] == '#')
 		i++;
 	if (format[i] == '-')
 	{
@@ -531,7 +531,7 @@ int			ft_printf_specjz(const char *format, va_list ap, int i)
 
 void		writewidth(int width, char type)
 {
-	 while (width > 0)
+	while (width > 0)
 	{
 		ft_putchar(type);
 		width--;
@@ -599,15 +599,15 @@ void		writewidth(int width, char type)
    }
    n--;
    if (minus == -1)
-{
-	n--;
-	writewidth(n, ' ');
-	write(1, "0", 1);
-}
-else
-writewidth(n, ' ');
-checkwidthspec(format, i, modif);
-}
+   {
+   n--;
+   writewidth(n, ' ');
+   write(1, "0", 1);
+   }
+   else
+   writewidth(n, ' ');
+   checkwidthspec(format, i, modif);
+   }
 if (format[i] == 'x' || format[i] == 'X')
 {
 	n = widthatoi(format);
@@ -680,7 +680,7 @@ int			ft_printf_flagszero(const char *format, va_list ap, int i)
 
 	all = 0;
 	width = ft_atoi(format, i);
-	while (format[i])
+	while (format[i] && format[i] != '%')
 	{
 		if (ft_isdigit(format[i]))
 			i++;
@@ -688,17 +688,17 @@ int			ft_printf_flagszero(const char *format, va_list ap, int i)
 	}
 	i--;
 	if (format[i] == 'd' || format[i] == 'i')
-		all = flagszeroint(format, ap, i, width);
+		all += flagszeroint(format, ap, i, width);
 	else if (format[i] == 'l' && format[i + 1] != 'l')
-		all = flagszerol(format, ap, i, width);
+		all += flagszerol(format, ap, i, width);
 	else if (format[i] == 'l' && format[i + 1] == 'l')
-		all = flagszeroll(format, ap, i, width);
+		all += flagszeroll(format, ap, i, width);
 	else if (format[i] == 'h' && format[i + 1] != 'h')
-		all = flagszeroh(format, ap, i, width);
+		all += flagszeroh(format, ap, i, width);
 	else if (format[i] == 'h' && format[i] == 'h')
-		all = flagszerohh(format, ap, i, width);
+		all += flagszerohh(format, ap, i, width);
 	else
-		all = printf_flagszero2(format, ap, i, width);
+		all += printf_flagszero2(format, ap, i, width);
 	return (all);
 }
 
@@ -707,6 +707,144 @@ int			printf_flagszero2(const char *format, va_list ap, int i, int width)
 	int all;
 
 	all = 0;
+	if (format[i] == 'u')
+		all += flagszerouint(format, ap, i, width);
+	else if (format[i] == 'o')
+		all += flagszerooctal(format, ap, i, width);
+	else if (format[i] == 'x')
+		all += flagszerohexa(format, ap, i, width);
+	else if (format[i] == 'X')
+		all += flagszerohexam(format, ap, i, width);
+	return (all);
+}
+
+int			octallength(int nbr)
+{
+	int len;
+
+	len = 0;
+	if (nbr < 0)
+	{
+		nbr = -nbr;
+		len = 10;
+	}
+	else while (nbr >= 8)
+	{
+		nbr = nbr / 8;
+		len++;
+	}
+	len++;
+	return (len);
+}
+
+int			hexalength(int nbr)
+{
+	int len;
+
+	len = 0;
+	if (nbr < 0)
+		nbr = -nbr;
+	while (nbr >= 16)
+	{
+		nbr = nbr / 16;
+		len++;
+	}
+	len++;
+	return (len);
+}
+
+int			negnbr(int nbr)
+{
+	if (nbr < 0)
+	{
+		ft_putchar('-');
+		nbr = -nbr;
+	}
+	return (nbr);
+}
+
+int			flagszerohexa(const char *format, va_list ap, int i, int width)
+{
+	int			all;
+	uintmax_t	nbr;
+
+	all = 0;
+	nbr = va_arg(ap, unsigned int);
+	width = width - hexalength(nbr);
+	if (format[i] == 'l' && format[i + 1] != 'l')
+		nbr = (unsigned long)nbr;
+	else if (format [i] == 'l' && format[i + 1] == 'l')
+		nbr = (unsigned long long)nbr;
+	else if (format[i] == 'h' && format[i + 1] != 'h')
+		nbr = (unsigned short)nbr;
+	else if (format[i] == 'h' && format[i + 1] == 'h')
+		nbr = (unsigned char)nbr;
+	writewidth(width, '0');
+	if (format[i] == 'x')
+		all += ft_printf_x(nbr);
+	return (all);
+}
+
+int			flagszerohexam(const char *format, va_list ap, int i, int width)
+{
+	int			all;
+	uintmax_t	nbr;
+
+	all = 0;
+	nbr = va_arg(ap, unsigned int);
+	width = width - hexalength(nbr);
+	if (format[i] == 'l' && format[i + 1] != 'l')
+		nbr = (unsigned long)nbr;
+	else if (format [i] == 'l' && format[i + 1] == 'l')
+		nbr = (unsigned long long)nbr;
+	else if (format[i] == 'h' && format[i + 1] != 'h')
+		nbr = (unsigned short)nbr;
+	else if (format[i] == 'h' && format[i + 1] == 'h')
+		nbr = (unsigned char)nbr;
+	writewidth(width, '0');
+	if (format[i] == 'X')
+		all += ft_printf_xm(nbr);
+	return (all);
+}
+
+int			flagszerooctal(const char *format, va_list ap, int i, int width)
+{
+	int			all;
+	uintmax_t	nbr;
+
+	all = 0;
+	nbr = va_arg(ap, unsigned int);
+	width = width - octallength(nbr);
+	if (format[i] == 'l' && format[i + 1] != 'l')
+		nbr = (unsigned long)nbr;
+	else if (format [i] == 'l' && format[i + 1] == 'l')
+		nbr = (unsigned long long)nbr;
+	else if (format[i] == 'h' && format[i + 1] != 'h')
+		nbr = (unsigned short)nbr;
+	else if (format[i] == 'h' && format[i + 1] == 'h')
+		nbr = (unsigned char)nbr;
+	writewidth(width, '0');
+	if (format[i] == 'o')
+		all += ft_printf_octal(nbr);
+	return (all);
+}
+
+int			flagszerouint(const char *format, va_list ap, int i, int width)
+{
+	int all;
+	int nbr;
+
+	all = 0;
+	nbr = va_arg(ap, unsigned int);
+	if (nbr < 0)
+		width = width - 10;
+	else
+		width = width - ft_intlen(nbr);
+	writewidth(width, '0');
+	if (width > 0)
+		all += ft_putunbr(nbr);
+	else
+		all += ft_putunbr(nbr);
 	return (all);
 }
 
@@ -719,27 +857,40 @@ int			flagszeroint(const char *format, va_list ap, int i, int width)
 	nbr = va_arg(ap, int);
 	width = width - ft_intlen(nbr);
 	if (nbr < 0)
-	{
-		ft_putchar('-');
-		nbr = -nbr;
-	}
+		all += 1;
+	nbr = negnbr(nbr);
 	writewidth(width, '0');
+	if (format[i] == 'l' && format[i + 1] != 'l')
+		nbr = (unsigned long)nbr;
+	else if (format [i] == 'l' && format[i + 1] == 'l')
+		nbr = (unsigned long long)nbr;
+	else if (format[i] == 'h' && format[i + 1] != 'h')
+		nbr = (unsigned short)nbr;
+	else if (format[i] == 'h' && format[i + 1] == 'h')
+		nbr = (unsigned char)nbr;
 	if (width > 0)
-		all = ft_printf_nbr(nbr) + width;
+		all += ft_printf_nbr(nbr) + width;
 	else
-		all = ft_printf_nbr(nbr);
+		all += ft_printf_nbr(nbr);
 	return (all);
 }
 
 int			flagszerol(const char *format, va_list ap, int i, int width)
 {
 	int all;
-	int m;
+	int nbr;
 
 	all = 0;
-	m = va_arg(ap, long);
+	nbr = va_arg(ap, long);
+	width = width - ft_intlen(nbr);
 	if (format[i] == 'l' && (format[i + 1] == 'd' || format[i + 1] == 'i'))
 	{
+		nbr = negnbr(nbr);
+		writewidth(width, '0');
+		if (width > 0)
+			all = ft_putnbr_ld(nbr) + width;
+		else
+			all = ft_putnbr_ld(nbr);
 	}
 	return (all);
 }
@@ -757,6 +908,12 @@ int			flagszeroh(const char *format, va_list ap, int i, int width)
 	int all;
 
 	all = 0;
+	if (format[i] == 'h' && (format[i + 1] == 'd' || format[i + 1] == 'i'))
+		all += flagszeroint(format, ap, i, width);
+	else if (format[i] == 'h' && format[i + 1] == 'u')
+		all += flagszerouint(format, ap, i, width);
+	else if (format[i] == 'l' && format[i + 1] == 'o')
+		all += flagszerooctal(format, ap, i, width);
 	return (all);
 }
 
@@ -940,7 +1097,7 @@ int			checkflags(const char *format, va_list ap, int i, int all)
 		if (format[i] == '-')
 		{
 			i++;
-			all = checkall(format, ap, i, all) + 1;
+			all = checkall(format, ap, i, all);
 		}
 		else if (format[i] == '+')
 		{
@@ -1061,7 +1218,7 @@ int			main(void)
 	int		i;
 
 	p = "test";
-	ft_printf("%05d%05d", 10, 1);
+	ft_printf("%05d%05lld", -10, -67);
 	ft_putchar('\n');
-	ft_putnbr(printf("%05d", 10));
+	printf("%05d", 67);
 }

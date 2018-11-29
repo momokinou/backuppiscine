@@ -6,7 +6,7 @@
 /*   By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/19 10:31:58 by qmoricea     #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/26 14:20:01 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/28 14:11:49 by qmoricea    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -79,6 +79,10 @@ int			ft_printf_flagshashtag5(const char *format, va_list ap, int i);
 int			ft_printf_flagszero(const char *format, va_list ap, int i);
 int			printf_flagszero2(const char *format, va_list ap, int i, int width);
 int			flagszeroint(const char *format, va_list ap, int i, int width);
+int			flagszerouint(const char *format, va_list ap, int i, int width);
+int			flagszerohexa(const char *format, va_list ap, int i, int width);
+int			flagszerohexam(const char *format, va_list ap, int i, int width);
+int			flagszerooctal(const char *format, va_list ap, int i, int width);
 int			flagszerol(const char *format, va_list ap, int i, int width);
 int			flagszeroll(const char *format, va_list ap, int i, int width);
 int			flagszeroh(const char *format, va_list ap, int i, int width);
