@@ -6,7 +6,7 @@
 /*   By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/19 10:31:29 by qmoricea     #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/29 12:33:11 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/30 12:04:46 by qmoricea    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -254,33 +254,6 @@ int			ft_atoi(const char *format, int i)
 	while (format[i] && format[i] >= '0' && format[i] <= '9')
 	{
 		n = n * 10 + (format[i++] - '0');
-	}
-	if (isneg)
-		return (-n);
-	else
-		return (n);
-}
-
-int			widthatoi(const char *str)
-{
-	int n;
-	int isneg;
-
-	isneg = 0;
-	n = 0;
-	while (ft_isspace(*str))
-		str++;
-	while (*str == '+' || *str == '%' || *str == '0' || *str == ' '
-			|| *str == '-' || *str == '#')
-		str++;
-	if (*str == '-')
-	{
-		isneg = 1;
-		str++;
-	}
-	while (*str != '\0' && ft_isdigit(*str))
-	{
-		n = n * 10 + (*str++ - '0');
 	}
 	if (isneg)
 		return (-n);
@@ -537,140 +510,7 @@ void		writewidth(int width, char type)
 		width--;
 	}
 }
-/*
-   void        ft_printf_width(const char *format, va_list ap, int i)
-   {
-   int n;
-   int m;
-   int modif;
-   int minus;
-   char *str;
 
-   n = 0;
-   minus = 0;
-   if (format[i] == '-')
-   minus = 1;
-   if (format[i] == '#')
-   minus = -1;
-   if (format[i] == ' ')
-   i++;
-   while (format[i])
-   {
-   while (format[i] <= '9' && format[i] > '0')
-   {
-   i++;
-   }
-   i++;
-   }
-   i--;
-   if (format[i] == 'd' || format[i] == 'i')
-   {
-   n = widthatoi(format);
-   m = va_arg(ap, int);
-   n = n - ft_intlen(m);
-   if (minus == 1)
-   {
-   checkwidthspec(format, i, m);
-   writewidth(n , ' ');
-   }
-   else
-   {
-   writewidth(n, ' ');
-   checkwidthspec(format, i, m);
-   }
-   }
-   if (format[i] == 'u')
-   {
-   n = widthatoi(format);
-   m = va_arg(ap, unsigned int);
-   n = n - ft_intlen(m);
-   writewidth(n, ' ');
-   checkwidthspec(format, i, m);
-   }
-   if (format[i] == 'o')
-   {
-   n = widthatoi(format);
-   modif = (unsigned int)va_arg(ap, int);
-   m = modif;
-   while (m >= 8)
-   {
-   m = m / 8;
-   n--;
-   }
-   n--;
-   if (minus == -1)
-   {
-   n--;
-   writewidth(n, ' ');
-   write(1, "0", 1);
-   }
-   else
-   writewidth(n, ' ');
-   checkwidthspec(format, i, modif);
-   }
-if (format[i] == 'x' || format[i] == 'X')
-{
-	n = widthatoi(format);
-	modif = (va_arg(ap, unsigned int));
-	m = modif;
-	while (m >= 16)
-	{
-		m = m / 16;
-		n--;
-	}
-	n--;
-	if (minus == -1)
-	{
-		n--;
-		writewidth(n, ' ');
-		if (format[i] == 'x')
-			write(1, "0x", 2);
-		if (format[i] == 'X')
-			write(1, "0X", 2);
-	}
-	else
-		writewidth(n, ' ');
-	checkwidthspec(format, i, modif);
-}
-if (format[i] == 'c')
-{
-	n = widthatoi(format);
-	n = n - 1;
-	writewidth(n, ' ');
-	ft_printf_c((wchar_t)va_arg(ap, wint_t));
-}
-if (format[i] == 's')
-{
-	n = widthatoi(format);
-	str = va_arg(ap, char *);
-	m = ft_strlen(str);
-	n = n - m;
-	writewidth(n, ' ');
-	checkwidthspec2(format, i, str);
-}
-if (format[i] == 'p')
-{
-	n = widthatoi(format);
-	n = n - 11;
-	writewidth(n, ' ');
-	checkspec3(format, ap, i);
-}
-}
-
-void        checkwidthspec(const char *format, int i, intmax_t nbr)
-{CCC
-	if (format[i] == 'd' || format[i] == 'i')
-		ft_putnbr(nbr);
-	if (format[i] == 'u')
-		ft_putunbr(nbr);
-	if (format[i] == 'o')
-		ft_printf_octal(nbr);
-	if (format[i] == 'x')
-		ft_printf_x(nbr);
-	if (format[i] == 'X')
-		ft_printf_xm(nbr);
-}
-*/
 /*----------------------------------------------------------------------------*/
 
 int			ft_printf_flagszero(const char *format, va_list ap, int i)
