@@ -6,7 +6,7 @@
 /*   By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/19 10:31:58 by qmoricea     #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/30 12:04:44 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/03 12:24:12 by qmoricea    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -54,7 +54,7 @@ int			printno_opt(const char *format, va_list ap, int all);
 */
 int			checkall(const char *format, va_list ap, int i, int all);
 int			checkall2(const char *format, va_list ap, int i, int all);
-int			counti(const char *format, int i, int all);
+int			counti(const char *format, int i);
 
 /*
 ** Gestion Specifiers c/s/p/d/i/u/o/x/X | Lengths h/hh/l/ll/j/z
@@ -85,6 +85,8 @@ int			ft_printf_octal(unsigned int n);
 ** Gestion des flags ' '/-/+/#/0
 */
 int			checkflags(const char *format, va_list ap, int i, int all);
+int			checkflags2(const char *format, va_list ap, int i, int all);
+int			checkflags3(const char *format, va_list ap, int i, int all);
 
 int			ft_printf_flagsplus(const char *format, va_list ap, int i);
 void		ft_printf_plusnbr(intmax_t n);
@@ -107,6 +109,7 @@ int			ft_printf_flagshashtag2(const char *format, va_list ap, int i);
 int			ft_printf_flagshashtag3(const char *format, va_list ap, int i);
 int			ft_printf_flagshashtag4(const char *format, va_list ap, int i);
 int			ft_printf_flagshashtag5(const char *format, va_list ap, int i);
+int			ft_printf_widthhasht(const char *format, va_list ap, int i);
 int			printf_widthhasht2(const char *format, va_list ap, int i,
 		int width);
 int			flagshashtl(const char *format, va_list ap, int i, int width);

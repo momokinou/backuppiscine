@@ -6,7 +6,7 @@
 #    By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/11/05 22:12:35 by qmoricea     #+#   ##    ##    #+#        #
-#    Updated: 2018/11/20 08:28:27 by qmoricea    ###    #+. /#+    ###.fr      #
+#    Updated: 2018/12/03 12:19:02 by qmoricea    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -14,27 +14,32 @@
 NAME    = libftprintf.a
 
 SRC        = ft_printf.c \
-			 intlen.c \
+			 gestion_flags.c \
+			 gestion_length.c \
+			 gestion_specifiers_noopt.c \
+			 gestion_width.c \
 			 printchar.c \
-			 printfchar2.c \
-			 printhexa.c \
-			 printlong.c \
+			 printf_char.c \
+			 printf_flaghashtag.c \
+			 printf_flags.c \
+			 printf_flagzero.c \
+			 printf_flagzero_int_octal.c \
+			 printf_hexa_octal.c \
+			 printf_lengthzero.c \
+			 printf_nbr.c \
+			 printf_width_hashtag.c \
+			 printf_width_hashtag_length.c \
+			 printf_width_minus.c \
+			 printf_width_minus_int_hexa_octal.c \
+			 printf_width_minus_length.c\
+			 printf_width_space.c \
+			 printf_width_space_int_hexa_octal.c \
+			 printf_width_space_length.c \
 			 printnbr.c \
-			 printoctal.c \
-			 printshort.c \
 			 printunbr.c \
-			 checkspec.c \
-			 spechar.c \
-			 specjz.c \
-			 specxo.c \
-			 speint.c \
-			 printnoopt.c \
-			 checkflags.c \
-			 printflags.c \
-			 printflagszero.c \
-			 gestwidth.c \
-			 funcforwidth.c \
-			 printf_width.c
+			 specifiers_int.c \
+			 specifiersxo_lengthjz.c \
+			 utilitaires.c
 
 OBJ        = $(SRC:.c=.o)
 .SILENT:
