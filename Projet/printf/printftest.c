@@ -6,12 +6,12 @@
 /*   By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/19 10:31:29 by qmoricea     #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/30 12:04:46 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/03 13:14:34 by qmoricea    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "printftest.h"
+#include "libftprintf.h"
 #include <unistd.h>
 #include <stdarg.h>
 #include <wchar.h>
@@ -288,7 +288,7 @@ int			ft_printf_unbr(int nbr)
 	return (ft_putunbr(nbr));
 }
 
-int			counti(const char *format, int i, int all)
+int			counti(const char *format, int i)
 {
 	while (format[i] && format[i] != '%')
 		i++;
@@ -1677,7 +1677,7 @@ int			checkflags(const char *format, va_list ap, int i, int all)
 		}
 		else
 			all = checkall(format, ap, i, all);
-		i = counti(format, i, all);
+		i = counti(format, i);
 		ft_putchar('|');
 		if (i == 0)
 			return (all);

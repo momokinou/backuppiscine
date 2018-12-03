@@ -6,7 +6,7 @@
 /*   By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/03 11:54:27 by qmoricea     #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/03 12:24:49 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/03 13:14:21 by qmoricea    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -100,7 +100,12 @@ int		checkflags2(const char *format, va_list ap, int i, int all)
 
 int		checkflags3(const char *format, va_list ap, int i, int all)
 {
-	if (format[i] == '.')
+	if (format[i] == '0')
+	{
+		all += ft_printf_flagszero(format, ap, i);
+		i++;
+	}
+	else if (format[i] == '.')
 	{
 		all += ft_printf_flagszero(format, ap, i);
 		i++;

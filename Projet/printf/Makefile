@@ -6,7 +6,7 @@
 #    By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/11/05 22:12:35 by qmoricea     #+#   ##    ##    #+#        #
-#    Updated: 2018/12/03 12:19:02 by qmoricea    ###    #+. /#+    ###.fr      #
+#    Updated: 2018/12/03 13:07:58 by qmoricea    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -39,7 +39,8 @@ SRC        = ft_printf.c \
 			 printunbr.c \
 			 specifiers_int.c \
 			 specifiersxo_lengthjz.c \
-			 utilitaires.c
+			 utilitaires.c \
+			 main.c
 
 OBJ        = $(SRC:.c=.o)
 .SILENT:
