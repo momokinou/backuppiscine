@@ -6,7 +6,7 @@
 /*   By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/03 11:31:20 by qmoricea     #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/03 11:32:59 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/07 09:34:21 by qmoricea    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,13 +20,9 @@ int		ft_printf_widthhasht(const char *format, va_list ap, int i)
 
 	all = 0;
 	width = ft_atoi(format, i);
-	while (format[i] && format[i] != '%')
-	{
-		if (ft_isdigit(format[i]))
-			i++;
+	i++;
+	while (format[i] && ft_isdigit(format[i]))
 		i++;
-	}
-	i--;
 	if (format[i] == 'd' || format[i] == 'i')
 		all += flagsspaceint(format, ap, i, width);
 	else if (format[i] == 'l' && format[i + 1] != 'l')

@@ -6,7 +6,7 @@
 #    By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/11/05 22:12:35 by qmoricea     #+#   ##    ##    #+#        #
-#    Updated: 2018/12/03 13:07:58 by qmoricea    ###    #+. /#+    ###.fr      #
+#    Updated: 2018/12/07 09:24:08 by qmoricea    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -39,8 +39,7 @@ SRC        = ft_printf.c \
 			 printunbr.c \
 			 specifiers_int.c \
 			 specifiersxo_lengthjz.c \
-			 utilitaires.c \
-			 main.c
+			 utilitaires.c
 
 OBJ        = $(SRC:.c=.o)
 .SILENT:
@@ -48,7 +47,7 @@ OBJ        = $(SRC:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	gcc $(SRC) -o $(NAME)
+	ar rcs $(NAME) $(OBJ)
 	printf '\033[32m[ ✔ ] %s\n\033[0m' "Create Printf"
 
 ./%.o: ./%.c

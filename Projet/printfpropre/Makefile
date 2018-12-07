@@ -6,7 +6,7 @@
 #    By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/11/05 22:12:35 by qmoricea     #+#   ##    ##    #+#        #
-#    Updated: 2018/12/03 12:19:02 by qmoricea    ###    #+. /#+    ###.fr      #
+#    Updated: 2018/12/07 09:23:47 by qmoricea    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -47,12 +47,14 @@ OBJ        = $(SRC:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	gcc $(SRC) -o $(NAME)
+	ar rcs $(NAME) $(OBJ)
 	printf '\033[32m[ ✔ ] %s\n\033[0m' "Create Printf"
 
 ./%.o: ./%.c
 	gcc -Wall -Wextra -Werror -c $< -o $@
 	printf '\033[0m[ ✔ ] %s\n\033[0m' "$<"
+
+all: $(NAME)
 
 clean:
 	rm -rf $(OBJ)

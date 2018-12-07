@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_printf.c                                      .::    .:/ .      .::   */
+/*   main.c                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/12/03 12:12:52 by qmoricea     #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/07 12:28:44 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Created: 2018/12/04 09:18:22 by qmoricea     #+#   ##    ##    #+#       */
+/*   Updated: 2018/12/04 09:34:28 by qmoricea    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-int		ft_printf(const char *format, ...)
+int			main(void)
 {
-	va_list	ap;
+	char	*p;
 	int		i;
-	int		all;
 
-	i = 0;
-	all = 0;
-	va_start(ap, format);
-	all = checknoopt(format, ap, i, all);
-	va_end(ap);
-	return (all);
+	p = "test";
+	ft_printf("test %d", 15);
 }

@@ -6,7 +6,7 @@
 /*   By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/19 10:31:58 by qmoricea     #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/03 12:24:12 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/07 13:13:01 by qmoricea    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -55,6 +55,8 @@ int			printno_opt(const char *format, va_list ap, int all);
 int			checkall(const char *format, va_list ap, int i, int all);
 int			checkall2(const char *format, va_list ap, int i, int all);
 int			counti(const char *format, int i);
+int			countall(const char *format, int i, int all);
+int			is_valid(char c);
 
 /*
 ** Gestion Specifiers c/s/p/d/i/u/o/x/X | Lengths h/hh/l/ll/j/z
@@ -76,10 +78,10 @@ int			ft_printf_c(char c);
 int			ft_printf_str(char *str);
 int			ft_printf_nbr(int nbr);
 int			ft_printf_unbr(int nbr);
-int			ft_printf_p(unsigned int n);
-int			ft_printf_x(unsigned int n);
-int			ft_printf_xm(unsigned int n);
-int			ft_printf_octal(unsigned int n);
+int			ft_printf_p(uintmax_t n);
+int			ft_printf_x(uintmax_t n);
+int			ft_printf_xm(uintmax_t n);
+int			ft_printf_octal(uintmax_t n);
 
 /*
 ** Gestion des flags ' '/-/+/#/0

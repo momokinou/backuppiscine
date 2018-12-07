@@ -6,7 +6,7 @@
 /*   By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/03 13:07:14 by qmoricea     #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/03 13:14:54 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/07 12:34:35 by qmoricea    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,7 +18,7 @@ int		main(void)
 	char	*p;
 
 	p = "test";
-	ft_printf("%05d%-5d", -10, 364);
+	ft_putnbr(ft_printf("%#5hhX", 485621));
 	ft_putchar('\n');
-	printf("%05d%-5d", -10, 364);
+	ft_putnbr(printf("%#5hhX", (unsigned char)485621));
 }

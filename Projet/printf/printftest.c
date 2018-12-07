@@ -6,7 +6,7 @@
 /*   By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/19 10:31:29 by qmoricea     #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/03 13:14:34 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/07 14:03:57 by qmoricea    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -77,6 +77,46 @@ void		ft_putnbr_fd(intmax_t n, int fd)
 void		ft_putnbr(intmax_t n)
 {
 	ft_putnbr_fd(n, 1);
+}
+
+int			ft_putsignedchar(signed char n)
+{
+	signed char x;
+
+	x = n;
+	if (n < 0)
+	{
+		ft_putchar('-');
+		x = -n;
+	}
+	if (x >= 10)
+	{
+		ft_putsignedchar(x / 10);
+		ft_putsignedchar(x % 10);
+	}
+	else
+		ft_putchar(x + '0');
+	return (ft_intlen(n));
+}
+
+int			ft_putunsignedchar(unsigned char n)
+{
+	unsigned char x;
+
+	x = n;
+	if (n < 0)
+	{
+		ft_putchar('-');
+		x = -n;
+	}
+	if (x >= 10)
+	{
+		ft_putunsignedchar(x / 10);
+		ft_putunsignedchar(x % 10);
+	}
+	else
+		ft_putchar(x + '0');
+	return (ft_intlen(n));
 }
 
 int			ft_putunbr_fd(intmax_t n, int fd)
@@ -288,10 +328,19 @@ int			ft_printf_unbr(int nbr)
 	return (ft_putunbr(nbr));
 }
 
+int			is_valid(char c)
+{
+	return (c != 'c' && c != 's' && c !='p' && c != 'd' && c != 'i' && c != 'u'
+			&& c != 'o' && c != 'x' && c != 'X');
+}
+
 int			counti(const char *format, int i)
 {
-	while (format[i] && format[i] != '%')
+	while (format[i] && is_valid(format[i]))
 		i++;
+	i++;
+	while (format[i] && format[i] != '%')
+		ft_putchar(format[i++]);
 	if (format[i] == '%')
 		return (i + 1);
 	else if (!format[i])
@@ -299,7 +348,20 @@ int			counti(const char *format, int i)
 	return (0);
 }
 
-int			ft_printf_p(unsigned int n)
+int			countall(const char *format, int i, int all)
+{
+	while (format[i] && is_valid(format[i]))
+		i++;
+	i++;
+	while (format[i] && format[i] != '%')
+	{
+		i++;
+		all++;
+	}
+	return (all);
+}
+
+int			ft_printf_p(uintmax_t n)
 {
 	if (n >= 16)
 		return ((ft_printf_p(n / 16) + ft_printf_p(n % 16)));
@@ -307,7 +369,7 @@ int			ft_printf_p(unsigned int n)
 		return (ft_printf_c(HEX[n]));
 }
 
-int			ft_printf_x(unsigned int n)
+int			ft_printf_x(uintmax_t n)
 {
 	if (n >= 16)
 		return (ft_printf_x(n / 16) + ft_printf_x(n % 16));
@@ -315,7 +377,7 @@ int			ft_printf_x(unsigned int n)
 		return (ft_printf_c(HEX[n]));
 }
 
-int			ft_printf_xm(unsigned int n)
+int			ft_printf_xm(uintmax_t n)
 {
 	if (n >= 16)
 		return (ft_printf_xm(n / 16) + ft_printf_xm(n % 16));
@@ -323,7 +385,7 @@ int			ft_printf_xm(unsigned int n)
 		return (ft_printf_c(HEXM[n]));
 }
 
-int			ft_printf_octal(unsigned int n)
+int			ft_printf_octal(uintmax_t n)
 {
 	if (n >= 8)
 		return (ft_printf_octal(n / 8) + ft_printf_x(n % 8));
@@ -436,9 +498,9 @@ int			ft_printf_speinthh(const char *format, va_list ap, int i)
 	all = 0;
 	if (format[i] == 'h' && format[i + 1] == 'h' &&(format[i + 2] == 'd'
 				|| format[i + 2] == 'i'))
-		all += ft_printf_nbr((signed char)va_arg(ap, int));
+		all += ft_putsignedchar((signed char)va_arg(ap, int));
 	else if (format[i] == 'h' && format[i + 1] == 'h' && format[i + 2] == 'u')
-		all += ft_printf_unbr((unsigned char)va_arg(ap, int));
+		all += ft_putunsignedchar((unsigned char)va_arg(ap, unsigned int));
 	else if (format[i] == 'h' && format[i + 1] == 'h' && format[i + 2] == 'o')
 		all += ft_printf_octal((unsigned char)va_arg(ap, int));
 	else if (format[i] == 'h' && format[i + 1] == 'h' && format[i + 2] == 'x')
@@ -804,13 +866,9 @@ int			ft_printf_widthhasht(const char *format, va_list ap, int i)
 
 	all = 0;
 	width = ft_atoi(format, i);
-	while (format[i] && format[i] != '%')
-	{
-		if (ft_isdigit(format[i]))
-			i++;
+	i++;
+	while (format[i] && ft_isdigit(format[i]))
 		i++;
-	}
-	i--;
 	if (format[i] == 'd' || format[i] == 'i')
 		all += flagsspaceint(format, ap, i, width);
 	else if (format[i] == 'l' && format[i + 1] != 'l')
@@ -819,7 +877,7 @@ int			ft_printf_widthhasht(const char *format, va_list ap, int i)
 		all += flagshashtll(format, ap, i, width);
 	else if (format[i] == 'h' && format[i + 1] != 'h')
 		all += flagshasht_h(format, ap, i, width);
-	else if (format[i] == 'h' && format[i] == 'h')
+	else if (format[i] == 'h' && format[i + 1] == 'h')
 		all += flagshashthh(format, ap, i, width);
 	else
 		all += printf_widthhasht2(format, ap, i, width);
@@ -848,19 +906,20 @@ int			flagshashthexa(const char *format,va_list ap, int i, int width)
 	uintmax_t	nbr;
 
 	all = 0;
-	nbr = va_arg(ap, unsigned int);
-	width = width - hexalength(nbr) - 2;
 	if (format[i] == 'l' && format[i + 1] != 'l')
-		nbr = (unsigned long)nbr;
+		nbr = va_arg(ap, unsigned long);
 	else if (format [i] == 'l' && format[i + 1] == 'l')
-		nbr = (unsigned long long)nbr;
+		nbr = va_arg(ap, unsigned long long);
 	else if (format[i] == 'h' && format[i + 1] != 'h')
-		nbr = (unsigned short)nbr;
-	else if (format[i] == 'h' && format[i + 1] == 'h')
-		nbr = (unsigned char)nbr;
+		nbr = (unsigned short)va_arg(ap, int);
+	else if (format[i] == 'x')
+		nbr = va_arg(ap, unsigned int);
+	width = width - hexalength(nbr) - 2;
 	writewidth(width, ' ');
 	ft_putstr("0x");
-	if (format[i] == 'x')
+	if (width >= 0)
+		all += ft_printf_x(nbr) + 2 + width;
+	else
 		all += ft_printf_x(nbr) + 2;
 	return (all);
 }
@@ -871,19 +930,20 @@ int			flagshashthexam(const char *format, va_list ap, int i, int width)
 	uintmax_t	nbr;
 
 	all = 0;
-	nbr = va_arg(ap, unsigned int);
-	width = width - hexalength(nbr) - 2;
 	if (format[i] == 'l' && format[i + 1] != 'l')
-		nbr = (unsigned long)nbr;
+		nbr = va_arg(ap, unsigned long);
 	else if (format [i] == 'l' && format[i + 1] == 'l')
-		nbr = (unsigned long long)nbr;
+		nbr = va_arg(ap, unsigned long long);
 	else if (format[i] == 'h' && format[i + 1] != 'h')
-		nbr = (unsigned short)nbr;
-	else if (format[i] == 'h' && format[i + 1] == 'h')
-		nbr = (unsigned char)nbr;
+		nbr = (unsigned short)va_arg(ap, int);
+	else if (format[i] == 'X')
+		nbr = va_arg(ap, unsigned int);
+	width = width - hexalength(nbr) - 2;
 	writewidth(width, ' ');
 	ft_putstr("0X");
-	if (format[i] == 'X')
+	if (width >= 0)
+		all += ft_printf_xm(nbr) + 2 + width;
+	else
 		all += ft_printf_xm(nbr) + 2;
 	return (all);
 }
@@ -894,19 +954,20 @@ int			flagshashtoctal(const char *format, va_list ap, int i, int width)
 	uintmax_t	nbr;
 
 	all = 0;
-	nbr = va_arg(ap, unsigned int);
-	width = width - octallength(nbr) - 1;
 	if (format[i] == 'l' && format[i + 1] != 'l')
-		nbr = (unsigned long)nbr;
+		nbr = va_arg(ap, unsigned long);
 	else if (format [i] == 'l' && format[i + 1] == 'l')
-		nbr = (unsigned long long)nbr;
+		nbr = va_arg(ap, unsigned long long);
 	else if (format[i] == 'h' && format[i + 1] != 'h')
-		nbr = (unsigned short)nbr;
-	else if (format[i] == 'h' && format[i + 1] == 'h')
-		nbr = (unsigned char)nbr;
+		nbr = (unsigned short)va_arg(ap, unsigned int);
+	else if (format[i] == 'o')
+		nbr = va_arg(ap, unsigned int);
+	width = width - octallength(nbr) - 1;
 	writewidth(width, ' ');
 	ft_putchar('0');
-	if (format[i] == 'o')
+	if (width >= 0)
+		all += ft_printf_octal(nbr) + 1 + width;
+	else
 		all += ft_printf_octal(nbr) + 1;
 	return (all);
 }
@@ -967,6 +1028,81 @@ int			flagshasht_h(const char *format, va_list ap, int i, int width)
 	return (all);
 }
 
+int			flagshashthh_hexa2(const char *format, unsigned char nbr, int i,
+		int width)
+{
+	int all;
+
+	all = 0;
+	if (format[i] == 'x')
+	{
+		ft_putstr("0x");
+		all += ft_printf_x(nbr) + 2;
+	}
+	else if (format[i] == 'X')
+	{
+		ft_putstr("0X");
+		all += ft_printf_xm(nbr) + 2;
+	}
+	return (all);
+}
+
+int			flagshashthh_hexa(const char *format, va_list ap, int i, int width)
+{
+	int			all;
+	uintmax_t	nbr;
+
+	all = 0;
+	i += 2;
+	nbr = (unsigned char)va_arg(ap, int);
+	if (format[i] == 'x' || format[i] == 'X')
+		width = width - hexalength(nbr) - 2;
+	writewidth(width, ' ');
+	if (width >= 0)
+	{
+		if (format[i] == 'x')
+		{
+			ft_putstr("0x");
+			all += ft_printf_x(nbr) + 2 + width;
+		}
+		else if (format[i] == 'X')
+		{
+			ft_putstr("0X");
+			all += ft_printf_xm(nbr) + 2 + width;
+		}
+	}
+	else
+		all += flagshashthh_hexa2(format, nbr, i, width);
+	return (all);
+}
+
+int			flagshashthh_octal(const char *format, va_list ap, int i, int width)
+{
+	int			all;
+	uintmax_t	nbr;
+
+	all = 0;
+	i += 2;
+	nbr = (unsigned char)va_arg(ap, int);
+	if (format[i] == 'o')
+		width = width - octallength(nbr) - 1;
+	writewidth(width, ' ');
+	if (width >= 0)
+	{
+		if (format[i] == 'o')
+		{
+			ft_putchar('0');
+			all += ft_printf_octal(nbr) + 1 + width;
+		}
+	}
+	else
+	{
+		ft_putchar('0');
+		all += ft_printf_octal(nbr) + 1;
+	}
+	return (all);
+}
+
 int			flagshashthh(const char *format, va_list ap, int i, int width)
 {
 	int all;
@@ -977,12 +1113,11 @@ int			flagshashthh(const char *format, va_list ap, int i, int width)
 		all += flagsspaceint(format, ap, i, width);
 	else if (format[i] == 'h' && format[i + 1] == 'h' && format[i + 2] == 'u')
 		all += flagsspaceuint(format, ap, i, width);
+	else if (format[i] == 'h' && format[i + 1] == 'h' && (format[i + 2] == 'x'
+				|| format[i + 2] == 'X'))
+		all += flagshashthh_hexa(format, ap, i, width);
 	else if (format[i] == 'h' && format[i + 1] == 'h' && format[i + 2] == 'o')
-		all += flagshashtoctal(format, ap, i, width);
-	else if (format[i] == 'h' && format[i + 1] == 'h' && format[i + 2] == 'x')
-		all += flagshashthexa(format, ap, i, width);
-	else if (format[i] == 'h' && format[i + 1] == 'h' && format[i + 2] == 'X')
-		all += flagshashthexam(format, ap, i, width);
+		all += flagshashthh_octal(format, ap, i, width);
 	return (all);
 }
 
@@ -1365,22 +1500,28 @@ int			flagsminusuint(const char *format, va_list ap, int i, int width)
 int			flagsminusint(const char *format, va_list ap, int i, int width)
 {
 	int all;
-	int nbr;
+	intmax_t nbr;
 
 	all = 0;
-	nbr = va_arg(ap, int);
+	/*	nbr = va_arg(ap, int);
+		width = width - ft_intlen(nbr);
+		if (nbr < 0)
+		all += 1;
+		nbr = negnbr(nbr); */
+	if (format[i] == 'l' && format[i + 1] != 'l')
+		nbr = va_arg(ap, long);
+	else if (format [i] == 'l' && format[i + 1] == 'l')
+		nbr = va_arg(ap, long long);
+	else if (format[i] == 'h' && format[i + 1] != 'h')
+		nbr = (short)va_arg(ap, int);
+	else if (format[i] == 'h' && format[i + 1] == 'h')
+		nbr = (signed char)va_arg(ap, int);
+	else
+		nbr = va_arg(ap, int);
 	width = width - ft_intlen(nbr);
 	if (nbr < 0)
 		all += 1;
 	nbr = negnbr(nbr);
-	if (format[i] == 'l' && format[i + 1] != 'l')
-		nbr = (long)nbr;
-	else if (format [i] == 'l' && format[i + 1] == 'l')
-		nbr = (long long)nbr;
-	else if (format[i] == 'h' && format[i + 1] != 'h')
-		nbr = (short)nbr;
-	else if (format[i] == 'h' && format[i + 1] == 'h')
-		nbr = (signed char)nbr;
 	if (width > 0)
 		all += ft_printf_nbr(nbr) + width;
 	else
@@ -1508,7 +1649,7 @@ int			ft_printf_flagshashtag(const char *format, va_list ap, int i)
 		write(1, "0", 1);
 		all += ft_printf_octal((unsigned int)va_arg(ap, int)) + 1;
 	}
-	else if (format[i] == 'h' && format[i] == 'o')
+	else if (format[i] == 'h' && format[i + 1] == 'o')
 	{
 		ft_putchar('0');
 		all += ft_printf_octal((unsigned short)va_arg(ap, int)) + 1;
@@ -1531,12 +1672,12 @@ int			ft_printf_flagshashtag2(const char *format, va_list ap, int i)
 	if (format[i] == 'l' && format[i + 1] == 'o')
 	{
 		ft_putchar('0');
-		all += ft_printf_octal((unsigned long)va_arg(ap, int));
+		all += ft_printf_octal((unsigned long)va_arg(ap, long)) + 1;
 	}
 	else if (format[i] == 'l' && format[i + 1] == 'l' && format[i + 2] == 'o')
 	{
 		ft_putchar('0');
-		all += ft_printf_octal((unsigned long long)va_arg(ap, int)) + 1;
+		all += ft_printf_octal((unsigned long long)va_arg(ap, long long)) + 1;
 	}
 	else if (format[i] == 'x')
 	{
@@ -1566,7 +1707,7 @@ int			ft_printf_flagshashtag3(const char *format, va_list ap, int i)
 	else if (format[i] == 'l' && format[i + 1] == 'x')
 	{
 		ft_putstr("0x");
-		all += ft_printf_x((unsigned char)va_arg(ap, long)) + 2;
+		all += ft_printf_x(va_arg(ap, long)) + 2;
 	}
 	else
 		all += ft_printf_flagshashtag4(format, ap, i);
@@ -1635,7 +1776,7 @@ int			checkflags(const char *format, va_list ap, int i, int all)
 			all += ft_printf_widthhasht(format, ap, i);
 			i++;
 		}
-		else if (format[i] == '-' && format[i +1] <= '9' && format[i + 1] >= '0')
+		else if (format[i] == '-' && format[i + 1] <= '9' && format[i + 1] >= '0')
 		{
 			all +=ft_printf_widthminus(format, ap, i);
 			i++;
@@ -1677,6 +1818,7 @@ int			checkflags(const char *format, va_list ap, int i, int all)
 		}
 		else
 			all = checkall(format, ap, i, all);
+		all = countall(format, i, all);
 		i = counti(format, i);
 		ft_putchar('|');
 		if (i == 0)
@@ -1764,7 +1906,9 @@ int			main(void)
 	int		i;
 
 	p = "test";
-	ft_printf("%05d%-5d", -10, 364);
+	ft_printf("%#5hho", 1452);
+	ft_putchar('/');
+	ft_putnbr(ft_strlen("j'ai d'abord 10 ans, puis 15 ans e f "));
 	ft_putchar('\n');
-	printf("%-5d", 364);
+	ft_putnbr(printf("|%#5hho", (unsigned char)1452));
 }
