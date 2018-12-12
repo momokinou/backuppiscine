@@ -6,7 +6,7 @@
 /*   By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/19 10:31:29 by qmoricea     #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/12 11:17:15 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/12 12:24:05 by qmoricea    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -575,6 +575,65 @@ void		writewidth(int width, char type)
 
 /*----------------------------------------------------------------------------*/
 
+int		spacezeroint(const char *format, va_list ap, int i, int width)
+{
+	int all;
+	int nbr;
+
+	all = 0;
+	if (format[i] == 'l' && format[i + 1] != 'l')
+		nbr = va_arg(ap, long);
+	else if (format [i] == 'l' && format[i + 1] == 'l')
+		nbr = va_arg(ap, long long);
+	else if (format[i] == 'h' && format[i + 1] != 'h')
+		nbr = (short)va_arg(ap, int);
+	else if (format[i] == 'h' && format[i + 1] == 'h')
+		nbr = (signed char)va_arg(ap, int);
+	else if (format[i] == 'i' || format[i] == 'd')
+		nbr = va_arg(ap, int);
+	if (nbr < 0)
+		all += 1;
+	width = width - ft_intlen(nbr);
+	if (nbr > 0)
+		ft_putchar(' ');
+	nbr = negnbr(nbr);
+	writewidth(width, '0');
+	if (width >= 0)
+		all += ft_printf_nbr(nbr) + width;
+	else
+		all += ft_printf_nbr(nbr);
+	return (all);
+}
+
+
+int		printf_space_zero(const char *format, va_list ap, int i)
+{
+	int width;
+	int all;
+	int j;
+
+	all = 0;
+	j = i;
+	width = ft_atoi(format, j);
+	while (format[j] && ft_isdigit(format[j]))
+		j++;
+	if (format[j] == 'd' || format[j] == 'i')
+		all += spacezeroint(format, ap, j, width);
+	else if (format[j] == 'l' && (format[j + 1] == 'd' || format[j + 1] == 'i'))
+		all += spacezeroint(format, ap, j, width);
+	else if (format[j] == 'l' && format[j + 1] == 'l' && (format[j + 2] == 'd'
+				|| format[j + 2] == 'i'))
+		all += spacezeroint(format, ap, j, width);
+	else if (format[j] == 'h' && (format[j + 1] == 'd' || format[j + 1] == 'i'))
+		all += spacezeroint(format, ap, j, width);
+	else if (format[j] == 'h' && format[j + 1] == 'h' && (format[j + 2] == 'd'
+				|| format[j + 2] == 'i'))
+		all += spacezeroint(format, ap, j, width);
+	else
+		all += ft_printf_flagszero(format, ap, i);
+	return (all);
+}
+
 int			ft_printf_flagszero(const char *format, va_list ap, int i)
 {
 	int width;
@@ -592,7 +651,7 @@ int			ft_printf_flagszero(const char *format, va_list ap, int i)
 		all += flagszeroll(format, ap, i, width);
 	else if (format[i] == 'h' && format[i + 1] != 'h')
 		all += flagszeroh(format, ap, i, width);
-	else if (format[i] == 'h' && format[i] == 'h')
+	else if (format[i] == 'h' && format[i + 1] == 'h')
 		all += flagszerohh(format, ap, i, width);
 	else
 		all += printf_flagszero2(format, ap, i, width);
@@ -1778,7 +1837,7 @@ int			checkflags(const char *format, va_list ap, int i, int all)
 		}
 		else if (format[i] == ' ' && format[i + 1] == '0')
 		{
-			all += ft_printf_flagszero(format, ap, i + 1);
+			all += printf_space_zero(format, ap, i + 1);
 			i++;
 		}
 		else if (format[i] == '#' && format[i + 1] <= '9' && format[i + 1] >= '0')
