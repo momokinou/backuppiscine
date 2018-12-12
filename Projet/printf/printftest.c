@@ -6,7 +6,7 @@
 /*   By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/19 10:31:29 by qmoricea     #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/12 12:24:05 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/12 14:14:11 by qmoricea    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -919,6 +919,272 @@ int			flagszerohh(const char *format, va_list ap, int i, int width)
 		all += flagszerohexa(format, ap, i, width);
 	else if (format[i] == 'h' && format[i + 1] == 'h' && format[i + 2] == 'X')
 		all += flagszerohexam(format, ap, i, width);
+	return (all);
+}
+
+/*-----------------------PRINTF WIDTH ZERO HASHT------------------------------*/
+
+int		printf_zero_hasht(const char *format, va_list ap, int i)
+{
+	int width;
+	int all;
+
+	all = 0;
+	width = ft_atoi(format, i);
+	i++;
+	while (format[i] && ft_isdigit(format[i]))
+		i++;
+	if (format[i] == 'd' || format[i] == 'i')
+		all += flagszeroint(format, ap, i, width);
+	else if (format[i] == 'l' && format[i + 1] != 'l')
+		all += zero_hashtl(format, ap, i, width);
+	else if (format[i] == 'l' && format[i + 1] == 'l')
+		all += zero_hashtll(format, ap, i, width);
+	else if (format[i] == 'h' && format[i + 1] != 'h')
+		all += zero_hasht_h(format, ap, i, width);
+	else if (format[i] == 'h' && format[i + 1] == 'h')
+		all += zero_hashthh(format, ap, i, width);
+	else
+		all += printf_zero_hasht2(format, ap, i, width);
+	return (all);
+}
+
+int		printf_zero_hasht2(const char *format, va_list ap, int i, int width)
+{
+	int all;
+
+	all = 0;
+	if (format[i] == 'u')
+		all += flagszerouint(format, ap, i, width);
+	else if (format[i] == 'o')
+		all += zero_hasht_octal(format, ap, i, width);
+	else if (format[i] == 'x')
+		all += zero_hasht_hexa(format, ap, i, width);
+	else if (format[i] == 'X')
+		all += zero_hasht_hexam(format, ap, i, width);
+	return (all);
+}
+
+int		zero_hasht_hexa(const char *format, va_list ap, int i, int width)
+{
+	int			all;
+	uintmax_t	nbr;
+
+	all = 0;
+	if (format[i] == 'l' && format[i + 1] != 'l')
+		nbr = va_arg(ap, unsigned long);
+	else if (format [i] == 'l' && format[i + 1] == 'l')
+		nbr = va_arg(ap, unsigned long long);
+	else if (format[i] == 'h' && format[i + 1] != 'h')
+		nbr = (unsigned short)va_arg(ap, int);
+	else if (format[i] == 'x')
+		nbr = va_arg(ap, unsigned int);
+	width = width - hexalength(nbr) - 2;
+	ft_putstr("0x");
+	writewidth(width, '0');
+	if (width >= 0)
+		all += ft_printf_x(nbr) + 2 + width;
+	else
+		all += ft_printf_x(nbr) + 2;
+	return (all);
+}
+
+int		zero_hasht_hexam(const char *format, va_list ap, int i, int width)
+{
+	int			all;
+	uintmax_t	nbr;
+
+	all = 0;
+	if (format[i] == 'l' && format[i + 1] != 'l')
+		nbr = va_arg(ap, unsigned long);
+	else if (format [i] == 'l' && format[i + 1] == 'l')
+		nbr = va_arg(ap, unsigned long long);
+	else if (format[i] == 'h' && format[i + 1] != 'h')
+		nbr = (unsigned short)va_arg(ap, int);
+	else if (format[i] == 'X')
+		nbr = va_arg(ap, unsigned int);
+	width = width - hexalength(nbr) - 2;
+	ft_putstr("0X");
+	writewidth(width, '0');
+	if (width >= 0)
+		all += ft_printf_xm(nbr) + 2 + width;
+	else
+		all += ft_printf_xm(nbr) + 2;
+	return (all);
+}
+
+int		zero_hasht_octal(const char *format, va_list ap, int i, int width)
+{
+	int			all;
+	uintmax_t	nbr;
+
+	all = 0;
+	if (format[i] == 'l' && format[i + 1] != 'l')
+		nbr = va_arg(ap, unsigned long);
+	else if (format [i] == 'l' && format[i + 1] == 'l')
+		nbr = va_arg(ap, unsigned long long);
+	else if (format[i] == 'h' && format[i + 1] != 'h')
+		nbr = (unsigned short)va_arg(ap, unsigned int);
+	else if (format[i] == 'o')
+		nbr = va_arg(ap, unsigned int);
+	width = width - octallength(nbr) - 1;
+	ft_putchar('0');
+	writewidth(width, '0');
+	if (width >= 0)
+		all += ft_printf_octal(nbr) + 1 + width;
+	else
+		all += ft_printf_octal(nbr) + 1;
+	return (all);
+}
+
+int		zero_hashtl(const char *format, va_list ap, int i, int width)
+{
+	int all;
+	int nbr;
+
+	all = 0;
+	if (format[i] == 'l' && (format[i + 1] == 'd' || format[i + 1] == 'i'))
+		all += flagszeroint(format, ap, i, width);
+	else if (format[i] == 'l' && format[i + 1] == 'u')
+		all += flagszerouint(format, ap, i, width);
+	else if (format[i] == 'l' && format[i + 1] == 'o')
+		all += zero_hasht_octal(format, ap, i, width);
+	else if (format[i] == 'l' && format[i + 1] == 'x')
+		all += zero_hasht_hexa(format, ap, i, width);
+	else if (format[i] == 'l' && format[i + 1] == 'X')
+		all += zero_hasht_hexam(format, ap, i, width);
+	return (all);
+}
+
+int		zero_hashtll(const char *format, va_list ap, int i, int width)
+{
+	int all;
+
+	all = 0;
+	if (format[i] == 'l' && format[i + 1] == 'l' && (format[i + 2] == 'd'
+				|| format[i + 2] == 'i'))
+		all += flagszeroint(format, ap, i, width);
+	else if (format[i] == 'l' && format[i + 1] == 'l' && format[i + 2] == 'u')
+		all += flagszerouint(format, ap, i, width);
+	else if (format[i] == 'l' && format[i + 1] == 'l' && format[i + 2] == 'o')
+		all += zero_hasht_octal(format, ap, i, width);
+	else if (format[i] == 'l' && format[i + 1] == 'l' && format[i + 2] == 'x')
+		all += zero_hasht_hexa(format, ap, i, width);
+	else if (format[i] == 'l' && format[i + 1] == 'l' && format[i + 2] == 'X')
+		all += zero_hasht_hexam(format, ap, i, width);
+	return (all);
+}
+
+int		zero_hasht_h(const char *format, va_list ap, int i, int width)
+{
+	int all;
+
+	all = 0;
+	if (format[i] == 'h' && (format[i + 1] == 'd' || format[i + 1] == 'i'))
+		all += flagszeroint(format, ap, i, width);
+	else if (format[i] == 'h' && format[i + 1] == 'u')
+		all += flagszerouint(format, ap, i, width);
+	else if (format[i] == 'h' && format[i + 1] == 'o')
+		all += zero_hasht_octal(format, ap, i, width);
+	else if (format[i] == 'h' && format[i + 1] == 'x')
+		all += zero_hasht_hexa(format, ap, i, width);
+	else if (format[i] == 'h' && format[i + 1] == 'X')
+		all += zero_hasht_hexam(format, ap, i, width);
+	return (all);
+}
+
+int		zero_hashthh_hexa2(const char *format, unsigned char nbr, int i,
+		int width)
+{
+	int all;
+
+	all = 0;
+	if (format[i] == 'x')
+	{
+		ft_putstr("0x");
+		all += ft_printf_x(nbr) + 2;
+	}
+	else if (format[i] == 'X')
+	{
+		ft_putstr("0X");
+		all += ft_printf_xm(nbr) + 2;
+	}
+	return (all);
+}
+
+int		zero_hashthh_hexa(const char *format, va_list ap, int i, int width)
+{
+	int			all;
+	uintmax_t	nbr;
+
+	all = 0;
+	i += 2;
+	nbr = (unsigned char)va_arg(ap, int);
+	if (format[i] == 'x' || format[i] == 'X')
+		width = width - hexalength(nbr) - 2;
+	if (width >= 0)
+	{
+		if (format[i] == 'x')
+		{
+			ft_putstr("0x");
+			writewidth(width, '0');
+			all += ft_printf_x(nbr) + 2 + width;
+		}
+		else if (format[i] == 'X')
+		{
+			ft_putstr("0X");
+			writewidth(width, '0');
+			all += ft_printf_xm(nbr) + 2 + width;
+		}
+	}
+	else
+		all += zero_hashthh_hexa2(format, nbr, i, width);
+	return (all);
+}
+
+int		zero_hashthh_octal(const char *format, va_list ap, int i, int width)
+{
+	int			all;
+	uintmax_t	nbr;
+
+	all = 0;
+	i += 2;
+	nbr = (unsigned char)va_arg(ap,	 int);
+	if (format[i] == 'o')
+		width = width - octallength(nbr) - 1;
+	if (width >= 0)
+	{
+		if (format[i] == 'o')
+		{
+			ft_putchar('0');
+			writewidth(width, '0');
+			all += ft_printf_octal(nbr) + 1 + width;
+		}
+	}
+	else
+	{
+		ft_putchar('0');
+		writewidth(width, '0');
+		all += ft_printf_octal(nbr) + 1;
+	}
+	return (all);
+}
+
+int			zero_hashthh(const char *format, va_list ap, int i, int width)
+{
+	int all;
+
+	all = 0;
+	if (format[i] == 'h' && format[i + 1] == 'h' && (format[i + 2] == 'd'
+				|| format[i + 2] == 'i'))
+		all += flagszeroint(format, ap, i, width);
+	else if (format[i] == 'h' && format[i + 1] == 'h' && format[i + 2] == 'u')
+		all += flagszerouint(format, ap, i, width);
+	else if (format[i] == 'h' && format[i + 1] == 'h' && (format[i + 2] == 'x'
+				|| format[i + 2] == 'X'))
+		all += zero_hashthh_hexa(format, ap, i, width);
+	else if (format[i] == 'h' && format[i + 1] == 'h' && format[i + 2] == 'o')
+		all += zero_hashthh_octal(format, ap, i, width);
 	return (all);
 }
 
@@ -1840,10 +2106,14 @@ int			checkflags(const char *format, va_list ap, int i, int all)
 			all += printf_space_zero(format, ap, i + 1);
 			i++;
 		}
-		else if (format[i] == '#' && format[i + 1] <= '9' && format[i + 1] >= '0')
+		else if (format[i] == '#' && format[i + 1] <= '9' && format[i + 1] > '0')
 		{
 			all += ft_printf_widthhasht(format, ap, i);
 			i++;
+		}
+		else if (format[i] == '#' && format[i + 1] == '0')
+		{
+			all += printf_zero_hasht(format, ap, i);
 		}
 		else if (format[i] == '-' && format[i + 1] <= '9' && format[i + 1] >= '0')
 		{
@@ -1975,9 +2245,9 @@ int			main(void)
 	int		i;
 
 	p = "test";
-	ft_printf("% 08d", 1452);
+	ft_printf("%#08hX", 1452);
 	ft_putchar('/');
 	ft_putnbr(ft_strlen("j'ai d'abord 10 ans, puis 15 ans e f "));
 	ft_putchar('\n');
-	ft_putnbr(printf("|% 08d", 1452));
+	ft_putnbr(printf("|%#08hX", 1452));
 }

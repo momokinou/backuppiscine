@@ -6,7 +6,7 @@
 /*   By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/19 10:31:58 by qmoricea     #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/07 13:13:01 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/12 13:12:56 by qmoricea    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -121,6 +121,20 @@ int			flagshashthh(const char *format, va_list ap, int i, int width);
 int			flagshashtoctal(const char *format, va_list ap, int i, int width);
 int			flagshashthexa(const char *format, va_list ap, int i, int width);
 int			flagshashthexam(const char *format, va_list ap, int i, int width);
+
+int		printf_zero_hasht(const char *format, va_list ap, int i);
+int		printf_zero_hasht2(const char *format, va_list ap, int i, int width);
+int		zero_hasht_hexa(const char *format, va_list ap, int i, int width);
+int		zero_hasht_hexam(const char *format, va_list ap, int i, int width);
+int		zero_hasht_octal(const char *format, va_list ap, int i, int width);
+int		zero_hashtl(const char *format, va_list ap, int i, int width);
+int		zero_hashtll(const char *format, va_list ap, int i, int width);
+int		zero_hasht_h(const char *format, va_list ap, int i, int width);
+int		zero_hashthh(const char *format, va_list ap, int i, int width);
+int		zero_hashthh_hexa(const char *format, va_list ap, int i, int width);
+int		zero_hashthh_hexa2(const char *format, unsigned char nbr, int i,
+		int width);
+int		zero_hasht_octal(const char *format, va_list ap, int i, int width);
 
 int			ft_printf_flagszero(const char *format, va_list ap, int i);
 int			printf_flagszero2(const char *format, va_list ap, int i, int width);
