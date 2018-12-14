@@ -6,7 +6,7 @@
 /*   By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/19 10:31:29 by qmoricea     #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/14 13:09:13 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/14 16:49:55 by qmoricea    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -331,23 +331,18 @@ int			ft_printf_unbr(int nbr)
 int			is_valid(char c)
 {
 	return (c != 'c' && c != 's' && c !='p' && c != 'd' && c != 'i' && c != 'u'
-			&& c != 'o' && c != 'x' && c != 'X');
+			&& c != 'o' && c != 'x' && c != 'X' && c != '-' && c != '+' &&
+			c != ' ' && c != '#' && c != '0' && c != '*' && c != '.' && c != '1'
+			&& c != '2' && c != '3' && c != '4' && c != '5' && c != '6' &&
+			c != '7' && c != '8' && c != '9' && c != 'h' && c != 'l' && c != 'j'
+			&& c != 'z' && c != 'L');
 }
 
 int			counti(const char *format, int i)
 {
-	if (format[i] != '%')
-	{
-		while (format[i] && is_valid(format[i]))
-			i++;
-		i++;
-	}
-	else
-	{
+	while (format[i] && is_valid(format[i]) && format[i] != '%')
 		ft_putchar(format[i++]);
-		while (format[i] && format[i] != '%')
-			ft_putchar(format[i++]);
-	}
+	i++;
 	while (format[i] && format[i] != '%')
 		ft_putchar(format[i++]);
 	if (format[i] == '%')
@@ -367,7 +362,7 @@ int			countall(const char *format, int i, int all)
 	}
 	else
 	{
-		i++;
+		ft_putchar(format[i++]);
 		all++;
 	}
 	while (format[i] && format[i] != '%')
@@ -2109,30 +2104,11 @@ int			ft_printf_flagshashtag5(const char *format, va_list ap, int i)
 	return (all);
 }
 
-int			printf_percent(const char *format, va_list ap, int i)
-{
-	int all;
-
-	all = 0;
-	if (format[i] == '%')
-	{
-		ft_putchar('%');
-		all++;
-	}
-	return (all);
-}
-
-int			is_valid2(char c)
-{
-	return (c != '-' && c != '+' && c != ' ' && c != '#' && c != '.' &&
-			!(c <= '9' && c >= '0') && c != '*');
-}
-
 int			checkflags(const char *format, va_list ap, int i, int all)
 {
 	while (format[i])
 	{
-	if (format[i] == ' ' && format[i + 1] <= '9' && format[i + 1] > '0')
+		if (format[i] == ' ' && format[i + 1] <= '9' && format[i + 1] > '0')
 		{
 			all += ft_printf_widthspace(format, ap, i);
 			i++;
@@ -2276,7 +2252,7 @@ int			main(void)
 	int		i;
 
 	p = "test";
-	ft_printf("testation 90%% du test %%%d", 1452);
+	ft_printf("testation 90 %% du test %%%%%d", 1452);
 	ft_putchar('\n');
-	ft_putnbr(printf("|%%78"));
+	ft_putnbr(printf("|testation 90 %% du test %%%%%d", 1452));
 }

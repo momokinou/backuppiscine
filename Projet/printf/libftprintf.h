@@ -6,7 +6,7 @@
 /*   By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/19 10:31:58 by qmoricea     #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/12 13:12:56 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/14 13:25:40 by qmoricea    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -57,6 +57,7 @@ int			checkall2(const char *format, va_list ap, int i, int all);
 int			counti(const char *format, int i);
 int			countall(const char *format, int i, int all);
 int			is_valid(char c);
+int			is_valid2(char c);
 
 /*
 ** Gestion Specifiers c/s/p/d/i/u/o/x/X | Lengths h/hh/l/ll/j/z
