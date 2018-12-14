@@ -6,7 +6,7 @@
 /*   By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/19 10:31:29 by qmoricea     #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/12 14:14:11 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/14 13:09:13 by qmoricea    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -336,9 +336,18 @@ int			is_valid(char c)
 
 int			counti(const char *format, int i)
 {
-	while (format[i] && is_valid(format[i]))
+	if (format[i] != '%')
+	{
+		while (format[i] && is_valid(format[i]))
+			i++;
 		i++;
-	i++;
+	}
+	else
+	{
+		ft_putchar(format[i++]);
+		while (format[i] && format[i] != '%')
+			ft_putchar(format[i++]);
+	}
 	while (format[i] && format[i] != '%')
 		ft_putchar(format[i++]);
 	if (format[i] == '%')
@@ -350,9 +359,17 @@ int			counti(const char *format, int i)
 
 int			countall(const char *format, int i, int all)
 {
-	while (format[i] && is_valid(format[i]))
+	if (format[i] != '%')
+	{
+		while (format[i] && is_valid(format[i]))
+			i++;
 		i++;
-	i++;
+	}
+	else
+	{
+		i++;
+		all++;
+	}
 	while (format[i] && format[i] != '%')
 	{
 		i++;
@@ -2092,11 +2109,30 @@ int			ft_printf_flagshashtag5(const char *format, va_list ap, int i)
 	return (all);
 }
 
+int			printf_percent(const char *format, va_list ap, int i)
+{
+	int all;
+
+	all = 0;
+	if (format[i] == '%')
+	{
+		ft_putchar('%');
+		all++;
+	}
+	return (all);
+}
+
+int			is_valid2(char c)
+{
+	return (c != '-' && c != '+' && c != ' ' && c != '#' && c != '.' &&
+			!(c <= '9' && c >= '0') && c != '*');
+}
+
 int			checkflags(const char *format, va_list ap, int i, int all)
 {
 	while (format[i])
 	{
-		if (format[i] == ' ' && format[i + 1] <= '9' && format[i + 1] > '0')
+	if (format[i] == ' ' && format[i + 1] <= '9' && format[i + 1] > '0')
 		{
 			all += ft_printf_widthspace(format, ap, i);
 			i++;
@@ -2114,6 +2150,7 @@ int			checkflags(const char *format, va_list ap, int i, int all)
 		else if (format[i] == '#' && format[i + 1] == '0')
 		{
 			all += printf_zero_hasht(format, ap, i);
+			i++;
 		}
 		else if (format[i] == '-' && format[i + 1] <= '9' && format[i + 1] >= '0')
 		{
@@ -2181,12 +2218,6 @@ int			checkall2(const char *format, va_list ap, int i, int all)
 
 int			checkall(const char *format, va_list ap, int i, int all)
 {
-	if (format[i] == '%')
-	{
-		putchar('%');
-		i += 2;
-		all++;
-	}
 	if (format[i] == 'c' || format[i] == 's')
 		all += ft_printf_spechar(format, ap, i);
 	else if (format[i] == 'p')
@@ -2245,9 +2276,7 @@ int			main(void)
 	int		i;
 
 	p = "test";
-	ft_printf("%#08hX", 1452);
-	ft_putchar('/');
-	ft_putnbr(ft_strlen("j'ai d'abord 10 ans, puis 15 ans e f "));
+	ft_printf("testation 90%% du test %%%d", 1452);
 	ft_putchar('\n');
-	ft_putnbr(printf("|%#08hX", 1452));
+	ft_putnbr(printf("|%%78"));
 }
