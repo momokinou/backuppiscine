@@ -1,0 +1,23 @@
+body
+	{
+		background-image: url("https://everwideningcircles.com/wp-content/uploads/2018/04/macro-motion.jpg");
+		background-size: cover;
+	}
+	td
+	{
+		border: 1px solid transparent;
+		width: 100px;
+	}
+	table
+	{
+		width: 100%;
+		border-collapse: separate;
+	}
+	p
+	{
+		line-height: 50%;
+	}
+	center
+	{
+		line-height: 70%;
+	}

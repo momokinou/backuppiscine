@@ -1,0 +1,71 @@
+html, body{
+  width: 100%;
+  height: 100%;
+}
+
+ul{
+  width:100%;
+  height: 20%;
+  margin: auto;
+  margin-top: 1%;
+}
+
+li{
+  color: white;
+  background-color: #446CB3;
+  height:auto;
+  text-align: center;
+  font-size: 24px;
+  vertical-align: middle;
+  list-style-type: none;
+  position: relative;
+}
+
+.main li{
+	display: inline-block;
+	width: 15%;
+}
+
+.sub li{
+	display: block;
+	width: 100%;
+	margin-left: -2px;
+	margin-top: -2px;
+}
+
+a{
+	display: inline-block;
+	text-decoration: none;
+	color: #FFF
+}
+
+ul ul{
+	display: none;
+	position: absolute;
+	padding: 0;
+}
+
+li:hover .sub{
+	display: block;
+}
+
+
+.pain, .pain li{
+	background-color: #DAA520;
+	border: 2px solid #B8860B; 
+}
+
+.salade, .salade li{
+	background-color: #008000;
+	border: 2px solid #006400;
+}
+
+.tomate, .tomate li{
+	background-color: #FF0000;
+	border: 2px solid #8B0000;
+}
+
+.fromage, .fromage li{
+	background-color: #CD853F;
+	border: 2px solid #8B4513;
+}
