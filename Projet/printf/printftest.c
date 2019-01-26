@@ -6,7 +6,7 @@
 /*   By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/19 10:31:29 by qmoricea     #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/14 16:49:55 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/18 12:34:36 by qmoricea    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -331,11 +331,7 @@ int			ft_printf_unbr(int nbr)
 int			is_valid(char c)
 {
 	return (c != 'c' && c != 's' && c !='p' && c != 'd' && c != 'i' && c != 'u'
-			&& c != 'o' && c != 'x' && c != 'X' && c != '-' && c != '+' &&
-			c != ' ' && c != '#' && c != '0' && c != '*' && c != '.' && c != '1'
-			&& c != '2' && c != '3' && c != '4' && c != '5' && c != '6' &&
-			c != '7' && c != '8' && c != '9' && c != 'h' && c != 'l' && c != 'j'
-			&& c != 'z' && c != 'L');
+			&& c != 'o' && c != 'x' && c != 'X');
 }
 
 int			counti(const char *format, int i)
@@ -1105,8 +1101,7 @@ int		zero_hasht_h(const char *format, va_list ap, int i, int width)
 	return (all);
 }
 
-int		zero_hashthh_hexa2(const char *format, unsigned char nbr, int i,
-		int width)
+int		zero_hashthh_hexa2(const char *format, unsigned char nbr, int i)
 {
 	int all;
 
@@ -1150,7 +1145,7 @@ int		zero_hashthh_hexa(const char *format, va_list ap, int i, int width)
 		}
 	}
 	else
-		all += zero_hashthh_hexa2(format, nbr, i, width);
+		all += zero_hashthh_hexa2(format, nbr, i);
 	return (all);
 }
 
@@ -1371,8 +1366,7 @@ int			flagshasht_h(const char *format, va_list ap, int i, int width)
 	return (all);
 }
 
-int			flagshashthh_hexa2(const char *format, unsigned char nbr, int i,
-		int width)
+int			flagshashthh_hexa2(const char *format, unsigned char nbr, int i)
 {
 	int all;
 
@@ -1415,7 +1409,7 @@ int			flagshashthh_hexa(const char *format, va_list ap, int i, int width)
 		}
 	}
 	else
-		all += flagshashthh_hexa2(format, nbr, i, width);
+		all += flagshashthh_hexa2(format, nbr, i);
 	return (all);
 }
 
@@ -2252,7 +2246,7 @@ int			main(void)
 	int		i;
 
 	p = "test";
-	ft_printf("testation 90 %% du test %%%%%d", 1452);
+	ft_printf("%#5hhX", 485621);
 	ft_putchar('\n');
-	ft_putnbr(printf("|testation 90 %% du test %%%%%d", 1452));
+	ft_putnbr(printf("|%#5hhX", 485621));
 }

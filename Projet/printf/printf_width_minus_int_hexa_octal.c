@@ -6,7 +6,7 @@
 /*   By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/03 11:38:59 by qmoricea     #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/03 11:40:39 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/18 11:11:18 by qmoricea    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,17 +19,21 @@ int		flagsminushexa(const char *format, va_list ap, int i, int width)
 	uintmax_t	nbr;
 
 	all = 0;
-	nbr = va_arg(ap, unsigned int);
-	width = width - hexalength(nbr);
+	nbr = 0;
 	if (format[i] == 'l' && format[i + 1] != 'l')
-		nbr = (unsigned long)nbr;
+		nbr = va_arg(ap, unsigned long);
 	else if (format [i] == 'l' && format[i + 1] == 'l')
-		nbr = (unsigned long long)nbr;
+		nbr = va_arg(ap, unsigned long long);
 	else if (format[i] == 'h' && format[i + 1] != 'h')
-		nbr = (unsigned short)nbr;
+		nbr = (unsigned short)va_arg(ap, unsigned int);
 	else if (format[i] == 'h' && format[i + 1] == 'h')
-		nbr = (unsigned char)nbr;
-	if (format[i] == 'x')
+		nbr = (unsigned char)va_arg(ap, unsigned int);
+	else if (format[i] == 'x')
+		nbr = va_arg(ap, unsigned int);
+	width = width - hexalength(nbr);
+	if (width >= 0)
+		all += ft_printf_x(nbr) + width;
+	else
 		all += ft_printf_x(nbr);
 	writewidth(width, ' ');
 	return (all);
@@ -41,17 +45,21 @@ int		flagsminushexam(const char *format, va_list ap, int i, int width)
 	uintmax_t	nbr;
 
 	all = 0;
-	nbr = va_arg(ap, unsigned int);
-	width = width - hexalength(nbr);
+	nbr = 0;
 	if (format[i] == 'l' && format[i + 1] != 'l')
-		nbr = (unsigned long)nbr;
+		nbr = va_arg(ap, unsigned long);
 	else if (format [i] == 'l' && format[i + 1] == 'l')
-		nbr = (unsigned long long)nbr;
+		nbr = va_arg(ap, unsigned long long);
 	else if (format[i] == 'h' && format[i + 1] != 'h')
-		nbr = (unsigned short)nbr;
+		nbr = (unsigned short)va_arg(ap, unsigned int);
 	else if (format[i] == 'h' && format[i + 1] == 'h')
-		nbr = (unsigned char)nbr;
-	if (format[i] == 'X')
+		nbr = (unsigned char)va_arg(ap, unsigned int);
+	else if (format[i] == 'X')
+		nbr = va_arg(ap, unsigned int);
+	width = width - hexalength(nbr);
+	if (width >= 0)
+		all += ft_printf_xm(nbr) + width;
+	else
 		all += ft_printf_xm(nbr);
 	writewidth(width, ' ');
 	return (all);
@@ -63,17 +71,21 @@ int		flagsminusoctal(const char *format, va_list ap, int i, int width)
 	uintmax_t	nbr;
 
 	all = 0;
-	nbr = va_arg(ap, unsigned int);
-	width = width - octallength(nbr);
+	nbr = 0;
 	if (format[i] == 'l' && format[i + 1] != 'l')
-		nbr = (unsigned long)nbr;
+		nbr = va_arg(ap, unsigned long);
 	else if (format [i] == 'l' && format[i + 1] == 'l')
-		nbr = (unsigned long long)nbr;
+		nbr = va_arg(ap, unsigned long long);
 	else if (format[i] == 'h' && format[i + 1] != 'h')
-		nbr = (unsigned short)nbr;
+		nbr = (unsigned short)va_arg(ap, unsigned int);
 	else if (format[i] == 'h' && format[i + 1] == 'h')
-		nbr = (unsigned char)nbr;
-	if (format[i] == 'o')
+		nbr = (unsigned char)va_arg(ap, unsigned int);
+	else if (format[i] == 'o')
+		nbr = va_arg(ap, unsigned int);
+	width = width - octallength(nbr);
+	if (width >= 0)
+		all += ft_printf_octal(nbr) + width;
+	else
 		all += ft_printf_octal(nbr);
 	writewidth(width, ' ');
 	return (all);
@@ -85,18 +97,20 @@ int		flagsminusuint(const char *format, va_list ap, int i, int width)
 	uintmax_t	nbr;
 
 	all = 0;
-	nbr = va_arg(ap, unsigned int);
-	width = width - ft_intlen(nbr);
+	nbr = 0;
 	if (format[i] == 'l' && format[i + 1] != 'l')
-		nbr = (unsigned long)nbr;
+		nbr = va_arg(ap, unsigned long);
 	else if (format[i] == 'l' && format[i + 1] == 'l')
-		nbr = (unsigned long long)nbr;
+		nbr = va_arg(ap, unsigned long long);
 	else if (format[i] == 'h' && format[i + 1] != 'h')
-		nbr = (unsigned short)nbr;
+		nbr = (unsigned short)va_arg(ap, unsigned int);
 	else if (format[i] == 'h' && format[i + 1] == 'h')
-		nbr = (unsigned char)nbr;
-	if (width > 0)
-		all += ft_putunbr(nbr);
+		nbr = (unsigned char)va_arg(ap, unsigned int);
+	else if (format[i] == 'u')
+		nbr = va_arg(ap, unsigned int);
+	width = width - ft_intlen(nbr);
+	if (width >= 0)
+		all += ft_putunbr(nbr) + width;
 	else
 		all += ft_putunbr(nbr);
 	writewidth(width, ' ');
@@ -109,20 +123,19 @@ int		flagsminusint(const char *format, va_list ap, int i, int width)
 	int nbr;
 
 	all = 0;
-	nbr = va_arg(ap, int);
-	width = width - ft_intlen(nbr);
-	if (nbr < 0)
-		all += 1;
-	nbr = negnbr(nbr);
+	nbr = 0;
 	if (format[i] == 'l' && format[i + 1] != 'l')
-		nbr = (long)nbr;
+		nbr = va_arg(ap, long);
 	else if (format [i] == 'l' && format[i + 1] == 'l')
-		nbr = (long long)nbr;
+		nbr = va_arg(ap, long long);
 	else if (format[i] == 'h' && format[i + 1] != 'h')
-		nbr = (short)nbr;
+		nbr = (short)va_arg(ap, int);
 	else if (format[i] == 'h' && format[i + 1] == 'h')
-		nbr = (signed char)nbr;
-	if (width > 0)
+		nbr = (signed char)va_arg(ap, int);
+	else if (format[i] == 'd' || format[i] == 'i')
+		nbr = va_arg(ap, int);
+	width = width - ft_intlen(nbr);
+	if (width >= 0)
 		all += ft_printf_nbr(nbr) + width;
 	else
 		all += ft_printf_nbr(nbr);

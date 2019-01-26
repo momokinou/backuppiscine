@@ -6,7 +6,7 @@
 /*   By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/03 10:20:26 by qmoricea     #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/03 10:22:43 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/18 11:07:28 by qmoricea    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,13 +20,8 @@ int		ft_printf_flagszero(const char *format, va_list ap, int i)
 
 	all = 0;
 	width = ft_atoi(format, i);
-	while (format[i] && format[i] != '%')
-	{
-		if (ft_isdigit(format[i]))
-			i++;
+	while (format[i] && ft_isdigit(format[i]))
 		i++;
-	}
-	i--;
 	if (format[i] == 'd' || format[i] == 'i')
 		all += flagszeroint(format, ap, i, width);
 	else if (format[i] == 'l' && format[i + 1] != 'l')
@@ -74,18 +69,22 @@ int		flagszerohexa(const char *format, va_list ap, int i, int width)
 	uintmax_t	nbr;
 
 	all = 0;
-	nbr = va_arg(ap, unsigned int);
-	width = width - hexalength(nbr);
+	nbr = 0;
 	if (format[i] == 'l' && format[i + 1] != 'l')
-		nbr = (unsigned long)nbr;
+		nbr = va_arg(ap, unsigned long);
 	else if (format [i] == 'l' && format[i + 1] == 'l')
-		nbr = (unsigned long long)nbr;
+		nbr = va_arg(ap, unsigned long long);
 	else if (format[i] == 'h' && format[i + 1] != 'h')
-		nbr = (unsigned short)nbr;
+		nbr = (unsigned short)va_arg(ap, unsigned int);
 	else if (format[i] == 'h' && format[i + 1] == 'h')
-		nbr = (unsigned char)nbr;
+		nbr = (unsigned char)va_arg(ap, unsigned int);
+	else if (format[i] == 'x')
+		nbr = va_arg(ap, unsigned int);
+	width = width - hexalength(nbr);
 	writewidth(width, '0');
-	if (format[i] == 'x')
+	if (width >= 0)
+		all+= ft_printf_x(nbr) + width;
+	else
 		all += ft_printf_x(nbr);
 	return (all);
 }
@@ -96,18 +95,22 @@ int		flagszerohexam(const char *format, va_list ap, int i, int width)
 	uintmax_t	nbr;
 
 	all = 0;
-	nbr = va_arg(ap, unsigned int);
-	width = width - hexalength(nbr);
+	nbr = 0;
 	if (format[i] == 'l' && format[i + 1] != 'l')
-		nbr = (unsigned long)nbr;
+		nbr = va_arg(ap, unsigned long);
 	else if (format [i] == 'l' && format[i + 1] == 'l')
-		nbr = (unsigned long long)nbr;
+		nbr = va_arg(ap, unsigned long long);
 	else if (format[i] == 'h' && format[i + 1] != 'h')
-		nbr = (unsigned short)nbr;
+		nbr = (unsigned short)va_arg(ap, unsigned int);
 	else if (format[i] == 'h' && format[i + 1] == 'h')
-		nbr = (unsigned char)nbr;
+		nbr = (unsigned char)va_arg(ap, unsigned int);
+	else if (format[i] == 'X')
+		nbr = va_arg(ap, unsigned int);
+	width = width - hexalength(nbr);
 	writewidth(width, '0');
-	if (format[i] == 'X')
+	if (width >= 0)
+		all += ft_printf_xm(nbr) + width;
+	else
 		all += ft_printf_xm(nbr);
 	return (all);
 }

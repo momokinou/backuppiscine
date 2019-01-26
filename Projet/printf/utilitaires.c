@@ -6,7 +6,7 @@
 /*   By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/03 10:11:23 by qmoricea     #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/07 09:32:21 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/18 12:37:34 by qmoricea    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,8 +15,11 @@
 
 int		counti(const char *format, int i)
 {
-	while (format[i] && format[i] != '%')
+	while (format[i] && is_valid(format[i]) && format[i] != '%')
 		i++;
+	i++;
+	while (format[i] && format[i] != '%')
+		ft_putchar(format[i++]);
 	if (format[i] == '%')
 		return (i + 1);
 	else if (!format[i])
@@ -26,9 +29,17 @@ int		counti(const char *format, int i)
 
 int		countall(const char *format, int i, int all)
 {
-	while (format[i] && is_valid(format[i]))
+	if (format[i] != '%')
+	{
+		while (format[i] && is_valid(format[i]))
+			i++;
 		i++;
-	i++;
+	}
+	else
+	{
+		ft_putchar(format[i++]);
+		all++;
+	}
 	while (format[i] && format[i] != '%')
 	{
 		i++;

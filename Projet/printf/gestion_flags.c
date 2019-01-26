@@ -6,64 +6,31 @@
 /*   By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/03 11:54:27 by qmoricea     #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/03 13:14:21 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/18 10:58:22 by qmoricea    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-int		ft_printf_flagsplus(const char *format, va_list ap, int i)
-{
-	int n;
-
-	if (format[i + 1] == 'd' || format[i + 1] == 'i')
-	{
-		n  = va_arg(ap, int);
-		if (n > 0)
-			ft_putchar('+');
-		ft_printf_plusnbr(n);
-		return (ft_intlen(n));
-	}
-	return (0);
-}
-
-int		ft_printf_flagsspace(const char *format, va_list ap, int i)
-{
-	int count;
-
-	count = 0;
-	while (format[i] == ' ')
-	{
-		write(1, " ", 1);
-		i++;
-		count++;
-	}
-	count = checkall(format, ap, i, count);
-	return (count);
-}
-
 int		checkflags(const char *format, va_list ap, int i, int all)
 {
 	while (format[i])
 	{
-		if (format[i] == ' ' && format[i + 1] <= '9' && format[i + 1] >= '0')
+		if (format[i] == ' ' && format[i + 1] <= '9' && format[i + 1] > '0')
 		{
 			all += ft_printf_widthspace(format, ap, i);
 			i++;
 		}
-		else if (format[i] == '#' && format[i + 1] <= '9' && format[i + 1] >= '0')
+		else if (format[i] == '#' && format[i + 1] <= '9' &&
+				format[i + 1] > '0')
 		{
 			all += ft_printf_widthhasht(format, ap, i);
 			i++;
 		}
-		else if (format[i] == '-' && format[i +1] <= '9' && format[i + 1] >= '0')
-		{
-			all +=ft_printf_widthminus(format, ap, i);
-			i++;
-		}
 		else
 			all = checkflags2(format, ap, i, all);
+		all = countall(format, i, all);
 		i = counti(format, i);
 		if (i == 0)
 			return (all);
@@ -72,6 +39,33 @@ int		checkflags(const char *format, va_list ap, int i, int all)
 }
 
 int		checkflags2(const char *format, va_list ap, int i, int all)
+{
+	if (format[i] == ' ' && format[i + 1] == '0')
+	{
+		all += printf_space_zero(format, ap, i + 1);
+		i++;
+	}
+	else if (format[i] == '#' && format[i + 1] <= '9' && format[i + 1] > '0')
+	{
+		all += ft_printf_widthhasht(format, ap, i);
+		i++;
+	}
+	else if (format[i] == '#' && format[i + 1] == '0')
+	{
+		all += printf_zero_hasht(format, ap, i);
+		i++;
+	}
+	else if (format[i] == '-' && format[i + 1] <= '9' && format[i + 1] >= '0')
+	{
+		all +=ft_printf_widthminus(format, ap, i);
+		i++;
+	}
+	else
+		all = checkflags3(format, ap, i, all);
+	return (all);
+}
+
+int		checkflags3(const char *format, va_list ap, int i, int all)
 {
 	if (format[i] == '-')
 	{
@@ -94,20 +88,20 @@ int		checkflags2(const char *format, va_list ap, int i, int all)
 		i++;
 	}
 	else
-		all = checkflags3(format, ap, i, all);
+		all = checkflags4(format, ap, i, all);
 	return (all);
 }
 
-int		checkflags3(const char *format, va_list ap, int i, int all)
+int		checkflags4(const char *format, va_list ap, int i, int all)
 {
 	if (format[i] == '0')
 	{
-		all += ft_printf_flagszero(format, ap, i);
+		all += ft_printf_flagszero(format, ap, i + 1);
 		i++;
 	}
 	else if (format[i] == '.')
 	{
-		all += ft_printf_flagszero(format, ap, i);
+		ft_printf_flagszero(format, ap, i);
 		i++;
 	}
 	else if (format[i] <= '9' && format[i] >= '0')

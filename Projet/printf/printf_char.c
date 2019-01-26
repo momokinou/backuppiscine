@@ -6,7 +6,7 @@
 /*   By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/03 10:07:00 by qmoricea     #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/03 10:14:03 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/18 11:12:58 by qmoricea    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -27,7 +27,7 @@ int		ft_printf_str(char *str)
 	return ((int)ft_strlen(str));
 }
 
-int		ft_printf_p(unsigned int n)
+int		ft_printf_p(uintmax_t n)
 {
 	if (n >= 16)
 		return ((ft_printf_p(n / 16) + ft_printf_p(n % 16)));

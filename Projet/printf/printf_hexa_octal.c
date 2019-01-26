@@ -6,14 +6,14 @@
 /*   By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/03 10:12:27 by qmoricea     #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/03 10:13:03 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/18 11:09:08 by qmoricea    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-int		ft_printf_x(unsigned int n)
+int		ft_printf_x(uintmax_t n)
 {
 	if (n >= 16)
 		return (ft_printf_x(n / 16) + ft_printf_x(n % 16));
@@ -21,7 +21,7 @@ int		ft_printf_x(unsigned int n)
 		return (ft_printf_c(HEX[n]));
 }
 
-int		ft_printf_xm(unsigned int n)
+int		ft_printf_xm(uintmax_t n)
 {
 	if (n >= 16)
 		return (ft_printf_xm(n / 16) + ft_printf_xm(n % 16));
@@ -29,7 +29,7 @@ int		ft_printf_xm(unsigned int n)
 		return (ft_printf_c(HEXM[n]));
 }
 
-int		ft_printf_octal(unsigned int n)
+int		ft_printf_octal(uintmax_t n)
 {
 	if (n >= 8)
 		return (ft_printf_octal(n / 8) + ft_printf_x(n % 8));

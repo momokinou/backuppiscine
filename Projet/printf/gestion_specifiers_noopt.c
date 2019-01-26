@@ -6,7 +6,7 @@
 /*   By: qmoricea <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/03 12:05:17 by qmoricea     #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/03 12:11:27 by qmoricea    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/18 11:03:33 by qmoricea    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -28,12 +28,6 @@ int		checkall2(const char *format, va_list ap, int i, int all)
 
 int		checkall(const char *format, va_list ap, int i, int all)
 {
-	if (format[i] == '%')
-	{
-		putchar('%');
-		i += 2;
-		all++;
-	}
 	if (format[i] == 'c' || format[i] == 's')
 		all += ft_printf_spechar(format, ap, i);
 	else if (format[i] == 'p')
