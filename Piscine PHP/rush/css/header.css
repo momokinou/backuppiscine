@@ -1,0 +1,238 @@
+body {
+    margin-top: 0px;
+    margin-left: 0px;
+    margin-right: 0px;  
+    background-color: rgb(80, 80, 80);
+    height: 100%;
+}
+
+#header {
+    width: 100%;
+    height: 90px;
+    background-color: black;
+    text-align: center;
+    border-bottom: 5px solid purple;
+    display: flex;
+    flex-direction: row;
+}
+
+#logo {
+    display: inline-block;
+    margin-top: 38px;
+    margin-bottom: 37px;
+    height: 15px;
+    width: auto;
+    background-color: transparent;
+    transition: 0.5s;
+}
+
+#logodiv {
+    width: 30vw;
+    transition: 0.5s;
+}
+
+#logodiv:hover img {
+    background-color: darkred;
+}
+
+#logodiv:hover {
+    background-color: darkred;
+}
+
+#categories {
+    display: flex;
+    height: 100%;
+    background-color: black;
+    justify-content: space-evenly;
+    margin-top: auto;
+    margin-bottom: auto;
+    align-items: center;
+    width: 35vw;
+}       
+
+#categories a {
+    font-size: 12px;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 100px;
+    color: white;
+    text-decoration: none;
+    transition: 0.5s;
+}
+
+#categories a:hover {
+    background-color: white;
+    color: black;
+}
+
+#categories a:first-child {
+    border-left-width: 0px;
+    border-right-width: 0px;
+}
+
+#categories a:last-child {
+    border-right-width: 3px;
+    border-left-width: 0px;
+}
+
+#user {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    background-color: black;
+    justify-content: space-evenly;
+    margin-top: auto;
+    margin-bottom: auto;
+    align-items: center;
+    width: 35vw;
+}
+
+#user .elem {
+    font-size: 12px;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    vertical-align: middle;
+    color: white;
+    text-decoration: none;
+    transition: 0.5s;
+}
+
+.panier:hover {
+    background-color: white;
+    color: black;
+}
+
+#user .elem:first-child {
+    border-left-width: 3px;
+    border-right-width: 0px;
+}
+
+#user .elem:last-child {
+    border-right-width: 0px;
+    border-left-width: 0px;
+}
+
+.panier {
+    line-height: 100px;
+}
+
+.auth {
+    line-height: 50px;  
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 90px;
+}
+
+.auth a {
+    text-decoration: none;
+    color: white;
+    height: 45px;
+    transition: 0.5s;
+}
+
+.auth a:hover {
+    background-color: white;
+    color: black;
+}
+
+/* Dropdown Button */
+.dropdown {
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+/* Dropdown button on hover & focus */
+.dropdown:hover, .dropdown:focus {
+    background-color: white;
+    color: black;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 200px;
+    right: 0;
+    width: 20vw;
+    height: 20vh;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+    background-color: #ddd
+}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+#dropdown-login {
+    width: 20vw;
+    height: 20vh;
+}
+
+#login-form {
+    display: block;
+    height: 20vh;
+    padding: 10%;
+}
+
+#login-form > * {
+    width: 100%;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin: 2px;
+}
+
+.user {
+    line-height: 42px;
+}
+
+.user:hover {
+    color: black;
+    background-color: white;
+}
+
+#logout {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    max-height: 100px;
+    min-height: 50px;
+    max-width: 100px;
+    min-width: 50px;
+    height: 10vw;
+    width: 10vw;
+    background-color: darkred;
+    display: inline-block;
+    text-align: center;
+    border-radius: 50%;
+    margin-right: 5vw;
+    margin-bottom: 5vh;
+    border: 2px solid white;
+}
+
+#logouttext {
+    color: white;
+    margin-top: 38%;
+    margin-bottom: 38%;
+    margin-left: 5%;
+    margin-right: 5%;
+    font-size: 12px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
